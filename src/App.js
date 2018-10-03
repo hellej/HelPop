@@ -1,10 +1,12 @@
 import React from 'react'
+import Map from './components/map/Map'
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        Hello world
+        <Map>
+        </Map>
       </div>
     )
   }
