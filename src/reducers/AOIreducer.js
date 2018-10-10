@@ -1,6 +1,9 @@
+import * as utils from './../utils'
+
 const initialAOIState = {
   drawMode: null,
   AOIfeature: null,
+  area: null,
 }
 
 const AOIreducer = (store = initialAOIState, action) => {
@@ -15,7 +18,8 @@ const AOIreducer = (store = initialAOIState, action) => {
     case 'UPDATE_AOI': {
       return {
         ...store,
-        AOIfeature: action.AOIfeature
+        AOIfeature: action.AOIfeature,
+        area: action.area
       }
     }
     case 'RESET_DRAW_AOI':
@@ -28,7 +32,8 @@ const AOIreducer = (store = initialAOIState, action) => {
 
 export const updateAOI = (features) => {
   console.log('aoi feature updated:', features[0])
-  return { type: 'UPDATE_AOI', AOIfeature: features[0] }
+  const area = utils.getArea(features[0])
+  return { type: 'UPDATE_AOI', AOIfeature: features[0], area }
 }
 
 export const deleteAOIs = () => {
