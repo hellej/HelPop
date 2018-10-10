@@ -8,7 +8,7 @@ $ cd accessibility-ui
 $ npm install
 $ npm start
 ```
-Update your Mapbox access token to `src/components/Map.js`<br>
+Update your Mapbox access token to `src/components/map/Map.js`<br>
 Open browser to http://localhost:3000/
 
 ### License
