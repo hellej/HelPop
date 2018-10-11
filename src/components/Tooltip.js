@@ -14,7 +14,7 @@ const StyledTooltipDiv = styled.div`
   margin: auto;
   border-radius: 5px;
   width: -webkit-fill-available;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.84);
   display: inline-block;
   line-height: 1.5;
   color: white;
