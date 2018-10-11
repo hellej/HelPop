@@ -13,7 +13,7 @@ export const StyledAOIinfoDiv = styled.div`
 
 export const InfoBlock = styled.div`
   display: ${props => props.hidden ? 'none' : ''};
-  padding: 6px 13px 6px 13px;
+  padding: 7px 13px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 10px;
   border-radius: 30px;

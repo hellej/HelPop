@@ -3,6 +3,7 @@ import Map from './components/map/Map'
 import Draw from './components/map/Draw'
 import styled from 'styled-components'
 import AOIinfo from './components/AOIinfo'
+import Tooltip from './components/Tooltip'
 
 export const StyledMenuContainer = styled.div`
   position: absolute;
@@ -27,6 +28,7 @@ class App extends React.Component {
         <StyledMenuContainer>
           <AOIinfo />
         </StyledMenuContainer>
+        <Tooltip/>
       </div>
     )
   }

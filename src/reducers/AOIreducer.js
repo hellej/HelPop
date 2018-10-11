@@ -1,4 +1,5 @@
 import * as utils from './../utils'
+import { showTooltip } from './tooltipReducer'
 
 const initialAOIState = {
   drawMode: null,
@@ -41,8 +42,13 @@ export const deleteAOIs = () => {
 }
 
 export const drawModeChanged = (drawMode) => {
-  console.log('draw mode changed:', drawMode)
-  return { type: 'DRAW_MODE_CHANGED', drawMode }
+  return async (dispatch) => {
+    console.log('draw mode changed:', drawMode)
+    if (drawMode === 'draw_polygon') {
+      dispatch(showTooltip('Finish drawing by clicking the first point', 1, 5.5))
+    }
+    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode })
+  }
 }
 
 export default AOIreducer
