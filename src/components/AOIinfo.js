@@ -38,12 +38,12 @@ class AOIinfo extends React.Component {
       <StyledAOIinfoDiv>
         {area &&
           <InfoBlock>
-            Area: <InfoValue>{utils.numberToStringWithSpaces(area)} m2 </InfoValue> <br />
+            Area: <InfoValue>{utils.numberToStringWithSpaces(area)} </InfoValue> m2 <br />
             {popStats &&
               <div>
-                Population: <InfoValue>{utils.numberToStringWithSpaces(pop)} </InfoValue> <br />
-                Density: <InfoValue>{utils.numberToStringWithSpaces(popDens)} / km2</InfoValue> <br />
-                Urban Density: <InfoValue>{utils.numberToStringWithSpaces(popUrbanDens)} / km2</InfoValue>
+                Population: <InfoValue>{utils.numberToStringWithSpaces(pop)}</InfoValue> <br />
+                Density: <InfoValue>{utils.numberToStringWithSpaces(popDens)}</InfoValue> /km2 <br />
+                Urban Density: <InfoValue>{utils.numberToStringWithSpaces(popUrbanDens)}</InfoValue> /km2
               </div>
             }
           </InfoBlock>}
