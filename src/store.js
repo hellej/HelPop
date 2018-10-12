@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
-import AOIreducer from './reducers/AOIreducer'
+import drawReducer from './reducers/drawReducer'
 import tooltipReducer from './reducers/tooltipReducer'
+import aoiReducer from './reducers/aoiReducer'
 
 const reducer = combineReducers({
-  AOI: AOIreducer,
+  draw: drawReducer,
+  aoi: aoiReducer,
   tooltip: tooltipReducer
 })
 

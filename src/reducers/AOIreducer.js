@@ -1,39 +1,22 @@
-import * as utils from './../utils'
-import { showTooltip } from './tooltipReducer'
-
-let draw = null
+import * as utils from '../utils'
 
 const initialAOIState = {
-  drawMode: null,
-  AOIfeature: null,
+  aoiFeature: null,
   area: null,
-  initialized: false,
 }
 
-const AOIreducer = (store = initialAOIState, action) => {
+const aoiReducer = (store = initialAOIState, action) => {
 
   switch (action.type) {
 
+    case 'DELETE_AOI':
     case 'RESET_DRAW_AOI':
-      return {
-        ...initialAOIState,
-        initialized: true
-      }
-    case 'INITIALIZE_DRAW':
-      return {
-        ...store,
-        initialized: true
-      }
-    case 'DRAW_MODE_CHANGED': {
-      return {
-        ...store,
-        drawMode: action.drawMode
-      }
-    }
+      return initialAOIState
+
     case 'UPDATE_AOI': {
       return {
         ...store,
-        AOIfeature: action.AOIfeature,
+        aoiFeature: action.feature,
         area: action.area
       }
     }
@@ -43,44 +26,13 @@ const AOIreducer = (store = initialAOIState, action) => {
   }
 }
 
-export const initDraw = (drawObject) => {
-  return async (dispatch) => {
-    draw = drawObject
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    dispatch({ type: 'INITIALIZE_DRAW' })
-  }
-}
-
-export const startDrawing = () => {
-  return async (dispatch) => {
-    draw.changeMode('draw_polygon')
-    dispatch(drawModeChanged('draw_polygon'))
-    dispatch(showTooltip('Finish drawing by clicking the first point', 1, 5.5))
-  }
-}
-
-export const deleteAllAOIs = () => {
-  return async (dispatch) => {
-    draw.deleteAll()
-    dispatch({ type: 'RESET_DRAW_AOI' })
-  }
-}
-
 export const updateAOI = (features) => {
-  console.log('aoi feature updated:', features[0])
   const area = utils.getArea(features[0])
-  return { type: 'UPDATE_AOI', AOIfeature: features[0], area }
+  return { type: 'UPDATE_AOI', feature: features[0], area }
 }
 
 export const deleteAOI = () => {
-  return { type: 'RESET_DRAW_AOI' }
+  return { type: 'DELETE_AOI' }
 }
 
-export const drawModeChanged = (drawMode) => {
-  return async (dispatch) => {
-    console.log('draw mode changed:', drawMode)
-    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode })
-  }
-}
-
-export default AOIreducer
+export default aoiReducer

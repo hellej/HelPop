@@ -29,7 +29,7 @@ export const InfoBlock = styled.div`
 
 class AOIinfo extends React.Component {
   render() {
-    const { area } = this.props.AOI
+    const { area } = this.props.aoi
     return (
       <StyledAOIinfoDiv>
         {area &&
@@ -42,7 +42,7 @@ class AOIinfo extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  AOI: state.AOI
+  aoi: state.aoi
 })
 
 const ConnectedAOIinfo = connect(mapStateToProps, null)(AOIinfo)

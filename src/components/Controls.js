@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
-import { startDrawing, deleteAllAOIs } from './../reducers/AOIreducer'
+import { startDrawing, deleteAllDrawsAOIs } from './../reducers/drawReducer'
 
 const hoverMargin = keyframes`
   from {
@@ -36,10 +36,10 @@ const Button = styled.div`
 const Controls = (props) => {
   return (
     <div>
-      {props.AOI.initialized &&
+      {props.draw.initialized &&
         <div>
-          <Button disabled={props.AOI.AOIfeature !== null} onClick={(e) => props.startDrawing('draw_polygon')}> Draw AOI</Button>
-          <Button disabled={props.AOI.AOIfeature === null} onClick={(e) => props.deleteAllAOIs()}> Remove AOI</Button>
+          <Button disabled={props.aoi.aoiFeature !== null} onClick={(e) => props.startDrawing('draw_polygon')}> Draw AOI</Button>
+          <Button disabled={props.aoi.aoiFeature === null} onClick={(e) => props.deleteAllDrawsAOIs()}> Remove AOI</Button>
         </div>
       }
     </div>
@@ -47,12 +47,13 @@ const Controls = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  AOI: state.AOI
+  draw: state.draw,
+  aoi: state.aoi
 })
 
 const mapDispatchToProps = {
   startDrawing,
-  deleteAllAOIs,
+  deleteAllDrawsAOIs,
 }
 
 const ConnectedControls = connect(mapStateToProps, mapDispatchToProps)(Controls)

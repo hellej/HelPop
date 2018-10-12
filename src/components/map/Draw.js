@@ -1,19 +1,20 @@
 import React from 'react'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import { connect } from 'react-redux'
-import { initDraw, updateAOI, deleteAOI, drawModeChanged } from './../../reducers/AOIreducer'
+import { initializeDraw, drawModeChanged } from './../../reducers/drawReducer'
+import { updateAOI, deleteAOI } from './../../reducers/aoiReducer'
 import { showTooltip } from './../../reducers/tooltipReducer'
 
 class Draw extends React.Component {
 
   draw = new MapboxDraw({
-    displayControlsDefault: false,
+    displayControlsDefault: false
   })
 
   componentDidMount() {
-    const { map, initDraw, updateAOI, deleteAOI, drawModeChanged, showTooltip } = this.props
+    const { map, initializeDraw, updateAOI, deleteAOI, drawModeChanged, showTooltip } = this.props
 
-    map.on('load', () => map.addControl(this.draw, 'top-left'))
+    map.on('load', () => map.addControl(this.draw))
 
     map.on('draw.update', (e) => updateAOI(e.features))
     map.on('draw.modechange', (e) => drawModeChanged(e.mode))
@@ -22,7 +23,7 @@ class Draw extends React.Component {
       updateAOI(e.features)
       showTooltip('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9)
     })
-    initDraw(this.draw)
+    initializeDraw(this.draw)
   }
 
   render() {
@@ -31,7 +32,7 @@ class Draw extends React.Component {
 }
 
 const mapDispatchToProps = {
-  initDraw,
+  initializeDraw,
   updateAOI,
   deleteAOI,
   drawModeChanged,
