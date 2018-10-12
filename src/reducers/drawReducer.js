@@ -27,12 +27,12 @@ const drawReducer = (store = initialDrawState, action) => {
         ...store,
         drawMode: action.drawMode
       }
-    case 'SET_UPLOADED_AOI':
-      console.log('action feature: ', action.feature)
-      draw.set(utils.asFeatureCollection([action.feature]))
-      return {
-        ...store
-      }
+    case 'SET_UPLOADED_AOI': {
+      const aoiFC = utils.asFeatureCollection([action.feature])
+      console.log('action FC:', aoiFC)
+      draw.set(aoiFC)
+      return { ...store }
+    }
     default:
       return store
   }
@@ -49,7 +49,7 @@ export const initializeDraw = (drawObject) => {
 export const startDrawing = () => {
   return async (dispatch) => {
     draw.changeMode('draw_polygon')
-    dispatch(drawModeChanged('draw_polygon'))
+    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'draw_polygon' })
     dispatch(showTooltip('Finish drawing by clicking the first point', 1, 5.5))
   }
 }
@@ -75,13 +75,6 @@ export const drawSelectionChanged = () => {
     if (points.length === 0) {
       dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' })
     } else { dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'direct_select' }) }
-  }
-}
-
-export const drawModeChanged = (drawMode) => {
-  return async (dispatch) => {
-    console.log('draw mode changed:', drawMode)
-    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode })
   }
 }
 

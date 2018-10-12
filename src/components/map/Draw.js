@@ -1,7 +1,7 @@
 import React from 'react'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import { connect } from 'react-redux'
-import { initializeDraw, drawModeChanged, drawSelectionChanged } from './../../reducers/drawReducer'
+import { initializeDraw, drawSelectionChanged } from './../../reducers/drawReducer'
 import { updateAOI, deleteAOI } from './../../reducers/aoiReducer'
 import { showTooltip } from './../../reducers/tooltipReducer'
 
@@ -37,7 +37,6 @@ const mapDispatchToProps = {
   initializeDraw,
   updateAOI,
   deleteAOI,
-  drawModeChanged,
   drawSelectionChanged,
   showTooltip,
 }

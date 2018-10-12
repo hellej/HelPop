@@ -56,7 +56,6 @@ export const deleteAOI = () => {
 
 export const calculatePopulationStats = (aoiFeature) => {
   const populationStats = utils.calculatePopulationStats(aoiFeature)
-  console.log('populationStats:', populationStats)
   return {
     type: 'POPULATION_CALCULATED',
     pop: populationStats.totalPopulation,
@@ -67,7 +66,6 @@ export const calculatePopulationStats = (aoiFeature) => {
 
 export const handleUploadFileChange = (file) => {
   const feature = JSON.parse(file)
-  console.log('parsedAOI: ', feature)
   return { type: 'SET_UPLOADED_AOI', feature }
 }
 
