@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import saveAs from 'file-saver'
 
 const initialAOIState = {
   aoiFeature: null,
@@ -72,6 +73,13 @@ export const calculatePopulationStats = (aoiFeature) => {
 export const handleUploadFileChange = (file) => {
   const parsedAOI = JSON.parse(file)
   return { type: 'SET_UPLOADED_AOI', parsedAOI }
+}
+
+export const downloadAOIasGeoJson = (aoi) => {
+  const text = JSON.stringify(aoi.aoiFeature)
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
+  saveAs(blob, 'aoi.geojson')
+  return { type: 'AOI_DOWNLOADED' }
 }
 
 export default aoiReducer

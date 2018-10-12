@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
 import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode } from './../reducers/drawReducer'
-import { calculatePopulationStats } from './../reducers/aoiReducer'
+import { calculatePopulationStats, downloadAOIasGeoJson } from './../reducers/aoiReducer'
 import GeoJsonUploader from './GeoJsonUploader'
 
 const hoverMargin = keyframes`
@@ -38,7 +38,8 @@ const Button = styled.div`
 class Controls extends React.Component {
   render() {
     const { draw, aoi } = this.props
-    const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode, calculatePopulationStats } = this.props
+    const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode,
+      calculatePopulationStats, downloadAOIasGeoJson } = this.props
     return (
       <div>
         {draw.initialized &&
@@ -49,7 +50,7 @@ class Controls extends React.Component {
             <Button visible={aoi.aoiFeature !== null && !aoi.popStats}
               onClick={() => calculatePopulationStats(aoi.aoiFeature)}> Calculate Population</Button>
             <GeoJsonUploader />
-            {/* <Button visible={aoi.aoiFeature === null} onClick={startDrawing}> Upload AOI</Button> */}
+            <Button visible={aoi.aoiFeature !== null} onClick={() => downloadAOIasGeoJson(aoi)}>Download AOI</Button>
           </div>
         }
       </div>
@@ -67,6 +68,7 @@ const mapDispatchToProps = {
   deleteAllDrawsAOIs,
   deleteSelectedDrawNode,
   calculatePopulationStats,
+  downloadAOIasGeoJson,
 }
 
 const ConnectedControls = connect(mapStateToProps, mapDispatchToProps)(Controls)
