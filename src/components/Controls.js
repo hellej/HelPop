@@ -42,7 +42,8 @@ const Controls = (props) => {
           <Button disabled={props.aoi.aoiFeature !== null} onClick={(e) => props.startDrawing('draw_polygon')}> Draw AOI</Button>
           <Button disabled={props.aoi.aoiFeature === null} onClick={(e) => props.deleteAllDrawsAOIs()}> Remove AOI</Button>
           <Button disabled={props.draw.drawMode !== 'direct_select'} onClick={(e) => props.deleteSelectedDrawNode()}> Delete node</Button>
-          <Button disabled={props.aoi.aoiFeature === null} onClick={(e) => props.calculatePopulationStats(props.aoi.aoiFeature)}> Calculate Population</Button>
+          <Button disabled={props.aoi.aoiFeature === null || props.aoi.popStats === true}
+            onClick={(e) => props.calculatePopulationStats(props.aoi.aoiFeature)}> Calculate Population</Button>
         </div>
       }
     </div>
