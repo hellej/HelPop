@@ -55,6 +55,23 @@ export const deleteAllDrawsAOIs = () => {
   }
 }
 
+export const deleteSelectedDrawNode = () => {
+  return async (dispatch) => {
+    draw.trash()
+    dispatch({ type: 'DELETE_NODE' })
+    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' })
+  }
+}
+
+export const drawSelectionChanged = () => {
+  return async (dispatch) => {
+    const points = draw.getSelectedPoints().features
+    if (points.length === 0) {
+      dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' })
+    } else { dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'direct_select' }) }
+  }
+}
+
 export const drawModeChanged = (drawMode) => {
   return async (dispatch) => {
     console.log('draw mode changed:', drawMode)

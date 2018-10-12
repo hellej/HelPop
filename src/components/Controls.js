@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 
-import { startDrawing, deleteAllDrawsAOIs } from './../reducers/drawReducer'
+import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode } from './../reducers/drawReducer'
 
 const hoverMargin = keyframes`
   from {
@@ -40,6 +40,7 @@ const Controls = (props) => {
         <div>
           <Button disabled={props.aoi.aoiFeature !== null} onClick={(e) => props.startDrawing('draw_polygon')}> Draw AOI</Button>
           <Button disabled={props.aoi.aoiFeature === null} onClick={(e) => props.deleteAllDrawsAOIs()}> Remove AOI</Button>
+          <Button disabled={props.draw.drawMode !== 'direct_select'} onClick={(e) => props.deleteSelectedDrawNode()}> Delete node</Button>
         </div>
       }
     </div>
@@ -54,6 +55,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   startDrawing,
   deleteAllDrawsAOIs,
+  deleteSelectedDrawNode,
 }
 
 const ConnectedControls = connect(mapStateToProps, mapDispatchToProps)(Controls)
