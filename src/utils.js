@@ -1,9 +1,14 @@
 import area from '@turf/area'
 import pointsWithinPolygon from '@turf/points-within-polygon'
 import * as censusFC from './data/vaesto-250m-2017-centr.json'
+import { featureCollection } from '@turf/helpers'
 
 export const m2tokm2 = 0.000001
 export const cellArea = 250 * 250
+
+export const asFeatureCollection = (feature) => {
+  return featureCollection(feature)
+}
 
 export const getArea = (geojsonFeature) => {
   const m2 = area(geojsonFeature)

@@ -18,16 +18,14 @@ const aoiReducer = (store = initialAOIState, action) => {
     case 'RESET_DRAW_AOI':
       return initialAOIState
 
-    case 'UPDATE_AOI': {
+    case 'UPDATE_AOI':
       return {
         ...store,
         popStats: false,
         aoiFeature: action.feature,
         area: action.area
       }
-    }
-
-    case 'POPULATION_CALCULATED': {
+    case 'POPULATION_CALCULATED':
       return {
         ...store,
         popStats: true,
@@ -35,16 +33,13 @@ const aoiReducer = (store = initialAOIState, action) => {
         popDens: action.popDens,
         popUrbanDens: action.popUrbanDens,
       }
-    }
-
-    case 'SET_UPLOADED_AOI': {
+    case 'SET_UPLOADED_AOI':
       return {
         ...store,
         popStats: false,
-        aoiFeature: action.parsedAOI
+        aoiFeature: action.feature,
+        area: utils.getArea(action.feature)
       }
-    }
-
     default:
       return store
   }
@@ -71,8 +66,9 @@ export const calculatePopulationStats = (aoiFeature) => {
 }
 
 export const handleUploadFileChange = (file) => {
-  const parsedAOI = JSON.parse(file)
-  return { type: 'SET_UPLOADED_AOI', parsedAOI }
+  const feature = JSON.parse(file)
+  console.log('parsedAOI: ', feature)
+  return { type: 'SET_UPLOADED_AOI', feature }
 }
 
 export const downloadAOIasGeoJson = (aoi) => {

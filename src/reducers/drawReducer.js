@@ -1,4 +1,5 @@
 import { showTooltip } from './tooltipReducer'
+import * as utils from '../utils'
 
 let draw = null
 
@@ -21,12 +22,17 @@ const drawReducer = (store = initialDrawState, action) => {
         ...initialDrawState,
         initialized: true
       }
-    case 'DRAW_MODE_CHANGED': {
+    case 'DRAW_MODE_CHANGED':
       return {
         ...store,
         drawMode: action.drawMode
       }
-    }
+    case 'SET_UPLOADED_AOI':
+      console.log('action feature: ', action.feature)
+      draw.set(utils.asFeatureCollection([action.feature]))
+      return {
+        ...store
+      }
     default:
       return store
   }
