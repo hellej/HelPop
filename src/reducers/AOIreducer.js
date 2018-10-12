@@ -3,6 +3,10 @@ import * as utils from '../utils'
 const initialAOIState = {
   aoiFeature: null,
   area: null,
+  popStats: false,
+  pop: null,
+  popDens: null,
+  popUrbanDens: null,
 }
 
 const aoiReducer = (store = initialAOIState, action) => {
@@ -16,8 +20,19 @@ const aoiReducer = (store = initialAOIState, action) => {
     case 'UPDATE_AOI': {
       return {
         ...store,
+        popStats: false,
         aoiFeature: action.feature,
         area: action.area
+      }
+    }
+
+    case 'POPULATION_CALCULATED': {
+      return {
+        ...store,
+        popStats: true,
+        pop: action.pop,
+        popDens: action.popDens,
+        popUrbanDens: action.popUrbanDens,
       }
     }
 
@@ -35,10 +50,15 @@ export const deleteAOI = () => {
   return { type: 'DELETE_AOI' }
 }
 
-export const calculatePopulationStats = (aoiFC) => {
-  const populationStats = utils.calculatePopulationStats(aoiFC)
+export const calculatePopulationStats = (aoiFeature) => {
+  const populationStats = utils.calculatePopulationStats(aoiFeature)
   console.log('populationStats:', populationStats)
-  return { type: 'POPULATION_CALCULATED', populationStats }
+  return {
+    type: 'POPULATION_CALCULATED',
+    pop: populationStats.totalPopulation,
+    popDens: populationStats.populationDensity,
+    popUrbanDens: populationStats.populationUrbanDensity
+  }
 }
 
 export default aoiReducer
