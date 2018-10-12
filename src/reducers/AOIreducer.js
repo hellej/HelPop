@@ -36,6 +36,14 @@ const aoiReducer = (store = initialAOIState, action) => {
       }
     }
 
+    case 'SET_UPLOADED_AOI': {
+      return {
+        ...store,
+        popStats: false,
+        aoiFeature: action.parsedAOI
+      }
+    }
+
     default:
       return store
   }
@@ -59,6 +67,11 @@ export const calculatePopulationStats = (aoiFeature) => {
     popDens: populationStats.populationDensity,
     popUrbanDens: populationStats.populationUrbanDensity
   }
+}
+
+export const handleUploadFileChange = (file) => {
+  const parsedAOI = JSON.parse(file)
+  return { type: 'SET_UPLOADED_AOI', parsedAOI }
 }
 
 export default aoiReducer

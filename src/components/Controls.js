@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components'
 
 import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode } from './../reducers/drawReducer'
 import { calculatePopulationStats } from './../reducers/aoiReducer'
+import GeoJsonUploader from './GeoJsonUploader'
 
 const hoverMargin = keyframes`
   from {
@@ -47,6 +48,8 @@ class Controls extends React.Component {
             <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
             <Button visible={aoi.aoiFeature !== null && !aoi.popStats}
               onClick={() => calculatePopulationStats(aoi.aoiFeature)}> Calculate Population</Button>
+            <GeoJsonUploader />
+            {/* <Button visible={aoi.aoiFeature === null} onClick={startDrawing}> Upload AOI</Button> */}
           </div>
         }
       </div>
