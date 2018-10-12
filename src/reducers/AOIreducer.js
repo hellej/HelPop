@@ -35,4 +35,10 @@ export const deleteAOI = () => {
   return { type: 'DELETE_AOI' }
 }
 
+export const calculatePopulationStats = (aoiFC) => {
+  const populationStats = utils.calculatePopulationStats(aoiFC)
+  console.log('populationStats:', populationStats)
+  return { type: 'POPULATION_CALCULATED', populationStats }
+}
+
 export default aoiReducer
