@@ -1,10 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 import { startDrawing, deleteAllAOIs } from './../reducers/AOIreducer'
 
-export const Button = styled.div`
+const hoverMargin = keyframes`
+  from {
+    margin-left: 10px;
+  }
+  to {
+    margin-left: 13px;
+  }
+`
+const Button = styled.div`
   cursor: pointer;
   display: ${props => props.disabled ? 'none' : ''};
   color: white;
@@ -20,7 +28,8 @@ export const Button = styled.div`
   height: min-content;
   pointer-events: auto;
   &:hover {
-    margin-left: 13px;
+    //margin-left: 13px;
+    animation: ${hoverMargin} 0.15s both;
   }
 `
 
