@@ -15,7 +15,7 @@ const hoverMargin = keyframes`
 `
 const Button = styled.div`
   cursor: pointer;
-  display: ${props => props.disabled ? 'none' : ''};
+  display: ${props => props.visible ? '' : 'none'};
   color: white;
   padding: 7px 13px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
@@ -34,20 +34,24 @@ const Button = styled.div`
   }
 `
 
-const Controls = (props) => {
-  return (
-    <div>
-      {props.draw.initialized &&
-        <div>
-          <Button disabled={props.aoi.aoiFeature !== null} onClick={(e) => props.startDrawing('draw_polygon')}> Draw AOI</Button>
-          <Button disabled={props.aoi.aoiFeature === null} onClick={(e) => props.deleteAllDrawsAOIs()}> Remove AOI</Button>
-          <Button disabled={props.draw.drawMode !== 'direct_select'} onClick={(e) => props.deleteSelectedDrawNode()}> Delete node</Button>
-          <Button disabled={props.aoi.aoiFeature === null || props.aoi.popStats === true}
-            onClick={(e) => props.calculatePopulationStats(props.aoi.aoiFeature)}> Calculate Population</Button>
-        </div>
-      }
-    </div>
-  )
+class Controls extends React.Component {
+  render() {
+    const { draw, aoi } = this.props
+    const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode, calculatePopulationStats } = this.props
+    return (
+      <div>
+        {draw.initialized &&
+          <div>
+            <Button visible={aoi.aoiFeature === null} onClick={startDrawing}> Draw AOI</Button>
+            <Button visible={aoi.aoiFeature !== null} onClick={deleteAllDrawsAOIs}> Remove AOI</Button>
+            <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
+            <Button visible={aoi.aoiFeature !== null && !aoi.popStats}
+              onClick={() => calculatePopulationStats(aoi.aoiFeature)}> Calculate Population</Button>
+          </div>
+        }
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({
