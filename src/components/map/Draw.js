@@ -13,12 +13,12 @@ class Draw extends React.Component {
 
   componentDidMount() {
     const { map, initializeDraw, updateAOI, deleteAOI,
-      drawModeChanged, showTooltip, drawSelectionChanged } = this.props
+      showTooltip, drawSelectionChanged } = this.props
 
     map.on('load', () => map.addControl(this.draw))
     initializeDraw(this.draw)
 
-    map.on('draw.modechange', (e) => drawModeChanged(e.mode))
+    map.on('draw.modechange', (e) => console.log('draw mode change event fired: ', e.mode))
     map.on('draw.selectionchange', () => drawSelectionChanged())
     map.on('draw.delete', deleteAOI)
     map.on('draw.update', (e) => updateAOI(e.features))
