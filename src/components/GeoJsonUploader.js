@@ -1,21 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { handleUploadFileChange } from '../reducers/aoiReducer'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
-const hoverMargin = keyframes`
-  from {
-    margin-left: 10px;
-  }
-  to {
-    margin-left: 13px;
-  }
-`
 const StyledDiv = styled.div`
   margin: 14px 10px;
   &:hover {
-    //margin-left: 13px;
-    animation: ${hoverMargin} 0.15s both;
+    margin-left: 13px;
   }
 `
 const StyledInput = styled.input`

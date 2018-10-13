@@ -24,7 +24,7 @@ const InfoBlock = styled.div`
   overflow: auto;
   height: min-content;
   pointer-events: auto;
-  line-height: 1.5;
+  line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
 const InfoValue = styled.span`
