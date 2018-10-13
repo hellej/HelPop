@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
+import { aoiType, drawType } from './types'
 import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode } from './../reducers/drawReducer'
 import { calculatePopulationStats, downloadAOIasGeoJson } from './../reducers/aoiReducer'
 import GeoJsonUploader from './GeoJsonUploader'
@@ -47,6 +48,11 @@ class Controls extends React.Component {
       </div>
     )
   }
+}
+
+Controls.propTypes = {
+  aoi: aoiType.isRequired,
+  draw: drawType.isRequired,
 }
 
 const mapStateToProps = (state) => ({

@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import * as utils from './../utils'
+import { aoiType } from './types'
 
 const StyledAOIinfoDiv = styled.div`
   max-width: 95%;
@@ -44,12 +45,15 @@ class AOIinfo extends React.Component {
                 Population: <InfoValue>{utils.numberToStringWithSpaces(pop)}</InfoValue> <br />
                 Density: <InfoValue>{utils.numberToStringWithSpaces(popDens)}</InfoValue> /km2 <br />
                 Urban Density: <InfoValue>{utils.numberToStringWithSpaces(popUrbanDens)}</InfoValue> /km2
-              </div>
-            }
+              </div>}
           </InfoBlock>}
       </StyledAOIinfoDiv>
     )
   }
+}
+
+AOIinfo.propTypes = {
+  aoi: aoiType.isRequired,
 }
 
 const mapStateToProps = (state) => ({

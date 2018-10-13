@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import { tooltipType } from './types'
 
 const StyledTooltipContainer = styled.div`
   position: fixed; 
@@ -35,6 +36,10 @@ const Tooltip = (props) => {
       </StyledTooltipDiv>
     </StyledTooltipContainer>
   )
+}
+
+Tooltip.propTypes = {
+  tooltip: tooltipType.isRequired,
 }
 
 const mapStateToProps = (state) => ({
