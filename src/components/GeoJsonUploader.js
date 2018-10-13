@@ -38,6 +38,7 @@ const GeoJsonUploader = (props) => {
   const handleFileRead = () => {
     const content = fileReader.result
     props.handleUploadFileChange(content)
+    fileReader.abort()
   }
 
   const handleFileChosen = (file) => {
