@@ -1,5 +1,6 @@
 import * as utils from '../utils'
 import saveAs from 'file-saver'
+import { showTooltip } from './tooltipReducer'
 
 const initialAOIState = {
   aoiFeature: null,
@@ -65,8 +66,17 @@ export const calculatePopulationStats = (aoiFeature) => {
 }
 
 export const handleUploadFileChange = (file) => {
-  const feature = JSON.parse(file)
-  return { type: 'SET_UPLOADED_AOI', feature }
+  return async (dispatch) => {
+    const feature = JSON.parse(file)
+    const error = validateAOIFeature(feature)
+    if (error) {
+      dispatch(showTooltip(error, 2, 5))
+      console.log('uploading failed')
+      return
+    } else {
+      dispatch({ type: 'SET_UPLOADED_AOI', feature })
+    }
+  }
 }
 
 export const downloadAOIasGeoJson = (aoi) => {
@@ -74,6 +84,16 @@ export const downloadAOIasGeoJson = (aoi) => {
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
   saveAs(blob, 'aoi.geojson')
   return { type: 'AOI_DOWNLOADED' }
+}
+
+const validateAOIFeature = (file) => {
+  console.log('uploading: ', file)
+  if (!file.type || file.type.localeCompare('feature') !== 1) return 'Uploaded file is not a geojson feature'
+  if (!file.geometry) return 'Geometry is missing in the uploaded file'
+  if (!file.geometry.coordinates || file.geometry.coordinates[0].length < 3) return 'Geometry is missing in the uploaded file'
+  if (file.geometry.type.localeCompare('polygon') === 0 &&
+    file.geometry.type.localeCompare('multipolygon') === 0) { return 'Wrong geometry type in the uploaded file' }
+  return null
 }
 
 export default aoiReducer

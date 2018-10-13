@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { tooltipType } from './types'
 
 const StyledTooltipContainer = styled.div`
@@ -24,6 +24,9 @@ const StyledTooltipDiv = styled.div`
   letter-spacing: 1.5px;
   padding: 18px 23px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  ${props => props.look === 2 && css`
+    background: rgba(35,0,0,0.84);
+  `}
 `
 
 const Tooltip = (props) => {
@@ -31,7 +34,7 @@ const Tooltip = (props) => {
 
   return (
     <StyledTooltipContainer>
-      <StyledTooltipDiv>
+      <StyledTooltipDiv look={props.tooltip.look}>
         {props.tooltip.text}
       </StyledTooltipDiv>
     </StyledTooltipContainer>
