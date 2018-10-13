@@ -1,5 +1,5 @@
 import React from 'react'
-import MapboxDraw from '@mapbox/mapbox-gl-draw'
+import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js'
 import { connect } from 'react-redux'
 import { initializeDraw, drawSelectionChanged } from './../../reducers/drawReducer'
 import { updateAOI, deleteAOI } from './../../reducers/aoiReducer'
