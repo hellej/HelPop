@@ -1,5 +1,5 @@
 # accessibility-ui
-An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs).
+An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs). [Live demo](https://accessibilityui.firebaseapp.com/)
 
 ### Installation
 ```
