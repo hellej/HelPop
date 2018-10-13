@@ -37,11 +37,11 @@ class Controls extends React.Component {
         {draw.initialized &&
           <div>
             <Button visible={aoi.aoiFeature === null} onClick={startDrawing}> Draw AOI</Button>
-            <Button visible={aoi.aoiFeature !== null} onClick={deleteAllDrawsAOIs}> Remove AOI</Button>
             <Button visible={aoi.aoiFeature !== null && !aoi.popStats}
               onClick={() => calculatePopulationStats(aoi.aoiFeature)}> Calculate Population</Button>
             <GeoJsonUploader />
             <Button visible={aoi.aoiFeature !== null} onClick={() => downloadAOIasGeoJson(aoi)}>Download AOI</Button>
+            <Button visible={aoi.aoiFeature !== null} onClick={deleteAllDrawsAOIs}> Remove AOI</Button>
             <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
           </div>
         }
