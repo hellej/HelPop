@@ -1,13 +1,17 @@
 {
-  "extends": [
-    "react-app",
-    "eslint:recommended"
+  "plugins": [
+    "cypress"
   ],
   "env": {
+    "cypress/globals": true,
     "browser": true,
     "commonjs": true,
     "es6": true
   },
+  "extends": [
+    "react-app",
+    "eslint:recommended"
+  ],
   "parser": "babel-eslint",
   "globals": {
     "test": true,
