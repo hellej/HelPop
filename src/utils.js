@@ -49,3 +49,13 @@ export const numberToStringWithSpaces = (value) => {
   }
   return formattedString
 }
+
+export const validateAOIFeature = (feature) => {
+  console.log('uploading: ', feature)
+  if (!feature.type || feature.type.localeCompare('feature') !== 1) return 'Uploaded feature is not a geojson feature'
+  if (!feature.geometry) return 'Geometry is missing in the uploaded feature'
+  if (!feature.geometry.coordinates || feature.geometry.coordinates[0].length < 3) return 'Geometry is missing in the uploaded feature'
+  if (feature.geometry.type.localeCompare('polygon') === 0 &&
+    feature.geometry.type.localeCompare('multipolygon') === 0) { return 'Wrong geometry type in the uploaded file' }
+  return null
+}
