@@ -1,7 +1,7 @@
 # accessibility-ui
 An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs). [Live demo](https://accessibilityui.firebaseapp.com/)
 
-### Installation
+## Installation
 ```
 $ git clone git@github.com:hellej/accessibility-ui.git
 $ cd accessibility-ui
@@ -13,5 +13,5 @@ Open browser to http://localhost:3000/
 
 Running the integration tests: `npm run cypress:open`
 
-### License
+## License
 [MIT](LICENSE)
