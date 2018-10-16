@@ -11,5 +11,7 @@ $ npm start
 Update your Mapbox access token to `src/components/map/Map.js`<br>
 Open browser to http://localhost:3000/
 
+Running the integration tests: `npm run cypress:open`
+
 ### License
 [MIT](LICENSE)
