@@ -75,6 +75,7 @@ export const handleUploadFileChange = (file) => {
       return
     } else {
       dispatch({ type: 'SET_UPLOADED_AOI', feature })
+      dispatch(showNotification('AOI feature succesfully loaded', 3, 5))
     }
   }
 }
