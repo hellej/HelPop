@@ -3,7 +3,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js'
 import { connect } from 'react-redux'
 import { initializeDraw, drawSelectionChanged } from './../../reducers/drawReducer'
 import { updateAOI, deleteAOI } from './../../reducers/aoiReducer'
-import { showTooltip } from './../../reducers/tooltipReducer'
+import { showNotification } from './../../reducers/notificationReducer'
 
 class Draw extends React.Component {
 
@@ -13,7 +13,7 @@ class Draw extends React.Component {
 
   componentDidMount() {
     const { map, initializeDraw, updateAOI, deleteAOI,
-      showTooltip, drawSelectionChanged } = this.props
+      showNotification, drawSelectionChanged } = this.props
 
     map.on('load', () => map.addControl(this.draw))
     initializeDraw(this.draw)
@@ -24,7 +24,7 @@ class Draw extends React.Component {
     map.on('draw.update', (e) => updateAOI(e.features))
     map.on('draw.create', (e) => {
       updateAOI(e.features)
-      showTooltip('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9)
+      showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9)
     })
   }
 
@@ -38,7 +38,7 @@ const mapDispatchToProps = {
   updateAOI,
   deleteAOI,
   drawSelectionChanged,
-  showTooltip,
+  showNotification,
 }
 
 const ConnectedDraw = connect(null, mapDispatchToProps)(Draw)

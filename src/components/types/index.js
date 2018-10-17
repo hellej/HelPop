@@ -19,7 +19,7 @@ export const drawType = shape({
   initialized: bool.isRequired,
 })
 
-export const tooltipType = shape({
+export const notificationType = shape({
   text: string,
   style: number,
 })

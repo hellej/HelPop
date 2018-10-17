@@ -1,34 +1,34 @@
-const initialTooltip = { text: null, look: null }
+const initialNotification = { text: null, look: null }
 let notifTimeout
 
-const tooltipReducer = (store = initialTooltip, action) => {
+const notificationReducer = (store = initialNotification, action) => {
 
   switch (action.type) {
     case 'SHOWNOTIF':
       return { text: action.text, look: action.look }
 
     case 'RMNOTIF':
-      return initialTooltip
+      return initialNotification
 
     default:
       return store
   }
 }
 
-export const showTooltip = (text, look, notiftime) => {
+export const showNotification = (text, look, notiftime) => {
   return async (dispatch) => {
-    dispatch(rmTooltip())
+    dispatch(rmNotification())
     await new Promise(resolve => notifTimeout = setTimeout(resolve, 120))
     dispatch({ type: 'SHOWNOTIF', text, look })
     clearTimeout(notifTimeout)
     await new Promise(resolve => notifTimeout = setTimeout(resolve, notiftime * 1000))
-    dispatch(rmTooltip())
+    dispatch(rmNotification())
   }
 }
 
-export const rmTooltip = () => {
+export const rmNotification = () => {
   clearTimeout(notifTimeout)
   return ({ type: 'RMNOTIF' })
 }
 
-export default tooltipReducer
+export default notificationReducer

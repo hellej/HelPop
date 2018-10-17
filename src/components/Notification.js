@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled, { css } from 'styled-components'
-import { tooltipType } from './types'
+import { notificationType } from './types'
 
-const StyledTooltipContainer = styled.div`
+const StyledNotificationContainer = styled.div`
   position: fixed; 
   z-index: 4;
   right: 10px;
@@ -11,7 +11,7 @@ const StyledTooltipContainer = styled.div`
   left: 10px; 
   margin: auto;
 `
-const StyledTooltipDiv = styled.div`
+const StyledNotificationDiv = styled.div`
   margin: auto;
   border-radius: 5px;
   width: -webkit-fill-available;
@@ -29,26 +29,26 @@ const StyledTooltipDiv = styled.div`
   `}
 `
 
-const Tooltip = (props) => {
-  if (props.tooltip.text === null) return null
+const Notification = (props) => {
+  if (props.notification.text === null) return null
 
   return (
-    <StyledTooltipContainer>
-      <StyledTooltipDiv look={props.tooltip.look}>
-        {props.tooltip.text}
-      </StyledTooltipDiv>
-    </StyledTooltipContainer>
+    <StyledNotificationContainer>
+      <StyledNotificationDiv look={props.notification.look}>
+        {props.notification.text}
+      </StyledNotificationDiv>
+    </StyledNotificationContainer>
   )
 }
 
-Tooltip.propTypes = {
-  tooltip: tooltipType.isRequired,
+Notification.propTypes = {
+  notification: notificationType.isRequired,
 }
 
 const mapStateToProps = (state) => ({
-  tooltip: state.tooltip
+  notification: state.notification
 })
 
-const ConnectedTooltip = connect(mapStateToProps, null)(Tooltip)
+const ConnectedNotification = connect(mapStateToProps, null)(Notification)
 
-export default ConnectedTooltip
+export default ConnectedNotification

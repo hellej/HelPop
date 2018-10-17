@@ -1,6 +1,6 @@
 import * as utils from '../utils'
 import saveAs from 'file-saver'
-import { showTooltip } from './tooltipReducer'
+import { showNotification } from './notificationReducer'
 
 const initialAOIState = {
   aoiFeature: null,
@@ -70,7 +70,7 @@ export const handleUploadFileChange = (file) => {
     const feature = JSON.parse(file)
     const error = utils.validateAOIFeature(feature)
     if (error) {
-      dispatch(showTooltip(error, 2, 5))
+      dispatch(showNotification(error, 2, 5))
       console.log('uploading failed')
       return
     } else {

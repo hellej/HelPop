@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { handleUploadFileChange } from '../reducers/aoiReducer'
+import { handleUploadFileChange } from '../../reducers/aoiReducer'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
@@ -24,7 +24,7 @@ const StyledInputLabel = styled.label`
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 30px;
   font-weight: 300;
-  font-size: 17px;
+  font-size: 16px;
   width: max-content;
   max-width: 90%;
   overflow: auto;

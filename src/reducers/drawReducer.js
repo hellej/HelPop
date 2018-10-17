@@ -1,4 +1,4 @@
-import { showTooltip } from './tooltipReducer'
+import { showNotification } from './notificationReducer'
 import * as utils from '../utils'
 
 let draw = null
@@ -50,7 +50,7 @@ export const startDrawing = () => {
   return async (dispatch) => {
     draw.changeMode('draw_polygon')
     dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'draw_polygon' })
-    dispatch(showTooltip('Finish drawing by clicking the first point', 1, 5.5))
+    dispatch(showNotification('Finish drawing by clicking the first point', 1, 5.5))
   }
 }
 

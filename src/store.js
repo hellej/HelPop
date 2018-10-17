@@ -3,14 +3,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 import drawReducer from './reducers/drawReducer'
-import tooltipReducer from './reducers/tooltipReducer'
+import notificationReducer from './reducers/notificationReducer'
 import aoiReducer from './reducers/aoiReducer'
 import mapReducer from './reducers/mapReducer'
 
 const reducer = combineReducers({
   draw: drawReducer,
   aoi: aoiReducer,
-  tooltip: tooltipReducer,
+  notification: notificationReducer,
   map: mapReducer,
 })
 
