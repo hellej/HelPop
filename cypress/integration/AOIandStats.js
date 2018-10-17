@@ -1,9 +1,18 @@
-describe('Loaded app', () => {
+describe('App menu', () => {
 
   it('contains AOI buttons', () => {
     cy.visit('/')
     cy.contains('Draw AOI')
     cy.contains('Upload AOI')
+  })
+
+  it('can toggle basemap options', () => {
+    cy.contains('Change Basemap').click()
+    cy.contains('Light').click()
+    cy.wait(500)
+    cy.contains('Streets').click()
+    cy.contains('Hide Basemaps').click()
+    cy.wait(500)
   })
 })
 
@@ -91,7 +100,7 @@ describe('AOI management', () => {
     cy.contains('Upload AOI')
   })
 
-  it('can delete drawn AOI with "Remove AOI" button', () => {
+  it('can remove AOI with "Remove AOI" button', () => {
     drawAOI()
     cy.wait(400)
     cy.contains('Remove AOI').click()
