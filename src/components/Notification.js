@@ -28,7 +28,7 @@ const StyledNotificationDiv = styled.div`
     background: rgba(35,0,0,0.84);
   `}
   ${props => props.look === 3 && css`
-    background: rgba(0,35,0,0.84);
+    background: rgba(0,18,0,0.84);
   `}
 `
 
