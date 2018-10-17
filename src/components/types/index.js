@@ -23,3 +23,8 @@ export const tooltipType = shape({
   text: string,
   style: number,
 })
+
+export const mapType = shape({
+  initialized: bool.isRequired,
+  basemap: string.isRequired,
+})
