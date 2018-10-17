@@ -2,20 +2,33 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as censusFC from './../../data/vaesto-250m-2017.json'
 
+const colors = [
+  { color: '#EED322', value: 100 },
+  { color: '#E6B71E', value: 500 },
+  { color: '#B86B25', value: 900 },
+  { color: '#8B4225', value: 2000 },
+  { color: '#723122', value: null },
+]
+
+// const mbColors = (colors) => {
+//   let mbColors = []
+//   colors.forEach(item => {
+//     mbColors.push(item.color)
+//     if (item.value) { mbColors.push(item.value) }
+//   })
+//   return mbColors
+// }
+
 const paintStyle = {
   'fill-color': [
-    'interpolate',
-    ['linear'],
+    'step',
     ['get', 'ASUKKAITA'],
-    0, '#F2F12D',
-    10, '#EED322',
-    50, '#E6B71E',
-    100, '#DA9C20',
-    200, '#CA8323',
-    400, '#B86B25',
-    800, '#A25626',
-    1300, '#8B4225',
-    1800, '#723122'
+    // ...mbColors(colors) this works too
+    colors[0].color, colors[0].value,
+    colors[1].color, colors[1].value,
+    colors[2].color, colors[2].value,
+    colors[3].color, colors[3].value,
+    colors[4].color,
   ],
   'fill-opacity': 0.8
 }
@@ -49,6 +62,7 @@ class Demo2D extends React.Component {
       this.props.map.removeLayer(this.layerId)
       this.props.map.removeSource(this.layerId)
     }
+    // console.log('colors: ', mbColors(colors))
   }
 
   render() {
