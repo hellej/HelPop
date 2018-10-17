@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import * as utils from './../utils'
+import * as utils from '../utils'
 import { aoiType } from './types'
 
 const StyledAOIinfoDiv = styled.div`
