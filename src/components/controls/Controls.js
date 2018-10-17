@@ -5,7 +5,7 @@ import { BASEMAPS } from '../../constants'
 import { aoiType, drawType, mapType } from '../types'
 import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode } from '../../reducers/drawReducer'
 import { calculatePopulationStats, downloadAOIasGeoJson } from '../../reducers/aoiReducer'
-import { setBasemap } from '../../reducers/mapReducer'
+import { setBasemap, toggle2Ddemo } from '../../reducers/mapReducer'
 import GeoJsonUploader from './GeoJsonUploader'
 import { Button } from './Button'
 
@@ -24,7 +24,7 @@ class Controls extends React.Component {
   render() {
     const { draw, aoi, map } = this.props
     const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode,
-      calculatePopulationStats, downloadAOIasGeoJson, setBasemap } = this.props
+      calculatePopulationStats, downloadAOIasGeoJson, setBasemap, toggle2Ddemo } = this.props
 
     return (
       <div>
@@ -38,6 +38,7 @@ class Controls extends React.Component {
             <Button visible={aoi.aoiFeature !== null} onClick={deleteAllDrawsAOIs}> Remove AOI</Button>
             <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
 
+            <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{map.demo2d ? 'Hide 2D demo' : 'Show 2D demo'}</Button>
             <Button visible={true} color='#b7fff6' onClick={this.toggleBasemapSelector}>
               {this.state.basemapsVisible ? 'Hide Basemaps' : 'Change Basemap'} </Button>
             {this.state.basemapsVisible && Object.keys(BASEMAPS).map(basemap =>
@@ -68,6 +69,7 @@ const mapDispatchToProps = {
   calculatePopulationStats,
   downloadAOIasGeoJson,
   setBasemap,
+  toggle2Ddemo,
 }
 
 const ConnectedControls = connect(mapStateToProps, mapDispatchToProps)(Controls)

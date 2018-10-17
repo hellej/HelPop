@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import AOIinfo from './components/AOIinfo'
 import Notification from './components/Notification'
 import Controls from './components/controls/Controls'
+import Demo2D from './components/map/Demo2D'
 
 export const StyledMenuContainer = styled.div`
   position: absolute;
@@ -25,6 +26,7 @@ class App extends React.Component {
       <div>
         <Map>
           <Draw />
+          <Demo2D />
         </Map>
         <StyledMenuContainer>
           <AOIinfo />
