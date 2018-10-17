@@ -1,4 +1,5 @@
 import * as constants from './../constants'
+import * as utils from './../utils'
 
 let map = null
 
@@ -16,7 +17,6 @@ const mapReducer = (store = initialMapState, action) => {
         ...store,
         initialized: true
       }
-
     case 'SET_BASEMAP': {
       map.setStyle(constants.BASEMAPS[action.basemap].url)
       return {
@@ -24,7 +24,11 @@ const mapReducer = (store = initialMapState, action) => {
         basemap: action.basemap
       }
     }
-
+    case 'SET_UPLOADED_AOI': {
+      const bbox = utils.getBbox(action.feature)
+      map.fitBounds(bbox)
+      return store
+    }
     default:
       return store
   }
