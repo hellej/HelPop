@@ -38,13 +38,19 @@ const GeoJsonUploader = (props) => {
   const handleFileRead = () => {
     const content = fileReader.result
     props.handleUploadFileChange(content)
-    fileReader.abort()
   }
 
-  const handleFileChosen = (file) => {
+  const handleFileChosen = (target) => {
+    const file = target.files[0]
     fileReader = new FileReader()
     fileReader.onloadend = handleFileRead
     fileReader.readAsText(file)
+    resetReader(target)
+  }
+
+  const resetReader = async (target) => {
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    target.value = ''
   }
 
   return (
@@ -54,7 +60,7 @@ const GeoJsonUploader = (props) => {
         id='file'
         className='input-file'
         accept='.geojson'
-        onChange={e => handleFileChosen(e.target.files[0])}>
+        onChange={e => handleFileChosen(e.target)}>
       </StyledInput>
       <StyledInputLabel htmlFor="file">Upload AOI</StyledInputLabel>
     </StyledDiv>
