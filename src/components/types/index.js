@@ -1,4 +1,4 @@
-import { shape, number, string, bool, object } from 'prop-types'
+import { shape, number, string, bool, object, array } from 'prop-types'
 
 export const aoiType = shape({
   area: number,
@@ -27,4 +27,11 @@ export const notificationType = shape({
 export const mapType = shape({
   initialized: bool.isRequired,
   basemap: string.isRequired,
+})
+
+export const demo2dType = shape({
+  visible: bool.isRequired,
+  layerId: string.isRequired,
+  colorClasses: array.isRequired,
+  mbPaintStyle: object,
 })

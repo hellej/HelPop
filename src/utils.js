@@ -69,3 +69,24 @@ export const validateAOIFeature = (feature) => {
     feature.geometry.type.localeCompare('multipolygon') === 0) { return 'Wrong geometry type in the uploaded file' }
   return null
 }
+
+export const mbPaintStyle = (colorsValues) => {
+  const colorSteps = (colorsValues) => {
+    let mbColors = []
+    colorsValues.forEach(item => {
+      mbColors.push(item.color)
+      if (item.value) { mbColors.push(item.value) }
+    })
+    return mbColors
+  }
+
+  const paintStyle = {
+    'fill-color': [
+      'step',
+      ['get', 'ASUKKAITA'],
+      ...colorSteps(colorsValues)
+    ],
+    'fill-opacity': 0.8
+  }
+  return paintStyle
+}

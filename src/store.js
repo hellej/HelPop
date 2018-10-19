@@ -6,12 +6,14 @@ import drawReducer from './reducers/drawReducer'
 import notificationReducer from './reducers/notificationReducer'
 import aoiReducer from './reducers/aoiReducer'
 import mapReducer from './reducers/mapReducer'
+import demo2dReducer from './reducers/demo2dReducer'
 
 const reducer = combineReducers({
   draw: drawReducer,
   aoi: aoiReducer,
   notification: notificationReducer,
   map: mapReducer,
+  demo2d: demo2dReducer,
 })
 
 const store = createStore(

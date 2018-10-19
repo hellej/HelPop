@@ -13,7 +13,7 @@ const mapReducer = (store = initialMapState, action) => {
 
   switch (action.type) {
 
-    case 'MAP_INITIALIZED': {
+    case 'INITIALIZE_MAP': {
       return { ...store, initialized: true }
     }
     case 'SET_BASEMAP': {
@@ -35,7 +35,7 @@ const mapReducer = (store = initialMapState, action) => {
 
 export const initializeMap = (mapObject) => {
   map = mapObject
-  return { type: 'MAP_INITIALIZED' }
+  return { type: 'INITIALIZE_MAP' }
 }
 
 export const setBasemap = (basemap) => {
