@@ -1,6 +1,6 @@
 import * as utils from './../utils'
 
-const colorClasses = [
+const colorSteps = [
   { color: '#EED322', value: 100 },
   { color: '#E6B71E', value: 500 },
   { color: '#B86B25', value: 900 },
@@ -11,7 +11,8 @@ const colorClasses = [
 const initialDemo2dState = {
   visible: false,
   layerId: 'demo2d',
-  colorClasses: colorClasses,
+  colorSteps: colorSteps,
+  legendClasses: [],
   mbPaintStyle: null,
 }
 
@@ -23,23 +24,26 @@ const demo2dReducer = (store = initialDemo2dState, action) => {
 
     case 'INITIALIZE_DEMO2D':
     case 'SET_COLOR_CLASSES':
-      return { ...store, mbPaintStyle: utils.mbPaintStyle(action.colorClasses) }
-
+      return {
+        ...store,
+        legendClasses: utils.legendClasses(action.colorSteps),
+        mbPaintStyle: utils.mbPaintStyle(action.colorSteps)
+      }
     default:
       return store
   }
 }
 
 export const initialize2Ddemo = () => {
-  return { type: 'INITIALIZE_DEMO2D', colorClasses }
+  return { type: 'INITIALIZE_DEMO2D', colorSteps }
 }
 
 export const toggle2Ddemo = () => {
   return { type: 'TOGGLE_2D_DEMO' }
 }
 
-export const setPaintStyle = (colorClasses) => {
-  return { type: 'SET_COLOR_CLASSES', colorClasses }
+export const setPaintStyle = (colorSteps) => {
+  return { type: 'SET_COLOR_CLASSES', colorSteps }
 }
 
 export default demo2dReducer

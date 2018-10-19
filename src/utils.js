@@ -79,8 +79,7 @@ export const mbPaintStyle = (colorsValues) => {
     })
     return mbColors
   }
-
-  const paintStyle = {
+  return {
     'fill-color': [
       'step',
       ['get', 'ASUKKAITA'],
@@ -88,5 +87,16 @@ export const mbPaintStyle = (colorsValues) => {
     ],
     'fill-opacity': 0.8
   }
-  return paintStyle
+}
+
+export const legendClasses = (colorSteps) => {
+  const range = (array, index) => {
+    if (index === 0) { return `0-${array[0].value - 1}` }
+    if (index < array.length - 1) { return `${array[index - 1].value}-${array[index].value - 1}` }
+    else return `${array[index - 1].value}-`
+  }
+  return colorSteps.map((colorStep, index) => ({
+    color: colorStep.color,
+    range: range(colorSteps, index)
+  }))
 }

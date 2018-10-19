@@ -32,6 +32,7 @@ export const mapType = shape({
 export const demo2dType = shape({
   visible: bool.isRequired,
   layerId: string.isRequired,
-  colorClasses: array.isRequired,
+  colorSteps: array.isRequired,
+  legendClasses: array.isRequired,
   mbPaintStyle: object,
 })
