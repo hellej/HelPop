@@ -52,7 +52,6 @@ export const calculatePopulationStats = (FC) => {
       features: FC.features.map(feature => ({
         ...feature,
         properties: {
-          id: feature.id,
           ...feature.properties,
           ...utils.calculatePopulationStats(feature),
         }

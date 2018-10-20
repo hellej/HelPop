@@ -15,9 +15,7 @@ const featureType = shape({
 export const aoiType = shape({
   FC: shape({
     type: string.isRequired,
-    features: arrayOf(
-      featureType.isRequired
-    )
+    features: arrayOf(featureType).isRequired
   }),
   popStats: bool.isRequired,
 })
