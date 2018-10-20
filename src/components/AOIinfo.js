@@ -34,19 +34,19 @@ const InfoValue = styled.span`
 
 class AOIinfo extends React.Component {
   render() {
-    const { area, popStats, pop, popDens, popUrbanDens } = this.props.aoi
+    if (this.props.aoi.FC.features.length === 0) { return null }
+    const { area, totalPopulation, populationDensity, populationUrbanDensity } = this.props.aoi.FC.features[0].properties
     return (
       <StyledAOIinfoDiv>
-        {area &&
-          <InfoBlock>
-            Area: <InfoValue>{utils.numberToStringWithSpaces(area)} </InfoValue> m2 <br />
-            {popStats &&
-              <div>
-                Population: <InfoValue>{utils.numberToStringWithSpaces(pop)}</InfoValue> <br />
-                Density: <InfoValue>{utils.numberToStringWithSpaces(popDens)}</InfoValue> /km2 <br />
-                Urban Density: <InfoValue>{utils.numberToStringWithSpaces(popUrbanDens)}</InfoValue> /km2
+        <InfoBlock>
+          Area: <InfoValue>{utils.numberToStringWithSpaces(area)} </InfoValue> m2 <br />
+          {this.props.aoi.popStats &&
+            <div>
+              Population: <InfoValue>{utils.numberToStringWithSpaces(totalPopulation)}</InfoValue> <br />
+              Density: <InfoValue>{utils.numberToStringWithSpaces(populationDensity)}</InfoValue> /km2 <br />
+              Urban Density: <InfoValue>{utils.numberToStringWithSpaces(populationUrbanDensity)}</InfoValue> /km2
               </div>}
-          </InfoBlock>}
+        </InfoBlock>
       </StyledAOIinfoDiv>
     )
   }

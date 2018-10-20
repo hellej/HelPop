@@ -3,12 +3,11 @@ import saveAs from 'file-saver'
 import { showNotification } from './notificationReducer'
 
 const initialAOIState = {
-  aoiFeature: null,
-  area: null,
-  popStats: false,
-  pop: null,
-  popDens: null,
-  popUrbanDens: null,
+  FC: {
+    type: 'FeatureCollection',
+    features: []
+  },
+  popStats: false
 }
 
 const aoiReducer = (store = initialAOIState, action) => {
@@ -19,53 +18,51 @@ const aoiReducer = (store = initialAOIState, action) => {
     case 'RESET_DRAW_AOI':
       return initialAOIState
 
-    case 'UPDATE_AOI':
-      return {
-        ...store,
-        popStats: false,
-        aoiFeature: action.feature,
-        area: action.area
-      }
     case 'POPULATION_CALCULATED':
       return {
         ...store,
+        FC: action.FC,
         popStats: true,
-        pop: action.pop,
-        popDens: action.popDens,
-        popUrbanDens: action.popUrbanDens,
       }
     case 'SET_UPLOADED_AOI':
+      // TODO
+      return store
+
+    case 'CREATE_DRAW_AREAS':
+    case 'UPDATE_DRAW_AREAS':
       return {
         ...store,
         popStats: false,
-        aoiFeature: action.feature,
-        area: utils.getArea(action.feature)
+        FC: action.FC,
       }
     default:
       return store
   }
 }
 
-export const updateAOI = (features) => {
-  const area = utils.getArea(features[0])
-  return { type: 'UPDATE_AOI', feature: features[0], area }
-}
-
 export const deleteAOI = () => {
   return { type: 'DELETE_AOI' }
 }
 
-export const calculatePopulationStats = (aoiFeature) => {
-  const populationStats = utils.calculatePopulationStats(aoiFeature)
+export const calculatePopulationStats = (FC) => {
   return {
     type: 'POPULATION_CALCULATED',
-    pop: populationStats.totalPopulation,
-    popDens: populationStats.populationDensity,
-    popUrbanDens: populationStats.populationUrbanDensity
+    FC: {
+      ...FC,
+      features: FC.features.map(feature => ({
+        ...feature,
+        properties: {
+          id: feature.id,
+          ...feature.properties,
+          ...utils.calculatePopulationStats(feature),
+        }
+      }))
+    }
   }
 }
 
 export const handleUploadFileChange = (file) => {
+  // TODO feature -> FC
   return async (dispatch) => {
     const feature = JSON.parse(file)
     const error = utils.validateAOIFeature(feature)
@@ -80,8 +77,8 @@ export const handleUploadFileChange = (file) => {
   }
 }
 
-export const downloadAOIasGeoJson = (aoi) => {
-  const text = JSON.stringify(aoi.aoiFeature)
+export const downloadAOIasGeoJson = (FC) => {
+  const text = JSON.stringify(FC, null, 2)
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
   saveAs(blob, 'aoi.geojson')
   return { type: 'AOI_DOWNLOADED' }

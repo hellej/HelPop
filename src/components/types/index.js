@@ -1,17 +1,25 @@
-import { shape, number, string, bool, object, array } from 'prop-types'
+import { shape, number, string, bool, object, array, arrayOf } from 'prop-types'
+
+const featurePropertiesType = shape({
+  area: number.isRequired,
+  name: string.isRequired,
+})
+
+const featureType = shape({
+  type: string.isRequired,
+  id: string.isRequired,
+  geometry: object.isRequired,
+  properties: featurePropertiesType.isRequired,
+})
 
 export const aoiType = shape({
-  area: number,
-  popStats: bool.isRequired,
-  pop: number,
-  popDens: number,
-  popUrbanDens: number,
-  aoiFeature: shape({
-    id: string.isRequired,
+  FC: shape({
     type: string.isRequired,
-    properties: object.isRequired,
-    geometry: object.isRequired,
-  })
+    features: arrayOf(
+      featureType.isRequired
+    )
+  }),
+  popStats: bool.isRequired,
 })
 
 export const drawType = shape({

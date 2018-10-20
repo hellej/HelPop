@@ -1,8 +1,7 @@
 import React from 'react'
 import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js'
 import { connect } from 'react-redux'
-import { initializeDraw, drawSelectionChanged } from './../../reducers/drawReducer'
-import { updateAOI, deleteAOI } from './../../reducers/aoiReducer'
+import { initializeDraw, drawSelectionChanged, createDrawAreas, updateDrawAreas } from './../../reducers/drawReducer'
 import { showNotification } from './../../reducers/notificationReducer'
 
 class Draw extends React.Component {
@@ -12,20 +11,17 @@ class Draw extends React.Component {
   })
 
   componentDidMount() {
-    const { map, initializeDraw, updateAOI, deleteAOI,
-      showNotification, drawSelectionChanged } = this.props
+    const { map, initializeDraw, drawSelectionChanged,
+      createDrawAreas, updateDrawAreas } = this.props
 
     map.on('load', () => map.addControl(this.draw))
     initializeDraw(this.draw)
 
-    map.on('draw.modechange', (e) => console.log('draw mode change event fired: ', e.mode))
+    map.on('draw.modechange', (e) => console.log('draw.modechange:', e.mode))
     map.on('draw.selectionchange', () => drawSelectionChanged())
-    map.on('draw.delete', deleteAOI)
-    map.on('draw.update', (e) => updateAOI(e.features))
-    map.on('draw.create', (e) => {
-      updateAOI(e.features)
-      showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9)
-    })
+    map.on('draw.delete', (e) => console.log('draw.delete:', e))
+    map.on('draw.update', (e) => updateDrawAreas(e))
+    map.on('draw.create', (e) => createDrawAreas(e))
   }
 
   render() {
@@ -35,10 +31,10 @@ class Draw extends React.Component {
 
 const mapDispatchToProps = {
   initializeDraw,
-  updateAOI,
-  deleteAOI,
   drawSelectionChanged,
   showNotification,
+  createDrawAreas,
+  updateDrawAreas,
 }
 
 const ConnectedDraw = connect(null, mapDispatchToProps)(Draw)

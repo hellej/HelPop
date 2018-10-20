@@ -31,12 +31,12 @@ class Controls extends React.Component {
       <div>
         {draw.initialized &&
           <div>
-            <Button visible={aoi.aoiFeature === null} onClick={startDrawing}> Draw AOI</Button>
-            <Button visible={aoi.aoiFeature !== null && !aoi.popStats}
-              onClick={() => calculatePopulationStats(aoi.aoiFeature)}> Calculate Population</Button>
+            <Button visible={true} onClick={startDrawing}> Draw AOI</Button>
+            <Button visible={aoi.FC.features.length !== 0 && !aoi.popStats}
+              onClick={() => calculatePopulationStats(aoi.FC)}> Calculate Population</Button>
             <GeoJsonUploader />
-            <Button visible={aoi.aoiFeature !== null} onClick={() => downloadAOIasGeoJson(aoi)}>Download AOI</Button>
-            <Button visible={aoi.aoiFeature !== null} onClick={deleteAllDrawsAOIs}> Remove AOI</Button>
+            <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download AOI</Button>
+            <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove all</Button>
             <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
 
             <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{map.demo2d ? 'Hide 2D demo' : 'Show 2D demo'}</Button>

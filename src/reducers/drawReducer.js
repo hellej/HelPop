@@ -55,26 +55,42 @@ export const startDrawing = () => {
 }
 
 export const deleteAllDrawsAOIs = () => {
-  return async (dispatch) => {
-    draw.deleteAll()
-    dispatch({ type: 'RESET_DRAW_AOI' })
-  }
+  draw.deleteAll()
+  return { type: 'RESET_DRAW_AOI' }
 }
 
 export const deleteSelectedDrawNode = () => {
-  return async (dispatch) => {
-    draw.trash()
-    dispatch({ type: 'DELETE_NODE' })
-    dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' })
-  }
+  draw.trash()
+  return { type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' }
 }
 
 export const drawSelectionChanged = () => {
+  const points = draw.getSelectedPoints().features
+  if (points.length === 0) {
+    return { type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' }
+  } else {
+    return { type: 'DRAW_MODE_CHANGED', drawMode: 'direct_select' }
+  }
+}
+
+export const updateDrawAreas = (e) => {
+  const updatedFeature = e.features[0]
+  const FC = draw
+    .setFeatureProperty(updatedFeature.id, 'area', utils.getArea(updatedFeature))
+    .getAll()
+  return { type: 'UPDATE_DRAW_AREAS', FC }
+}
+
+export const createDrawAreas = (e) => {
   return async (dispatch) => {
-    const points = draw.getSelectedPoints().features
-    if (points.length === 0) {
-      dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' })
-    } else { dispatch({ type: 'DRAW_MODE_CHANGED', drawMode: 'direct_select' }) }
+    const createdFeature = e.features[0]
+    const name = prompt('Please enter a name for the new area', `Alue ${draw.getAll().features.length}`)
+    const FC = draw
+      .setFeatureProperty(createdFeature.id, 'name', name)
+      .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
+      .getAll()
+    dispatch(showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9))
+    dispatch({ type: 'CREATE_DRAW_AREAS', FC })
   }
 }
 
