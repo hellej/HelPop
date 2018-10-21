@@ -55,7 +55,7 @@ describe('Drawing AOI', () => {
 describe('AOI Stats', () => {
 
   it('calculates the area of the AOI right', () => {
-    cy.contains('19 929 000')
+    cy.contains('19.93')
   })
 
   it('shows calculate population stats button', () => {
@@ -70,9 +70,9 @@ describe('AOI Stats', () => {
   })
 
   it('calculates population stats right', () => {
-    cy.contains('Population: 60 486')
-    cy.contains('Density: 3 035 /km2')
-    cy.contains('Urban Density: 6 011 /km2')
+    cy.contains('60 486')
+    cy.contains('3 035')
+    cy.contains('6 011')
   })
 })
 
@@ -100,10 +100,10 @@ describe('AOI management', () => {
     cy.contains('Upload AOI')
   })
 
-  it('can remove AOI with "Remove AOI" button', () => {
+  it('can remove AOI with "Remove all" button', () => {
     drawAOI()
     cy.wait(400)
-    cy.contains('Remove AOI').click()
+    cy.contains('Remove all').click()
     cy.contains('Draw AOI')
     cy.contains('Upload AOI')
   })
