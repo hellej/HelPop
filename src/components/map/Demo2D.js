@@ -13,13 +13,13 @@ class Demo2D extends React.Component {
     const { layerId, visible, mbPaintStyle } = this.props.demo2d
     const { basemap } = this.props.mapState
 
-    if (visible && !prevProps.mapState.demo2d) {
+    if (visible && !prevProps.demo2d.visible) {
       this.addGridLayer(this.props.map, layerId, censusFC, mbPaintStyle, 0)
     }
     if (visible && prevProps.mapState.basemap !== basemap) {
       this.addGridLayer(this.props.map, layerId, censusFC, mbPaintStyle, 1)
     }
-    if (!visible && prevProps.mapState.demo2d) {
+    if (!visible && prevProps.demo2d.visible) {
       this.props.map.removeLayer(layerId)
       this.props.map.removeSource(layerId)
     }

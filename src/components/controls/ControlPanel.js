@@ -23,7 +23,7 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const { draw, aoi, map } = this.props
+    const { draw, aoi, map, demo2d } = this.props
     const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawNode,
       calculatePopulationStats, downloadAOIasGeoJson, setBasemap, toggle2Ddemo } = this.props
 
@@ -39,7 +39,7 @@ class ControlPanel extends React.Component {
             <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove all</Button>
             <Button visible={draw.drawMode === 'direct_select'} onClick={deleteSelectedDrawNode}> Delete node</Button>
 
-            <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{map.demo2d ? 'Hide 2D demo' : 'Show 2D demo'}</Button>
+            <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{demo2d.visible ? 'Hide 2D demo' : 'Show 2D demo'}</Button>
             <Button visible={true} color='#b7fff6' onClick={this.toggleBasemapSelector}>
               {this.state.basemapsVisible ? 'Hide Basemaps' : 'Change Basemap'} </Button>
             {this.state.basemapsVisible && Object.keys(BASEMAPS).map(basemap =>
@@ -61,6 +61,7 @@ const mapStateToProps = (state) => ({
   draw: state.draw,
   aoi: state.aoi,
   map: state.map,
+  demo2d: state.demo2d,
 })
 
 const mapDispatchToProps = {
