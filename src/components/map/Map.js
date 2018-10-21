@@ -1,7 +1,7 @@
 import React from 'react'
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl.js'
 import { connect } from 'react-redux'
-import { initializeMap } from './../../reducers/mapReducer'
+import { initializeMap, updateCamera } from './../../reducers/mapReducer'
 
 MapboxGL.accessToken = process.env.REACT_APP_MB_ACCESS || 'Mapbox token is needed in order to use the map'
 
@@ -12,7 +12,6 @@ class Map extends React.Component {
     this.state = {
       isReady: false,
       loaded: false,
-      camera: { center: null, zoom: null },
       flying: false,
       initialCenter: { lng: 24.935486, lat: 60.215779 }
     }
@@ -53,7 +52,7 @@ class Map extends React.Component {
 
     this.map.on('moveend', () => {
       if (this.state.flying) this.map.fire('flyend')
-      this.setState({ camera: { zoom: this.map.getZoom(), center: this.map.getCenter() } })
+      this.props.updateCamera(this.map.getCenter(), this.map.getZoom())
     })
 
     this.map.on('flystart', () => {
@@ -124,5 +123,10 @@ class Map extends React.Component {
   }
 }
 
-const ConnectedMap = connect(null, { initializeMap })(Map)
+const mapDispatchToProps = {
+  initializeMap,
+  updateCamera,
+}
+
+const ConnectedMap = connect(null, mapDispatchToProps)(Map)
 export default ConnectedMap

@@ -43,6 +43,8 @@ export const notificationType = shape({
 export const mapType = shape({
   basemap: string.isRequired,
   initialized: bool.isRequired,
+  center: object.isRequired,
+  zoom: number.isRequired,
 })
 
 export const demo2dType = shape({
