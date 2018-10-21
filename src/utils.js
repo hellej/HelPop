@@ -17,8 +17,8 @@ export const getBuffer = (geojsonFeature, dist) => {
 }
 
 export const getArea = (geojsonFeature) => {
-  const m2 = area(geojsonFeature)
-  return Math.round(m2)
+  const m2 = Math.round(area(geojsonFeature))
+  return m2tokm2 * m2
 }
 
 export const getBbox = (geojsonFeature) => {
@@ -40,7 +40,7 @@ export const calculatePopulationStats = (aoiFeature) => {
   if (censusFeatures.length === 0) { return { totalPopulation: 0, populationDensity: 0, populationUrbanDensity: 0 } }
 
   const totalPopulation = calculateTotalPopulation(censusFeatures)
-  const populationDensity = Math.round(totalPopulation / (getArea(aoiFeature) * m2tokm2))
+  const populationDensity = Math.round(totalPopulation / (getArea(aoiFeature)))
   const populationUrbanDensity = Math.round(totalPopulation / (cellArea * censusFeatures.length * m2tokm2))
   return { totalPopulation, populationDensity, populationUrbanDensity }
 }

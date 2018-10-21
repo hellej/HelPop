@@ -19,7 +19,7 @@ const InfoBlock = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
 const TD = styled.td`
-  padding: 0 14px 0 0;
+  padding: 0 16px 0 0;
 `
 const TDvalue = styled(TD)`
   color: #88ff88;
@@ -34,9 +34,9 @@ const AOIareasTable = ({ features }) => {
           {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
         </tr>
         <tr>
-          <TD>Area (m2):</TD>
+          <TD>Area (km2):</TD>
           {features.map(feature => (
-            <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.area)}</TDvalue>))}
+            <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
         </tr>
       </tbody>
     </table>
@@ -52,9 +52,9 @@ const AOIpopulationTable = ({ features }) => {
           {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
         </tr>
         <tr>
-          <TD>Area (m2):</TD>
+          <TD>Area (km2):</TD>
           {features.map(feature => (
-            <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.area)}</TDvalue>))}
+            <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
         </tr>
         <tr>
           <TD>Population:</TD>
