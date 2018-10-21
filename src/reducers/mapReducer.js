@@ -21,7 +21,7 @@ const mapReducer = (store = initialMapState, action) => {
       return { ...store, basemap: action.basemap }
     }
     case 'SET_UPLOADED_AOI': {
-      const bbox = utils.getBbox(action.feature)
+      const bbox = utils.getBbox(utils.getBuffer(action.FC, 1000))
       map.fitBounds(bbox)
       return store
     }

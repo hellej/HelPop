@@ -1,6 +1,5 @@
 import * as utils from '../utils'
 import saveAs from 'file-saver'
-import { showNotification } from './notificationReducer'
 
 const initialAOIState = {
   FC: {
@@ -25,9 +24,10 @@ const aoiReducer = (store = initialAOIState, action) => {
         popStats: true,
       }
     case 'SET_UPLOADED_AOI':
-      // TODO
-      return store
-
+      return {
+        ...store,
+        FC: action.FC
+      }
     case 'CREATE_DRAW_AREAS':
     case 'UPDATE_DRAW_AREAS':
       return {
@@ -56,22 +56,6 @@ export const calculatePopulationStats = (FC) => {
           ...utils.calculatePopulationStats(feature),
         }
       }))
-    }
-  }
-}
-
-export const handleUploadFileChange = (file) => {
-  // TODO feature -> FC
-  return async (dispatch) => {
-    const feature = JSON.parse(file)
-    const error = utils.validateAOIFeature(feature)
-    if (error) {
-      dispatch(showNotification(error, 2, 5))
-      console.log('uploading failed')
-      return
-    } else {
-      dispatch({ type: 'SET_UPLOADED_AOI', feature })
-      dispatch(showNotification('AOI feature succesfully loaded', 3, 5))
     }
   }
 }

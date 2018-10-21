@@ -28,9 +28,7 @@ const drawReducer = (store = initialDrawState, action) => {
         drawMode: action.drawMode
       }
     case 'SET_UPLOADED_AOI': {
-      const aoiFC = utils.asFeatureCollection([action.feature])
-      console.log('action FC:', aoiFC)
-      draw.set(aoiFC)
+      draw.set(action.FC)
       return { ...store }
     }
     default:
@@ -91,6 +89,20 @@ export const createDrawAreas = (e) => {
       .getAll()
     dispatch(showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 3, 9))
     dispatch({ type: 'CREATE_DRAW_AREAS', FC })
+  }
+}
+
+export const handleUploadFileChange = (file) => {
+  return async (dispatch) => {
+    const fileFC = JSON.parse(file)
+    const error = utils.validateAOIFeature(fileFC)
+    if (error) {
+      dispatch(showNotification(error, 2, 5))
+    } else {
+      draw.set(fileFC)
+      dispatch({ type: 'SET_UPLOADED_AOI', FC: utils.addAreaAndNameToFC(draw.getAll()) })
+      dispatch(showNotification('AOI feature succesfully loaded', 3, 5))
+    }
   }
 }
 

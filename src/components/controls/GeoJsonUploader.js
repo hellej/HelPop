@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { handleUploadFileChange } from '../../reducers/aoiReducer'
+import { handleUploadFileChange } from '../../reducers/drawReducer'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`

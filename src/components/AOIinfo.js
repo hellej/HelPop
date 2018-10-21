@@ -77,7 +77,7 @@ const AOIpopulationTable = ({ features }) => {
 }
 
 const AOIinfo = ({ aoi }) => {
-  if (aoi.FC.features.length === 0) return null
+  if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
     <InfoBlock>
       {aoi.popStats

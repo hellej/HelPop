@@ -22,7 +22,7 @@ export const getArea = (geojsonFeature) => {
 }
 
 export const getBbox = (geojsonFeature) => {
-  return bbox(getBuffer(geojsonFeature, 1000))
+  return bbox(geojsonFeature)
 }
 
 export const getCensusPoints = (aoiFeature) => {
@@ -60,8 +60,23 @@ export const numberToStringWithSpaces = (value) => {
   return formattedString
 }
 
-export const validateAOIFeature = (feature) => {
-  console.log('uploading: ', feature)
+export const addAreaAndNameToFC = (FC) => {
+  return {
+    ...FC,
+    features: FC.features.map((feature, index) => ({
+      ...feature,
+      properties: {
+        ...feature.properties,
+        area: getArea(feature),
+        name: feature.properties.name ? feature.properties.name : `Alue ${index + 1}`
+      }
+    }))
+  }
+}
+
+export const validateAOIFeature = (FC) => {
+  console.log('uploading: ', FC)
+  const feature = FC.features[0]
   if (!feature.type || feature.type.localeCompare('feature') !== 1) return 'Uploaded feature is not a geojson feature'
   if (!feature.geometry) return 'Geometry is missing in the uploaded feature'
   if (!feature.geometry.coordinates || feature.geometry.coordinates[0].length < 3) return 'Geometry is missing in the uploaded feature'
