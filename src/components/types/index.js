@@ -1,22 +1,32 @@
 import { shape, number, string, bool, object, array, arrayOf } from 'prop-types'
 
+const featureGeometryType = shape({
+  coordinates: arrayOf(array).isRequired,
+  type: string.isRequired,
+})
+
 const featurePropertiesType = shape({
-  area: number.isRequired,
   name: string.isRequired,
+  area: number.isRequired,
+  totalPopulation: number,
+  populationDensity: number,
+  populationUrbanDensity: number,
 })
 
 const featureType = shape({
-  type: string.isRequired,
   id: string.isRequired,
-  geometry: object.isRequired,
+  type: string.isRequired,
   properties: featurePropertiesType.isRequired,
+  geometry: featureGeometryType.isRequired,
+})
+
+const featureCollectionType = shape({
+  type: string.isRequired,
+  features: arrayOf(featureType).isRequired
 })
 
 export const aoiType = shape({
-  FC: shape({
-    type: string.isRequired,
-    features: arrayOf(featureType).isRequired
-  }),
+  FC: featureCollectionType.isRequired,
   popStats: bool.isRequired,
 })
 
@@ -31,8 +41,8 @@ export const notificationType = shape({
 })
 
 export const mapType = shape({
-  initialized: bool.isRequired,
   basemap: string.isRequired,
+  initialized: bool.isRequired,
 })
 
 export const demo2dType = shape({
