@@ -75,14 +75,15 @@ export const addAreaAndNameToFC = (FC) => {
 }
 
 export const validateAOIFeature = (FC) => {
-  console.log('uploading: ', FC)
-  const feature = FC.features[0]
-  if (!feature.type || feature.type.localeCompare('feature') !== 1) return 'Uploaded feature is not a geojson feature'
-  if (!feature.geometry) return 'Geometry is missing in the uploaded feature'
-  if (!feature.geometry.coordinates || feature.geometry.coordinates[0].length < 3) return 'Geometry is missing in the uploaded feature'
-  if (feature.geometry.type.localeCompare('polygon') === 0 &&
-    feature.geometry.type.localeCompare('multipolygon') === 0) { return 'Wrong geometry type in the uploaded file' }
-  return null
+  let error
+  FC.features.forEach(feature => {
+    if (!feature.type || feature.type !== 'Feature') { error = 'Uploaded feature is not a geojson feature' }
+    if (!feature.geometry) { error = 'Geometry is missing in the uploaded feature' }
+    if (!feature.geometry.coordinates || feature.geometry.coordinates[0].length < 3) { error = 'Geometry is missing in the uploaded feature' }
+    if (feature.geometry.type !== 'Polygon' &&
+      feature.geometry.type !== 'MultiPolygon') { error = 'Wrong geometry type in the uploaded file' }
+  })
+  return error
 }
 
 export const mbPaintStyle = (colorsValues) => {
