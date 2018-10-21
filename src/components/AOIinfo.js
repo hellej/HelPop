@@ -12,8 +12,7 @@ const StyledAOIinfoDiv = styled.div`
   letter-spacing: 0.6px;
 `
 const InfoBlock = styled.div`
-  display: ${props => props.hidden ? 'none' : ''};
-  padding: 7px 13px 7px 13px;
+  padding: 7px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 10px;
   border-radius: 10px;
@@ -28,28 +27,76 @@ const InfoBlock = styled.div`
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
-const InfoValue = styled.span`
+const Table = styled.table`
+  padding-right: -10px;
+`
+const TD = styled.td`
+  padding: 0 13px 0 0;
+`
+const TDvalue = styled(TD)`
   color: #88ff88;
 `
 
-class AOIinfo extends React.Component {
-  render() {
-    if (this.props.aoi.FC.features.length === 0) { return null }
-    const { area, totalPopulation, populationDensity, populationUrbanDensity } = this.props.aoi.FC.features[0].properties
-    return (
-      <StyledAOIinfoDiv>
+const AOIareasTable = ({ features }) => {
+  return (
+    <tbody>
+      <tr>
+        <TD>Name:</TD>
+        {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
+      </tr>
+      <tr>
+        <TD>Area (m2):</TD>
+        {features.map(feature => (
+          <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.area)}</TDvalue>))}
+      </tr>
+    </tbody>
+  )
+}
+
+const AOIpopulationTable = ({ features }) => {
+  return (
+    <tbody>
+      <tr>
+        <TD>Name:</TD>
+        {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
+      </tr>
+      <tr>
+        <TD>Area (m2):</TD>
+        {features.map(feature => (
+          <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.area)}</TDvalue>))}
+      </tr>
+      <tr>
+        <TD>Population:</TD>
+        {features.map(feature => (
+          <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.totalPopulation)}</TDvalue>))}
+      </tr>
+      <tr>
+        <TD>Density (/km2):</TD>
+        {features.map(feature => (
+          <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationDensity)}</TDvalue>))}
+      </tr>
+      <tr>
+        <TD>Urban Density (/km2):</TD>
+        {features.map(feature => (
+          <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationUrbanDensity)}</TDvalue>))}
+      </tr>
+    </tbody>
+  )
+}
+
+const AOIinfo = ({ aoi }) => {
+  return (
+    <StyledAOIinfoDiv>
+      {aoi.FC.features.length !== 0 &&
         <InfoBlock>
-          Area: <InfoValue>{utils.numberToStringWithSpaces(area)} </InfoValue> m2 <br />
-          {this.props.aoi.popStats &&
-            <div>
-              Population: <InfoValue>{utils.numberToStringWithSpaces(totalPopulation)}</InfoValue> <br />
-              Density: <InfoValue>{utils.numberToStringWithSpaces(populationDensity)}</InfoValue> /km2 <br />
-              Urban Density: <InfoValue>{utils.numberToStringWithSpaces(populationUrbanDensity)}</InfoValue> /km2
-              </div>}
-        </InfoBlock>
-      </StyledAOIinfoDiv>
-    )
-  }
+          <Table>
+            {aoi.popStats
+              ? <AOIpopulationTable features={aoi.FC.features} />
+              : <AOIareasTable features={aoi.FC.features} />}
+          </Table>
+        </InfoBlock>}
+    </StyledAOIinfoDiv>
+  )
 }
 
 AOIinfo.propTypes = {
