@@ -89,7 +89,7 @@ export const createDrawAreas = (e) => {
       .setFeatureProperty(createdFeature.id, 'name', name)
       .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
       .getAll()
-    dispatch(showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 1, 9))
+    dispatch(showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 3, 9))
     dispatch({ type: 'CREATE_DRAW_AREAS', FC })
   }
 }

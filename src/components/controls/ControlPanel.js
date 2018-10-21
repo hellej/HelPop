@@ -10,7 +10,7 @@ import { toggle2Ddemo } from '../../reducers/demo2dReducer'
 import GeoJsonUploader from './GeoJsonUploader'
 import { Button } from './Button'
 
-class Controls extends React.Component {
+class ControlPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -51,7 +51,7 @@ class Controls extends React.Component {
   }
 }
 
-Controls.propTypes = {
+ControlPanel.propTypes = {
   aoi: aoiType.isRequired,
   draw: drawType.isRequired,
   map: mapType.isRequired,
@@ -73,6 +73,6 @@ const mapDispatchToProps = {
   toggle2Ddemo,
 }
 
-const ConnectedControls = connect(mapStateToProps, mapDispatchToProps)(Controls)
+const ConnectedControlPanel = connect(mapStateToProps, mapDispatchToProps)(ControlPanel)
 
-export default ConnectedControls
+export default ConnectedControlPanel

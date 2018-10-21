@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import AOIinfo from './components/AOIinfo'
 import Legend from './components/Legend'
 import Notification from './components/Notification'
-import Controls from './components/controls/Controls'
+import ControlPanel from './components/controls/ControlPanel'
 import Demo2D from './components/map/Demo2D'
 
 export const StyledMenuContainer = styled.div`
@@ -31,7 +31,7 @@ class App extends React.Component {
         </Map>
         <StyledMenuContainer>
           <AOIinfo />
-          <Controls />
+          <ControlPanel />
           <Legend />
         </StyledMenuContainer>
         <Notification />
