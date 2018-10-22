@@ -3,10 +3,21 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { demo2dType } from './types'
 
+export const LegendContainer = styled.div`
+  position: absolute;
+  bottom: 39px;
+  right: 2px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  letter-spacing: 0.6px;
+  pointer-events: none;
+`
 const FlexDiv = styled.div`
   max-width: 95%;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   flex-wrap: wrap;
   letter-spacing: 0.6px;
 `
@@ -14,13 +25,11 @@ const BlackBox = styled.div`
   display: ${props => props.visible ? '' : 'none'};
   padding: 7px 13px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
-  margin: 5px 10px;
+  margin: 5px 0px 5px 5px;
   border-radius: 10px;
   font-weight: 300;
   color: white;
   font-size: 15px;
-  width: max-content;
-  max-width: 90%;  
   overflow: auto;
   height: min-content;
   pointer-events: auto;
@@ -32,6 +41,7 @@ const LegendItem = styled.div`
   display: flex;
   flex-direction: row;
   padding: 2px;
+  width: max-content;
 `
 
 const ColorBox = styled.div`
@@ -57,13 +67,15 @@ class Legend extends React.Component {
   render() {
     const { visible, legendClasses } = this.props.demo2d
     return (
-      <FlexDiv>
-        <BlackBox visible={visible}>
-          {visible && legendClasses.map(colorClass => (
-            <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
-          ))}
-        </BlackBox>
-      </FlexDiv>
+      <LegendContainer>
+        <FlexDiv>
+          <BlackBox visible={visible}>
+            {visible && legendClasses.map(colorClass => (
+              <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
+            ))}
+          </BlackBox>
+        </FlexDiv>
+      </LegendContainer>
     )
   }
 }

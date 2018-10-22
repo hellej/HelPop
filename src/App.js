@@ -32,8 +32,8 @@ class App extends React.Component {
         <StyledMenuContainer>
           <AOIinfo />
           <ControlPanel />
-          <Legend />
         </StyledMenuContainer>
+        <Legend />
         <Notification />
       </div>
     )
