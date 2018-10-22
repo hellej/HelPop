@@ -36,10 +36,10 @@ class ControlPanel extends React.Component {
       <div>
         {draw.initialized &&
           <div>
-            <ButtonGroup>
-              <Button visible={aoi.FC.features.length !== 0 && !aoi.popStats}
-                onClick={() => calculatePopulationStats(aoi.FC)}> Calculate Population</Button>
-            </ButtonGroup>
+            {aoi.FC.features.length !== 0 && !aoi.popStats &&
+              <ButtonGroup>
+                <Button visible={true} onClick={() => calculatePopulationStats(aoi.FC)}> Calculate Population</Button>
+              </ButtonGroup>}
             <ButtonGroup>
               <Button visible={true} onClick={startDrawing}> Draw Area</Button>
               <Button visible={true} onClick={() => createAddCircle(map.center)}> Add Circle</Button>

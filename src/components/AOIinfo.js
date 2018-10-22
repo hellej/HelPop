@@ -7,7 +7,7 @@ import { aoiType } from './types'
 const InfoBlock = styled.div`
   padding: 7px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
-  margin: 5px 10px;
+  margin: 5px 10px 15px 10px;
   border-radius: 10px;
   font-weight: 300;
   color: white;
