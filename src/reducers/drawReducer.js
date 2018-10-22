@@ -57,7 +57,7 @@ export const deleteAllDrawsAOIs = () => {
   return { type: 'RESET_DRAW_AOI' }
 }
 
-export const deleteSelectedDrawNode = () => {
+export const deleteSelectedDrawing = () => {
   draw.trash()
   return { type: 'DRAW_MODE_CHANGED', drawMode: 'simple_select' }
 }

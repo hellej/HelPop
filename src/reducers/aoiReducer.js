@@ -28,6 +28,14 @@ const aoiReducer = (store = initialAOIState, action) => {
         ...store,
         FC: action.FC
       }
+    case 'REMOVE_AOIS':
+      return {
+        ...store,
+        FC: {
+          ...store.FC,
+          features: store.FC.features.filter(feature => action.IDs.indexOf(feature.id) === -1)
+        }
+      }
     case 'CREATE_DRAW_AREAS':
     case 'UPDATE_DRAW_AREAS':
       return {
@@ -58,6 +66,10 @@ export const calculatePopulationStats = (FC) => {
       }))
     }
   }
+}
+
+export const removeAOIs = (features) => {
+  return { type: 'REMOVE_AOIS', IDs: features.map(feature => feature.id) }
 }
 
 export const downloadAOIasGeoJson = (FC) => {
