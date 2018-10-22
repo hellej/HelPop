@@ -93,7 +93,7 @@ export const createAddCircle = (center) => {
 
 export const createDrawAreas = (e) => {
   const createdFeature = e.features[0]
-  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
+  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
   const FC = draw
     .setFeatureProperty(createdFeature.id, 'name', name)
     .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))

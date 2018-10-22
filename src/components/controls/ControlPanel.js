@@ -47,9 +47,9 @@ class ControlPanel extends React.Component {
               <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download Areas</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove Areas</Button>
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteSelectedDrawing}>
                 {draw.drawMode === 'direct_select' ? 'Remove Node' : 'Remove Selected'}</Button>
+              <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove All</Button>
             </ButtonGroup>
             <ButtonGroup>
               <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{demo2d.visible ? 'Hide 2D Demo' : 'Show 2D Demo'}</Button>
