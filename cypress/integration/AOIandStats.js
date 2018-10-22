@@ -1,9 +1,9 @@
 describe('App menu', () => {
 
-  it('contains AOI buttons', () => {
+  it('contains controls (buttons)', () => {
     cy.visit('/')
-    cy.contains('Draw AOI')
-    cy.contains('Upload AOI')
+    cy.contains('Draw Area')
+    cy.contains('Upload Area')
   })
 
   it('can toggle basemap options', () => {
@@ -16,14 +16,14 @@ describe('App menu', () => {
   })
 })
 
-describe('Drawing AOI', () => {
+describe('Drawing areas', () => {
 
   it('shows notification on draw start', () => {
-    cy.contains('Draw AOI').click()
+    cy.contains('Draw Area').click()
     cy.contains('Finish drawing')
   })
 
-  it('can draw AOI polygon', () => {
+  it('can draw an area', () => {
     cy.get('.mapboxgl-canvas')
       .wait(600)
       .trigger('mousedown', 265, 360)
@@ -43,18 +43,14 @@ describe('Drawing AOI', () => {
       .trigger('mouseup', 265, 360)
   })
 
-  it('shows notification on draw finish', () => {
-    cy.contains('AOI created')
-  })
-
   it('shows area (m2) after finishing drawing', () => {
     cy.contains('Area')
   })
 })
 
-describe('AOI Stats', () => {
+describe('Area Stats', () => {
 
-  it('calculates the area of the AOI right', () => {
+  it('calculates the area of the area right', () => {
     cy.contains('19.93')
   })
 
@@ -76,41 +72,41 @@ describe('AOI Stats', () => {
   })
 })
 
-describe('AOI management', () => {
+describe('Area management', () => {
 
-  it('shows delete node option on node selected', () => {
+  it('shows remove node option on node selected', () => {
     cy.get('.mapboxgl-canvas')
       .wait(400)
       .trigger('mousedown', 265, 360)
       .wait(400)
       .trigger('mouseup', 265, 360)
-    cy.contains('Delete node')
+    cy.contains('Remove Node')
   })
 
-  it('can delete polygon by deleting all nodes', () => {
-    cy.contains('Delete node').click()
+  it('can remove polygon by removing all nodes', () => {
+    cy.contains('Remove Node').click()
     cy.get('.mapboxgl-canvas')
       .wait(400)
       .trigger('mousedown', 265, 460)
       .wait(400)
       .trigger('mouseup', 265, 460)
-    cy.contains('Delete node').click()
+    cy.contains('Remove Node').click()
 
-    cy.contains('Draw AOI')
-    cy.contains('Upload AOI')
+    cy.contains('Draw Area')
+    cy.contains('Upload Areas')
   })
 
-  it('can remove AOI with "Remove all" button', () => {
-    drawAOI()
+  it('can remove areas with "Remove Areas" button', () => {
+    drawArea()
     cy.wait(400)
-    cy.contains('Remove all').click()
-    cy.contains('Draw AOI')
-    cy.contains('Upload AOI')
+    cy.contains('Remove Areas').click()
+    cy.contains('Draw Area')
+    cy.contains('Upload Area')
   })
 })
 
-const drawAOI = () => {
-  cy.contains('Draw AOI').click()
+const drawArea = () => {
+  cy.contains('Draw Area').click()
   cy.get('.mapboxgl-canvas')
     .wait(600)
     .trigger('mousedown', 265, 360)
