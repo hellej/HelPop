@@ -26,7 +26,8 @@ const aoiReducer = (store = initialAOIState, action) => {
     case 'SET_UPLOADED_AOI':
       return {
         ...store,
-        FC: action.FC
+        FC: action.FC,
+        popStats: false
       }
     case 'REMOVE_AOIS':
       return {
