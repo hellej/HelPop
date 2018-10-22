@@ -82,6 +82,7 @@ export const updateDrawAreas = (e) => {
 export const createAddCircle = (center) => {
   const radius = prompt('Please define the radius of the area in meters:', 2000)
   const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
+  if (radius === null || name === null || radius === '' || name === '') return { type: 'CANCEL_ADD_CIRCLE' }
   const circle = utils.getCircle([center.lng, center.lat], radius)
   const IDs = draw.add(circle)
   const FC = draw
@@ -93,7 +94,11 @@ export const createAddCircle = (center) => {
 
 export const createDrawAreas = (e) => {
   const createdFeature = e.features[0]
-  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
+  let name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
+  if (name === null || name === '') {
+    draw.delete([createdFeature.id])
+    return { type: 'CANCEL_CREATE_AREA' }
+  }
   const FC = draw
     .setFeatureProperty(createdFeature.id, 'name', name)
     .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
