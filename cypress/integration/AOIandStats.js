@@ -99,7 +99,7 @@ describe('Area management', () => {
   it('can remove areas with "Remove Areas" button', () => {
     drawArea()
     cy.wait(400)
-    cy.contains('Remove Areas').click()
+    cy.contains('Remove All').click()
     cy.contains('Draw Area')
     cy.contains('Upload Area')
   })
