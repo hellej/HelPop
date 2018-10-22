@@ -62,7 +62,7 @@ const GeoJsonUploader = (props) => {
         accept='.geojson'
         onChange={e => handleFileChosen(e.target)}>
       </StyledInput>
-      <StyledInputLabel htmlFor="file">Upload AOI</StyledInputLabel>
+      <StyledInputLabel htmlFor="file">Upload Areas</StyledInputLabel>
     </StyledDiv>
   )
 }

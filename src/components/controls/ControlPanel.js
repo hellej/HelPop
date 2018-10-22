@@ -41,15 +41,15 @@ class ControlPanel extends React.Component {
                 onClick={() => calculatePopulationStats(aoi.FC)}> Calculate Population</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={true} onClick={startDrawing}> Draw AOI</Button>
+              <Button visible={true} onClick={startDrawing}> Draw Area</Button>
               <GeoJsonUploader />
-              <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download AOI</Button>
+              <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download Areas</Button>
+              <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove Areas</Button>
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteSelectedDrawing}>
-                {draw.drawMode === 'direct_select' ? 'Remove node' : 'Remove AOI'}</Button>
-              <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove all</Button>
+                {draw.drawMode === 'direct_select' ? 'Remove Node' : 'Remove Selected'}</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{demo2d.visible ? 'Hide 2D demo' : 'Show 2D demo'}</Button>
+              <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{demo2d.visible ? 'Hide 2D Demo' : 'Show 2D Demo'}</Button>
               <Button visible={true} color='#b7fff6' onClick={this.toggleBasemapSelector}>
                 {this.state.basemapsVisible ? 'Hide Basemaps' : 'Change Basemap'} </Button>
               {this.state.basemapsVisible && Object.keys(BASEMAPS).map(basemap =>

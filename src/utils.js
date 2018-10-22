@@ -68,7 +68,7 @@ export const addAreaAndNameToFC = (FC) => {
       properties: {
         ...feature.properties,
         area: getArea(feature),
-        name: feature.properties.name ? feature.properties.name : `Alue ${index + 1}`
+        name: feature.properties.name ? feature.properties.name : `Area ${index + 1}`
       }
     }))
   }
