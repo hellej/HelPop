@@ -23,7 +23,7 @@ const FlexDiv = styled.div`
 `
 const BlackBox = styled.div`
   display: ${props => props.visible ? '' : 'none'};
-  padding: 7px 13px 7px 13px;
+  padding: 5px 13px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 0px 5px 5px;
   border-radius: 10px;
@@ -65,11 +65,12 @@ const ColorClass = ({ color, range }) => {
 class Legend extends React.Component {
 
   render() {
-    const { visible, legendClasses } = this.props.demo2d
+    const { visible, legendClasses, legendName } = this.props.demo2d
     return (
       <LegendContainer>
         <FlexDiv>
           <BlackBox visible={visible}>
+            <div>{legendName}</div>
             {visible && legendClasses.map(colorClass => (
               <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
             ))}

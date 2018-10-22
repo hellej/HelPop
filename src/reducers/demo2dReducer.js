@@ -13,6 +13,7 @@ const initialDemo2dState = {
   layerId: 'demo2d',
   colorSteps: colorSteps,
   legendClasses: [],
+  legendName: 'Population',
   mbPaintStyle: null,
 }
 
