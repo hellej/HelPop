@@ -45,6 +45,8 @@ class ControlPanel extends React.Component {
               <Button visible={true} onClick={() => createAddCircle(map.center)}> Add Circle</Button>
               <GeoJsonUploader />
               <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download Areas</Button>
+            </ButtonGroup>
+            <ButtonGroup>
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove Areas</Button>
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteSelectedDrawing}>
                 {draw.drawMode === 'direct_select' ? 'Remove Node' : 'Remove Selected'}</Button>

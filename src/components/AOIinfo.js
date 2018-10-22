@@ -19,7 +19,7 @@ const InfoBlock = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
 const TD = styled.td`
-  padding: 0 16px 0 0;
+  padding: 0 18px 0 0;
 `
 const TDvalue = styled(TD)`
   color: #88ff88;

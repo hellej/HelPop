@@ -92,16 +92,13 @@ export const createAddCircle = (center) => {
 }
 
 export const createDrawAreas = (e) => {
-  return async (dispatch) => {
-    const createdFeature = e.features[0]
-    const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
-    const FC = draw
-      .setFeatureProperty(createdFeature.id, 'name', name)
-      .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
-      .getAll()
-    dispatch(showNotification('AOI created. Start editing by clicking a node. Drag polygon if it needs to be moved.', 3, 9))
-    dispatch({ type: 'CREATE_DRAW_AREAS', FC })
-  }
+  const createdFeature = e.features[0]
+  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
+  const FC = draw
+    .setFeatureProperty(createdFeature.id, 'name', name)
+    .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
+    .getAll()
+  return { type: 'CREATE_DRAW_AREAS', FC }
 }
 
 export const handleUploadFileChange = (file) => {
@@ -113,7 +110,7 @@ export const handleUploadFileChange = (file) => {
     } else {
       draw.set(fileFC)
       dispatch({ type: 'SET_UPLOADED_AOI', FC: utils.addAreaAndNameToFC(draw.getAll()) })
-      dispatch(showNotification('AOI feature succesfully loaded', 3, 5))
+      dispatch(showNotification('Areas succesfully loaded', 3, 5))
     }
   }
 }
