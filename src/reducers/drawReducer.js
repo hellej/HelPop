@@ -79,6 +79,18 @@ export const updateDrawAreas = (e) => {
   return { type: 'UPDATE_DRAW_AREAS', FC }
 }
 
+export const createAddCircle = (center) => {
+  const radius = prompt('Please define the radius of the area in meters:', 2000)
+  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
+  const circle = utils.getCircle([center.lng, center.lat], radius)
+  const IDs = draw.add(circle)
+  const FC = draw
+    .setFeatureProperty(IDs[0], 'area', utils.getArea(circle))
+    .setFeatureProperty(IDs[0], 'name', name)
+    .getAll()
+  return { type: 'UPDATE_DRAW_AREAS', FC }
+}
+
 export const createDrawAreas = (e) => {
   return async (dispatch) => {
     const createdFeature = e.features[0]

@@ -1,6 +1,7 @@
 import area from '@turf/area'
 import bbox from '@turf/bbox'
 import buffer from '@turf/buffer'
+import circle from '@turf/circle'
 import pointsWithinPolygon from '@turf/points-within-polygon'
 import * as censusFC from './data/vaesto-250m-2017-centr.json'
 import { featureCollection } from '@turf/helpers'
@@ -23,6 +24,11 @@ export const getArea = (geojsonFeature) => {
 
 export const getBbox = (geojsonFeature) => {
   return bbox(geojsonFeature)
+}
+
+export const getCircle = (center, radius) => {
+  const options = { steps: 64, units: 'meters' }
+  return circle(center, radius, options)
 }
 
 export const getCensusPoints = (aoiFeature) => {

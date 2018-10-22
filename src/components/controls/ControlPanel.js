@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { BASEMAPS } from '../../constants'
 import { aoiType, drawType, mapType } from '../types'
-import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing } from '../../reducers/drawReducer'
+import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircle } from '../../reducers/drawReducer'
 import { calculatePopulationStats, downloadAOIasGeoJson } from '../../reducers/aoiReducer'
 import { setBasemap } from '../../reducers/mapReducer'
 import { toggle2Ddemo } from '../../reducers/demo2dReducer'
@@ -29,7 +29,7 @@ class ControlPanel extends React.Component {
 
   render() {
     const { draw, aoi, map, demo2d } = this.props
-    const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing,
+    const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircle,
       calculatePopulationStats, downloadAOIasGeoJson, setBasemap, toggle2Ddemo } = this.props
 
     return (
@@ -42,6 +42,7 @@ class ControlPanel extends React.Component {
             </ButtonGroup>
             <ButtonGroup>
               <Button visible={true} onClick={startDrawing}> Draw Area</Button>
+              <Button visible={true} onClick={() => createAddCircle(map.center)}> Add Circle</Button>
               <GeoJsonUploader />
               <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download Areas</Button>
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove Areas</Button>
@@ -79,6 +80,7 @@ const mapDispatchToProps = {
   startDrawing,
   deleteAllDrawsAOIs,
   deleteSelectedDrawing,
+  createAddCircle,
   calculatePopulationStats,
   downloadAOIasGeoJson,
   setBasemap,
