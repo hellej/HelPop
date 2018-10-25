@@ -1,10 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { connect } from 'react-redux'
 import * as utils from '../utils'
 import { aoiType } from './types'
 import { Button } from './controls/Button'
 import { hidePopulationStats } from './../reducers/aoiReducer'
+import { zoomToFeature } from './../reducers/mapReducer'
 
 const InfoBlock = styled.div`
   padding: 7px 7px 7px 13px;
@@ -26,18 +27,30 @@ const TD = styled.td`
   // font-weight: ${props => props.mapHovered ? '350' : '300'}; 
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
+  ${props => props.aoiName && css`
+    &:hover { 
+      color: #70f7ff; 
+      cursor: pointer;
+  }
+`}
 `
 const TDvalue = styled(TD)`
   color: #88ff88;
 `
 
-const AOIareasTable = ({ features, mapHoveredId }) => {
+const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
   return (
     <table>
       <tbody>
         <tr>
           <TD>Name:</TD>
-          {features.map(feature => (<TD key={feature.id} mapHovered={feature.id === mapHoveredId}>{feature.properties.name}</TD>))}
+          {features.map(feature => (
+            <TD aoiName
+              key={feature.id}
+              mapHovered={feature.id === mapHoveredId}
+              onClick={() => zoomToFeature(feature)}>
+              {feature.properties.name}
+            </TD>))}
         </tr>
         <tr>
           <TD>Area (km2):</TD>
@@ -49,14 +62,20 @@ const AOIareasTable = ({ features, mapHoveredId }) => {
   )
 }
 
-const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId }) => {
+const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId, zoomToFeature }) => {
   return (
     <div>
       <table>
         <tbody>
           <tr>
             <TD>Name:</TD>
-            {features.map(feature => (<TD key={feature.id} mapHovered={feature.id === mapHoveredId}>{feature.properties.name}</TD>))}
+            {features.map(feature => (
+              <TD aoiName
+                key={feature.id}
+                mapHovered={feature.id === mapHoveredId}
+                onClick={() => zoomToFeature(feature)}>
+                {feature.properties.name}
+              </TD>))}
           </tr>
           <tr>
             <TD>Area (km2):</TD>
@@ -85,7 +104,7 @@ const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId }) => 
   )
 }
 
-const AOIinfo = ({ aoi, hidePopulationStats }) => {
+const AOIinfo = ({ aoi, hidePopulationStats, zoomToFeature }) => {
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
     <InfoBlock>
@@ -93,11 +112,13 @@ const AOIinfo = ({ aoi, hidePopulationStats }) => {
         ? <AOIpopulationTable
           features={aoi.FC.features}
           mapHoveredId={aoi.mapHoveredId}
-          hidePopulationStats={hidePopulationStats}>
+          hidePopulationStats={hidePopulationStats}
+          zoomToFeature={zoomToFeature}>
         </AOIpopulationTable>
         : <AOIareasTable
           features={aoi.FC.features}
-          mapHoveredId={aoi.mapHoveredId}>
+          mapHoveredId={aoi.mapHoveredId}
+          zoomToFeature={zoomToFeature}>
         </AOIareasTable>}
     </InfoBlock>
   )
@@ -111,5 +132,10 @@ const mapStateToProps = (state) => ({
   aoi: state.aoi
 })
 
-const ConnectedAOIinfo = connect(mapStateToProps, { hidePopulationStats })(AOIinfo)
+const mapDispatchToProps = {
+  hidePopulationStats,
+  zoomToFeature,
+}
+
+const ConnectedAOIinfo = connect(mapStateToProps, mapDispatchToProps)(AOIinfo)
 export default ConnectedAOIinfo

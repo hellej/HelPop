@@ -55,11 +55,11 @@ describe('Area Stats', () => {
   })
 
   it('shows calculate population stats button', () => {
-    cy.contains('Calculate Population')
+    cy.contains('Show Population')
   })
 
   it('shows population stats', () => {
-    cy.contains('Calculate Population').click()
+    cy.contains('Show Population').click()
     cy.contains('Population')
     cy.contains('Density')
     cy.contains('Urban Density')

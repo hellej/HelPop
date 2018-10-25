@@ -24,6 +24,11 @@ const mapReducer = (store = initialMapState, action) => {
     case 'UPDATE_CAMERA': {
       return { ...store, center: action.center, zoom: action.zoom }
     }
+    case 'ZOOM_TO_FEATURE': {
+      const bbox = utils.getBbox(utils.getBuffer(action.feature, 1000))
+      map.fitBounds(bbox)
+      return store
+    }
     case 'SET_UPLOADED_AOI': {
       const bbox = utils.getBbox(utils.getBuffer(action.FC, 1000))
       map.fitBounds(bbox)
@@ -37,6 +42,10 @@ const mapReducer = (store = initialMapState, action) => {
 export const initializeMap = (mapObject) => {
   map = mapObject
   return { type: 'INITIALIZE_MAP' }
+}
+
+export const zoomToFeature = (feature) => {
+  return { type: 'ZOOM_TO_FEATURE', feature }
 }
 
 export const updateCamera = (center, zoom) => {
