@@ -38,12 +38,12 @@ const aoiReducer = (store = initialAOIState, action) => {
         }
       }
     case 'CREATE_DRAW_AREAS':
-    case 'UPDATE_DRAW_AREAS':
+    case 'UPDATE_DRAW_AREAS': {
       return {
         ...store,
-        popStats: false,
-        FC: action.FC,
+        FC: store.popStats ? getAddPopulationStats(action.FC) : action.FC
       }
+    }
     default:
       return store
   }
@@ -55,17 +55,7 @@ export const deleteAOI = () => {
 
 export const calculatePopulationStats = (FC) => {
   return {
-    type: 'POPULATION_CALCULATED',
-    FC: {
-      ...FC,
-      features: FC.features.map(feature => ({
-        ...feature,
-        properties: {
-          ...feature.properties,
-          ...utils.calculatePopulationStats(feature),
-        }
-      }))
-    }
+    type: 'POPULATION_CALCULATED', FC: getAddPopulationStats(FC)
   }
 }
 
@@ -78,6 +68,19 @@ export const downloadAOIasGeoJson = (FC) => {
   const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
   saveAs(blob, 'aoi.geojson')
   return { type: 'AOI_DOWNLOADED' }
+}
+
+const getAddPopulationStats = (FC) => {
+  return {
+    ...FC,
+    features: FC.features.map(feature => ({
+      ...feature,
+      properties: {
+        ...feature.properties,
+        ...utils.calculatePopulationStats(feature),
+      }
+    }))
+  }
 }
 
 export default aoiReducer
