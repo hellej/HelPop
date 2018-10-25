@@ -6,7 +6,8 @@ const initialAOIState = {
     type: 'FeatureCollection',
     features: []
   },
-  popStats: false
+  popStats: false,
+  mapHoveredId: '',
 }
 
 const aoiReducer = (store = initialAOIState, action) => {
@@ -25,6 +26,12 @@ const aoiReducer = (store = initialAOIState, action) => {
       }
     case 'HIDE_POPULATION_STATS':
       return { ...store, popStats: false }
+
+    case 'SET_MAP_HOVERED_ID':
+      return { ...store, mapHoveredId: action.id }
+
+    case 'UNSET_MAP_HOVERED_ID':
+      return { ...store, mapHoveredId: '' }
 
     case 'SET_UPLOADED_AOI':
       return {
@@ -66,6 +73,14 @@ export const hidePopulationStats = () => {
 
 export const removeAOIs = (features) => {
   return { type: 'REMOVE_AOIS', IDs: features.map(feature => feature.id) }
+}
+
+export const setMapHoveredAOI = (id) => {
+  return { type: 'SET_MAP_HOVERED_ID', id }
+}
+
+export const unsetMapHoveredAOI = () => {
+  return { type: 'UNSET_MAP_HOVERED_ID' }
 }
 
 export const downloadAOIasGeoJson = (FC) => {

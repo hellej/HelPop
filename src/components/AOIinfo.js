@@ -22,18 +22,22 @@ const InfoBlock = styled.div`
 `
 const TD = styled.td`
   padding: 0 18px 0 0;
+  color: ${props => props.mapHovered ? '#70f7ff' : 'white'}; 
+  // font-weight: ${props => props.mapHovered ? '350' : '300'}; 
+  transition-duration: 0.15s;
+  -webkit-transition-duration: 0.15s; /* Safari */
 `
 const TDvalue = styled(TD)`
   color: #88ff88;
 `
 
-const AOIareasTable = ({ features }) => {
+const AOIareasTable = ({ features, mapHoveredId }) => {
   return (
     <table>
       <tbody>
         <tr>
           <TD>Name:</TD>
-          {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
+          {features.map(feature => (<TD key={feature.id} mapHovered={feature.id === mapHoveredId}>{feature.properties.name}</TD>))}
         </tr>
         <tr>
           <TD>Area (km2):</TD>
@@ -45,14 +49,14 @@ const AOIareasTable = ({ features }) => {
   )
 }
 
-const AOIpopulationTable = ({ features, hidePopulationStats }) => {
+const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId }) => {
   return (
     <div>
       <table>
         <tbody>
           <tr>
             <TD>Name:</TD>
-            {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
+            {features.map(feature => (<TD key={feature.id} mapHovered={feature.id === mapHoveredId}>{feature.properties.name}</TD>))}
           </tr>
           <tr>
             <TD>Area (km2):</TD>
@@ -86,8 +90,15 @@ const AOIinfo = ({ aoi, hidePopulationStats }) => {
   return (
     <InfoBlock>
       {aoi.popStats
-        ? <AOIpopulationTable features={aoi.FC.features} hidePopulationStats={hidePopulationStats} />
-        : <AOIareasTable features={aoi.FC.features} />}
+        ? <AOIpopulationTable
+          features={aoi.FC.features}
+          mapHoveredId={aoi.mapHoveredId}
+          hidePopulationStats={hidePopulationStats}>
+        </AOIpopulationTable>
+        : <AOIareasTable
+          features={aoi.FC.features}
+          mapHoveredId={aoi.mapHoveredId}>
+        </AOIareasTable>}
     </InfoBlock>
   )
 }

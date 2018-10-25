@@ -2,7 +2,7 @@ import React from 'react'
 import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js'
 import { connect } from 'react-redux'
 import { initializeDraw, drawSelectionChanged, createDrawAreas, updateDrawAreas } from './../../reducers/drawReducer'
-import { removeAOIs } from './../../reducers/aoiReducer'
+import { removeAOIs, setMapHoveredAOI, unsetMapHoveredAOI } from './../../reducers/aoiReducer'
 import { showNotification } from './../../reducers/notificationReducer'
 
 class Draw extends React.Component {
@@ -13,7 +13,8 @@ class Draw extends React.Component {
 
   componentDidMount() {
     const { map, initializeDraw, drawSelectionChanged,
-      createDrawAreas, updateDrawAreas, removeAOIs } = this.props
+      createDrawAreas, updateDrawAreas, removeAOIs,
+      setMapHoveredAOI, unsetMapHoveredAOI } = this.props
 
     map.on('load', () => map.addControl(this.draw))
     initializeDraw(this.draw)
@@ -23,6 +24,12 @@ class Draw extends React.Component {
     map.on('draw.delete', (e) => removeAOIs(e.features))
     map.on('draw.update', (e) => updateDrawAreas(e))
     map.on('draw.create', (e) => createDrawAreas(e))
+
+    map.on('mouseenter', 'gl-draw-polygon-fill-inactive.cold', (e) => setMapHoveredAOI(e.features[0].properties.id))
+    map.on('mouseleave', 'gl-draw-polygon-fill-inactive.cold', () => unsetMapHoveredAOI())
+    map.on('mouseenter', 'gl-draw-polygon-fill-active.cold', (e) => setMapHoveredAOI(e.features[0].properties.id))
+    map.on('mouseleave', 'gl-draw-polygon-fill-active.cold', () => unsetMapHoveredAOI())
+    // map.on('mouseenter', 'gl-draw-polygon-fill-static.cold', (e) => { console.log('static.cold', e) })
   }
 
   render() {
@@ -37,6 +44,8 @@ const mapDispatchToProps = {
   createDrawAreas,
   updateDrawAreas,
   removeAOIs,
+  setMapHoveredAOI,
+  unsetMapHoveredAOI,
 }
 
 const ConnectedDraw = connect(null, mapDispatchToProps)(Draw)
