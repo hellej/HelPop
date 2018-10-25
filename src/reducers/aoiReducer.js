@@ -23,6 +23,9 @@ const aoiReducer = (store = initialAOIState, action) => {
         FC: action.FC,
         popStats: true,
       }
+    case 'HIDE_POPULATION_STATS':
+      return { ...store, popStats: false }
+
     case 'SET_UPLOADED_AOI':
       return {
         ...store,
@@ -54,9 +57,11 @@ export const deleteAOI = () => {
 }
 
 export const calculatePopulationStats = (FC) => {
-  return {
-    type: 'POPULATION_CALCULATED', FC: getAddPopulationStats(FC)
-  }
+  return { type: 'POPULATION_CALCULATED', FC: getAddPopulationStats(FC) }
+}
+
+export const hidePopulationStats = () => {
+  return { type: 'HIDE_POPULATION_STATS' }
 }
 
 export const removeAOIs = (features) => {

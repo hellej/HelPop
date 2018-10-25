@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import * as utils from '../utils'
 import { aoiType } from './types'
+import { Button } from './controls/Button'
+import { hidePopulationStats } from './../reducers/aoiReducer'
 
 const InfoBlock = styled.div`
   padding: 7px 7px 7px 13px;
@@ -43,45 +45,48 @@ const AOIareasTable = ({ features }) => {
   )
 }
 
-const AOIpopulationTable = ({ features }) => {
+const AOIpopulationTable = ({ features, hidePopulationStats }) => {
   return (
-    <table>
-      <tbody>
-        <tr>
-          <TD>Name:</TD>
-          {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
-        </tr>
-        <tr>
-          <TD>Area (km2):</TD>
-          {features.map(feature => (
-            <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
-        </tr>
-        <tr>
-          <TD>Population:</TD>
-          {features.map(feature => (
-            <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.totalPopulation)}</TDvalue>))}
-        </tr>
-        <tr>
-          <TD>Density (/km2):</TD>
-          {features.map(feature => (
-            <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationDensity)}</TDvalue>))}
-        </tr>
-        <tr>
-          <TD>Urban Density (/km2):</TD>
-          {features.map(feature => (
-            <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationUrbanDensity)}</TDvalue>))}
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <TD>Name:</TD>
+            {features.map(feature => (<TD key={feature.id}>{feature.properties.name}</TD>))}
+          </tr>
+          <tr>
+            <TD>Area (km2):</TD>
+            {features.map(feature => (
+              <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
+          </tr>
+          <tr>
+            <TD>Population:</TD>
+            {features.map(feature => (
+              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.totalPopulation)}</TDvalue>))}
+          </tr>
+          <tr>
+            <TD>Density (/km2):</TD>
+            {features.map(feature => (
+              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationDensity)}</TDvalue>))}
+          </tr>
+          <tr>
+            <TD>Urban Density (/km2):</TD>
+            {features.map(feature => (
+              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationUrbanDensity)}</TDvalue>))}
+          </tr>
+        </tbody>
+      </table>
+      <Button small onClick={hidePopulationStats}>Close</Button>
+    </div>
   )
 }
 
-const AOIinfo = ({ aoi }) => {
+const AOIinfo = ({ aoi, hidePopulationStats }) => {
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
     <InfoBlock>
       {aoi.popStats
-        ? <AOIpopulationTable features={aoi.FC.features} />
+        ? <AOIpopulationTable features={aoi.FC.features} hidePopulationStats={hidePopulationStats} />
         : <AOIareasTable features={aoi.FC.features} />}
     </InfoBlock>
   )
@@ -95,5 +100,5 @@ const mapStateToProps = (state) => ({
   aoi: state.aoi
 })
 
-const ConnectedAOIinfo = connect(mapStateToProps, null)(AOIinfo)
+const ConnectedAOIinfo = connect(mapStateToProps, { hidePopulationStats })(AOIinfo)
 export default ConnectedAOIinfo

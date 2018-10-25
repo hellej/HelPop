@@ -38,7 +38,7 @@ class ControlPanel extends React.Component {
           <div>
             {aoi.FC.features.length !== 0 && !aoi.popStats &&
               <ButtonGroup>
-                <Button visible={true} onClick={() => calculatePopulationStats(aoi.FC)}> Calculate Population</Button>
+                <Button visible={true} onClick={() => calculatePopulationStats(aoi.FC)}> Show Population</Button>
               </ButtonGroup>}
             <ButtonGroup>
               <Button visible={true} onClick={startDrawing}> Draw Area</Button>
