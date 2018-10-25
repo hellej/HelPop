@@ -49,9 +49,13 @@ const aoiReducer = (store = initialAOIState, action) => {
       }
     case 'CREATE_DRAW_AREAS':
     case 'UPDATE_DRAW_AREAS': {
+      const FC = {
+        ...action.FC,
+        features: action.FC.features.filter(feature => feature.geometry.coordinates[0] !== undefined)
+      }
       return {
         ...store,
-        FC: store.popStats ? getAddPopulationStats(action.FC) : action.FC
+        FC: store.popStats ? getAddPopulationStats(FC) : FC
       }
     }
     default:
