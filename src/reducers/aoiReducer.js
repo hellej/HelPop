@@ -8,6 +8,8 @@ const initialAOIState = {
   },
   popStats: false,
   mapHoveredId: '',
+  listHoveredId: '',
+  layerId: 'aoiLayer',
 }
 
 const aoiReducer = (store = initialAOIState, action) => {
@@ -32,6 +34,12 @@ const aoiReducer = (store = initialAOIState, action) => {
 
     case 'UNSET_MAP_HOVERED_ID':
       return { ...store, mapHoveredId: '' }
+
+    case 'SET_LIST_HOVERED_ID':
+      return { ...store, listHoveredId: action.id }
+
+    case 'UNSET_LIST_HOVERED_ID':
+      return { ...store, listHoveredId: '' }
 
     case 'SET_UPLOADED_AOI':
       return {
@@ -79,6 +87,13 @@ export const removeAOIs = (features) => {
   return { type: 'REMOVE_AOIS', IDs: features.map(feature => feature.id) }
 }
 
+export const downloadAOIasGeoJson = (FC) => {
+  const text = JSON.stringify(FC, null, 2)
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
+  saveAs(blob, 'aoi.geojson')
+  return { type: 'AOI_DOWNLOADED' }
+}
+
 export const setMapHoveredAOI = (id) => {
   return { type: 'SET_MAP_HOVERED_ID', id }
 }
@@ -87,11 +102,12 @@ export const unsetMapHoveredAOI = () => {
   return { type: 'UNSET_MAP_HOVERED_ID' }
 }
 
-export const downloadAOIasGeoJson = (FC) => {
-  const text = JSON.stringify(FC, null, 2)
-  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' })
-  saveAs(blob, 'aoi.geojson')
-  return { type: 'AOI_DOWNLOADED' }
+export const setListHoveredAOI = (id) => {
+  return { type: 'SET_LIST_HOVERED_ID', id }
+}
+
+export const unsetListHoveredAOI = () => {
+  return { type: 'UNSET_LIST_HOVERED_ID' }
 }
 
 const getAddPopulationStats = (FC) => {

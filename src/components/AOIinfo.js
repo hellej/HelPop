@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import * as utils from '../utils'
 import { aoiType } from './types'
 import { Button } from './controls/Button'
-import { hidePopulationStats } from './../reducers/aoiReducer'
+import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI } from './../reducers/aoiReducer'
 import { zoomToFeature } from './../reducers/mapReducer'
 
 const InfoBlock = styled.div`
@@ -58,7 +58,7 @@ const PopulationRow = ({ name, propertyName, features }) => {
   )
 }
 
-const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
+const AOIareasTable = ({ features, mapHoveredId, zoomToFeature, setListHoveredAOI, unsetListHoveredAOI }) => {
   return (
     <table>
       <tbody>
@@ -68,7 +68,9 @@ const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
             <TD aoiName
               key={feature.id}
               mapHovered={feature.id === mapHoveredId}
-              onClick={() => zoomToFeature(feature)}>
+              onClick={() => zoomToFeature(feature)}
+              onMouseEnter={() => setListHoveredAOI(feature.properties.name)}
+              onMouseLeave={unsetListHoveredAOI}>
               {feature.properties.name}
             </TD>))}
         </tr>
@@ -78,7 +80,8 @@ const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
   )
 }
 
-const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId, zoomToFeature }) => {
+const AOIpopulationTable = (props) => {
+  const { features, hidePopulationStats, mapHoveredId, zoomToFeature, setListHoveredAOI, unsetListHoveredAOI } = props
   return (
     <div>
       <table>
@@ -89,7 +92,9 @@ const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId, zoomT
               <TD aoiName
                 key={feature.id}
                 mapHovered={feature.id === mapHoveredId}
-                onClick={() => zoomToFeature(feature)}>
+                onClick={() => zoomToFeature(feature)}
+                onMouseEnter={() => setListHoveredAOI(feature.properties.name)}
+                onMouseLeave={unsetListHoveredAOI}>
                 {feature.properties.name}
               </TD>))}
           </tr>
@@ -104,7 +109,7 @@ const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId, zoomT
   )
 }
 
-const AOIinfo = ({ aoi, hidePopulationStats, zoomToFeature }) => {
+const AOIinfo = ({ aoi, hidePopulationStats, zoomToFeature, setListHoveredAOI, unsetListHoveredAOI }) => {
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
     <InfoBlock>
@@ -112,12 +117,16 @@ const AOIinfo = ({ aoi, hidePopulationStats, zoomToFeature }) => {
         ? <AOIpopulationTable
           features={aoi.FC.features}
           mapHoveredId={aoi.mapHoveredId}
-          hidePopulationStats={hidePopulationStats}
-          zoomToFeature={zoomToFeature}>
+          setListHoveredAOI={setListHoveredAOI}
+          unsetListHoveredAOI={unsetListHoveredAOI}
+          zoomToFeature={zoomToFeature}
+          hidePopulationStats={hidePopulationStats}>
         </AOIpopulationTable>
         : <AOIareasTable
           features={aoi.FC.features}
           mapHoveredId={aoi.mapHoveredId}
+          setListHoveredAOI={setListHoveredAOI}
+          unsetListHoveredAOI={unsetListHoveredAOI}
           zoomToFeature={zoomToFeature}>
         </AOIareasTable>}
     </InfoBlock>
@@ -135,6 +144,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   hidePopulationStats,
   zoomToFeature,
+  setListHoveredAOI,
+  unsetListHoveredAOI,
 }
 
 const ConnectedAOIinfo = connect(mapStateToProps, mapDispatchToProps)(AOIinfo)
