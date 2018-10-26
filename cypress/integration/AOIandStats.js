@@ -70,15 +70,23 @@ describe('Area Stats', () => {
     cy.contains('3 035')
     cy.contains('6 011')
   })
+
+  it('can hide population stats', () => {
+    cy.contains('Close').click()
+  })
 })
 
 describe('Area management', () => {
 
   it('shows remove node option on node selected', () => {
     cy.get('.mapboxgl-canvas')
-      .wait(400)
+      .wait(300)
       .trigger('mousedown', 265, 360)
-      .wait(400)
+      .wait(300)
+      .trigger('mouseup', 265, 360)
+      .wait(300)
+      .trigger('mousedown', 265, 360)
+      .wait(300)
       .trigger('mouseup', 265, 360)
     cy.contains('Remove Node')
   })

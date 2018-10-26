@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components'
 
-export const Button = styled.div`
-  display: ${props => props.visible ? props.visible ? '' : 'none' : ''};
+export const Button = styled.div.attrs({
+  style: props => ({ display: props.visible ? '' : 'none' })
+})`
   color: ${props => props.color ? props.color : 'white'}; 
   cursor: pointer;
   padding: 7px 13px 7px 13px;

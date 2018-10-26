@@ -11,8 +11,8 @@ class AOI extends React.Component {
       id: layerId, source: layerId, type: 'line',
       paint: {
         'line-width': 8,
-        'line-color': '#70f7ff',
-        'line-opacity': 0.9,
+        'line-color': '#99f9ff',
+        'line-opacity': 0.8,
       },
       layout: {
         'line-join': 'round',
@@ -22,7 +22,9 @@ class AOI extends React.Component {
 
   componentDidUpdate = async (prevProps) => {
     const { layerId, FC, listHoveredId } = this.props.aoi
-    this.props.map.getSource(layerId).setData(FC)
+
+    const layer = this.props.map.getSource(layerId)
+    if (layer) layer.setData(FC)
 
     if (listHoveredId !== '') {
       this.props.map.setFilter(layerId, ['match', ['get', 'name'], listHoveredId, true, false])
