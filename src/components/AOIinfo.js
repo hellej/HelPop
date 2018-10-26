@@ -22,8 +22,8 @@ const InfoBlock = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
 const TD = styled.td.attrs({
-    style: props => ({ color: props.mapHovered ? '#70f7ff' : '' })
-  })`
+  style: props => ({ color: props.mapHovered ? '#70f7ff' : '' })
+})`
   padding: 0 18px 0 0;
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
@@ -37,6 +37,26 @@ const TD = styled.td.attrs({
 const TDvalue = styled(TD)`
   color: #88ff88;
 `
+
+const AreaRow = ({ name, propertyName, features }) => {
+  return (
+    <tr>
+      <TD>{name}</TD>
+      {features.map(feature => (
+        <TDvalue key={feature.id}>{Math.round(feature.properties[propertyName] * 100) / 100}</TDvalue>))}
+    </tr>
+  )
+}
+
+const PopulationRow = ({ name, propertyName, features }) => {
+  return (
+    <tr>
+      <TD>{name}</TD>
+      {features.map(feature => (
+        <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties[propertyName])}</TDvalue>))}
+    </tr>
+  )
+}
 
 const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
   return (
@@ -52,11 +72,7 @@ const AOIareasTable = ({ features, mapHoveredId, zoomToFeature }) => {
               {feature.properties.name}
             </TD>))}
         </tr>
-        <tr>
-          <TD>Area (km2):</TD>
-          {features.map(feature => (
-            <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
-        </tr>
+        <AreaRow name={'Area (km2):'} propertyName={'area'} features={features} />
       </tbody>
     </table>
   )
@@ -77,26 +93,10 @@ const AOIpopulationTable = ({ features, hidePopulationStats, mapHoveredId, zoomT
                 {feature.properties.name}
               </TD>))}
           </tr>
-          <tr>
-            <TD>Area (km2):</TD>
-            {features.map(feature => (
-              <TDvalue key={feature.id}>{Math.round(feature.properties.area * 100) / 100}</TDvalue>))}
-          </tr>
-          <tr>
-            <TD>Population:</TD>
-            {features.map(feature => (
-              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.totalPopulation)}</TDvalue>))}
-          </tr>
-          <tr>
-            <TD>Density (/km2):</TD>
-            {features.map(feature => (
-              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationDensity)}</TDvalue>))}
-          </tr>
-          <tr>
-            <TD>Urban Density (/km2):</TD>
-            {features.map(feature => (
-              <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties.populationUrbanDensity)}</TDvalue>))}
-          </tr>
+          <AreaRow name={'Area (km2):'} propertyName={'area'} features={features} />
+          <PopulationRow name={'Population:'} propertyName={'totalPopulation'} features={features} />
+          <PopulationRow name={'Density (/km2):'} propertyName={'populationDensity'} features={features} />
+          <PopulationRow name={'Urban Density (/km2):'} propertyName={'populationUrbanDensity'} features={features} />
         </tbody>
       </table>
       <Button small onClick={hidePopulationStats}>Close</Button>
