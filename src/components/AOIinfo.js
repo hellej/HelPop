@@ -21,18 +21,18 @@ const InfoBlock = styled.div`
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
-const TD = styled.td`
+const TD = styled.td.attrs({
+    style: props => ({ color: props.mapHovered ? '#70f7ff' : '' })
+  })`
   padding: 0 18px 0 0;
-  color: ${props => props.mapHovered ? '#70f7ff' : 'white'}; 
-  // font-weight: ${props => props.mapHovered ? '350' : '300'}; 
   transition-duration: 0.15s;
   -webkit-transition-duration: 0.15s; /* Safari */
   ${props => props.aoiName && css`
     &:hover { 
       color: #70f7ff; 
       cursor: pointer;
-  }
-`}
+    }
+  `}
 `
 const TDvalue = styled(TD)`
   color: #88ff88;

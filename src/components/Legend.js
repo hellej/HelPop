@@ -23,7 +23,7 @@ const FlexDiv = styled.div`
 `
 const BlackBox = styled.div`
   display: ${props => props.visible ? '' : 'none'};
-  padding: 5px 13px 7px 13px;
+  padding: 6px 17px 9px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 0px 5px 5px;
   border-radius: 10px;
