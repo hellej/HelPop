@@ -32,7 +32,7 @@ const TDvalue = styled(TD)`
   color: #88ff88;
   `
 const TDfirst = styled(TD)`
-  padding: 2px 5px;
+  padding: 3px 5px;
 `
 const AOIname = styled.span.attrs({
   style: props => ({
@@ -99,7 +99,7 @@ const AOIpopulationTable = (props) => {
           <PopulationRow visible={popStats} label={'Urban Density (/km2):'} propName={'populationUrbanDensity'} features={FC.features} />
         </tbody>
       </Table>
-      <Button visible={popStats} small onClick={hidePopulationStats}>Close</Button>
+      <Button visible={popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
       <Button visible={!popStats} small onClick={() => calculatePopulationStats(FC)}> Show Population</Button>
     </div>
   )

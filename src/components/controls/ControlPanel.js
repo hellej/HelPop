@@ -15,6 +15,10 @@ const ButtonGroup = styled.div`
   margin: 0 0 22px 0;
 `
 
+const Colored = styled.span`
+  color: ${props => props.color ? props.color : 'white'}; 
+`
+
 class ControlPanel extends React.Component {
   constructor(props) {
     super(props)
@@ -48,9 +52,10 @@ class ControlPanel extends React.Component {
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove All</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={true} color='#b7fff6' onClick={toggle2Ddemo}>{demo2d.visible ? 'Hide 2D Demo' : 'Show 2D Demo'}</Button>
-              <Button visible={true} color='#b7fff6' onClick={this.toggleBasemapSelector}>
-                {this.state.basemapsVisible ? 'Hide Basemaps' : 'Change Basemap'} </Button>
+              <Button visible={true} onClick={toggle2Ddemo}>2D Demo: {demo2d.visible
+                ? <Colored color={'#88ff88'}>ON</Colored>
+                : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
+              <Button visible={true} onClick={this.toggleBasemapSelector}> Basemap: <Colored color={'#88ff88'}>{map.basemap}</Colored></Button>
               {this.state.basemapsVisible && Object.keys(BASEMAPS).map(basemap =>
                 <Button sub visible={map.basemap !== basemap} key={basemap} onClick={() => setBasemap(basemap)}>{basemap}</Button>)}
             </ButtonGroup>
