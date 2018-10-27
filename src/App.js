@@ -7,6 +7,7 @@ import Legend from './components/Legend'
 import Notification from './components/Notification'
 import ControlPanel from './components/controls/ControlPanel'
 import Demo2D from './components/map/Demo2D'
+import Demo3D from './components/map/Demo3D'
 import AOI from './components/map/AOI'
 
 export const StyledMenuContainer = styled.div`
@@ -29,6 +30,7 @@ class App extends React.Component {
         <Map>
           <Draw />
           <Demo2D />
+          <Demo3D />
           <AOI />
         </Map>
         <StyledMenuContainer>

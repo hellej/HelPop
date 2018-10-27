@@ -7,11 +7,11 @@ describe('App menu', () => {
   })
 
   it('can toggle basemap options', () => {
-    cy.contains('Change Basemap').click()
+    cy.contains('Basemap').click()
     cy.contains('Light').click()
     cy.wait(500)
     cy.contains('Streets').click()
-    cy.contains('Hide Basemaps').click()
+    cy.contains('Basemap').click()
     cy.wait(500)
   })
 })
@@ -72,7 +72,7 @@ describe('Area Stats', () => {
   })
 
   it('can hide population stats', () => {
-    cy.contains('Close').click()
+    cy.contains('Hide Stats').click()
   })
 })
 

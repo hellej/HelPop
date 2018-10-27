@@ -1,4 +1,4 @@
-import * as utils from './../utils'
+import * as utils from '../utils'
 
 const colorSteps = [
   { color: '#EED322', value: 100 },
@@ -8,45 +8,45 @@ const colorSteps = [
   { color: '#723122', value: null },
 ]
 
-const initialDemo2dState = {
+const initialDemo3dState = {
   visible: false,
-  layerId: 'demo2d',
+  layerId: 'demo3d',
   colorSteps: colorSteps,
   legendClasses: [],
   legendName: 'Population',
   mbPaintStyle: null,
 }
 
-const demo2dReducer = (store = initialDemo2dState, action) => {
+const demo3dReducer = (store = initialDemo3dState, action) => {
 
   switch (action.type) {
 
-    case 'TOGGLE_2D_DEMO': return { ...store, visible: !store.visible }
+    case 'TOGGLE_3D_DEMO': return { ...store, visible: !store.visible }
 
-    case 'TOGGLE_3D_DEMO': return { ...store, visible: action.visible ? store.visible : false }
+    case 'TOGGLE_2D_DEMO': return { ...store, visible: action.visible ? store.visible : false }
 
-    case 'INITIALIZE_DEMO2D':
+    case 'INITIALIZE_DEMO3D':
     case 'SET_COLOR_CLASSES':
       return {
         ...store,
         legendClasses: utils.legendClasses(action.colorSteps),
-        mbPaintStyle: utils.mbPaintStyle(action.colorSteps)
+        mbPaintStyle: utils.mb3DPaintStyle(action.colorSteps)
       }
     default:
       return store
   }
 }
 
-export const initialize2Ddemo = () => {
-  return { type: 'INITIALIZE_DEMO2D', colorSteps }
+export const initialize3Ddemo = () => {
+  return { type: 'INITIALIZE_DEMO3D', colorSteps }
 }
 
-export const toggle2Ddemo = (visible) => {
-  return { type: 'TOGGLE_2D_DEMO', visible }
+export const toggle3Ddemo = (visible) => {
+  return { type: 'TOGGLE_3D_DEMO', visible }
 }
 
 export const setPaintStyle = (colorSteps) => {
   return { type: 'SET_COLOR_CLASSES', colorSteps }
 }
 
-export default demo2dReducer
+export default demo3dReducer

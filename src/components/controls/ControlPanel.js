@@ -7,6 +7,7 @@ import { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircl
 import { downloadAOIasGeoJson } from '../../reducers/aoiReducer'
 import { setBasemap } from '../../reducers/mapReducer'
 import { toggle2Ddemo } from '../../reducers/demo2dReducer'
+import { toggle3Ddemo } from '../../reducers/demo3dReducer'
 import GeoJsonUploader from './GeoJsonUploader'
 import { Button } from './Button'
 import styled from 'styled-components'
@@ -32,9 +33,9 @@ class ControlPanel extends React.Component {
   }
 
   render() {
-    const { draw, aoi, map, demo2d } = this.props
+    const { draw, aoi, map, demo2d, demo3d } = this.props
     const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircle,
-      downloadAOIasGeoJson, setBasemap, toggle2Ddemo } = this.props
+      downloadAOIasGeoJson, setBasemap, toggle2Ddemo, toggle3Ddemo } = this.props
 
     return (
       <div>
@@ -52,7 +53,10 @@ class ControlPanel extends React.Component {
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove All</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={true} onClick={toggle2Ddemo}>2D Demo: {demo2d.visible
+              <Button visible={true} onClick={() => toggle2Ddemo(demo2d.visible)}>2D Demo: {demo2d.visible
+                ? <Colored color={'#88ff88'}>ON</Colored>
+                : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
+              <Button visible={true} onClick={() => toggle3Ddemo(demo3d.visible)}>3D Demo: {demo3d.visible
                 ? <Colored color={'#88ff88'}>ON</Colored>
                 : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
               <Button visible={true} onClick={this.toggleBasemapSelector}> Basemap: <Colored color={'#88ff88'}>{map.basemap}</Colored></Button>
@@ -77,6 +81,7 @@ const mapStateToProps = (state) => ({
   aoi: state.aoi,
   map: state.map,
   demo2d: state.demo2d,
+  demo3d: state.demo3d,
 })
 
 const mapDispatchToProps = {
@@ -87,6 +92,7 @@ const mapDispatchToProps = {
   downloadAOIasGeoJson,
   setBasemap,
   toggle2Ddemo,
+  toggle3Ddemo,
 }
 
 const ConnectedControlPanel = connect(mapStateToProps, mapDispatchToProps)(ControlPanel)

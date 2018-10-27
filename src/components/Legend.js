@@ -65,7 +65,9 @@ const ColorClass = ({ color, range }) => {
 class Legend extends React.Component {
 
   render() {
-    const { visible, legendClasses, legendName } = this.props.demo2d
+    const { legendClasses, legendName } = this.props.demo2d
+    const visible = this.props.demo2d.visible || this.props.demo3d.visible
+
     return (
       <LegendContainer>
         <FlexDiv>
@@ -86,7 +88,8 @@ Legend.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  demo2d: state.demo2d
+  demo2d: state.demo2d,
+  demo3d: state.demo3d,
 })
 
 const ConnectedLegend = connect(mapStateToProps, null)(Legend)

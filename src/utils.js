@@ -111,6 +111,26 @@ export const mbPaintStyle = (colorsValues) => {
   }
 }
 
+export const mb3DPaintStyle = (colorsValues) => {
+  const colorSteps = (colorsValues) => {
+    let mbColors = []
+    colorsValues.forEach(item => {
+      mbColors.push(item.color)
+      if (item.value) { mbColors.push(item.value) }
+    })
+    return mbColors
+  }
+  return {
+    'fill-extrusion-color': [
+      'step',
+      ['get', 'ASUKKAITA'],
+      ...colorSteps(colorsValues)
+    ],
+    'fill-extrusion-height': ['get', 'ASUKKAITA'],
+    'fill-extrusion-opacity': 0.7
+  }
+}
+
 export const legendClasses = (colorSteps) => {
   const range = (array, index) => {
     if (index === 0) { return `0-${array[0].value - 1}` }
