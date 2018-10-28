@@ -54,10 +54,10 @@ class ControlPanel extends React.Component {
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove All</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button onClick={() => toggle2Ddemo(demo2d.visible)}>2D Demo: {demo2d.visible
+              <Button onClick={() => toggle2Ddemo(demo2d.visible)}>2D Population: {demo2d.visible
                 ? <Colored color={'#88ff88'}>ON</Colored>
                 : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
-              <Button onClick={() => toggle3Ddemo(demo3d.visible)}>3D Demo: {demo3d.visible
+              <Button onClick={() => toggle3Ddemo(demo3d.visible)}>3D Population: {demo3d.visible
                 ? <Colored color={'#88ff88'}>ON</Colored>
                 : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
               <Button onClick={toggleBaseMapOptions}> Basemap: <Colored color={'#88ff88'}>{map.basemap}</Colored></Button>
