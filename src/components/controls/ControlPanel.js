@@ -8,6 +8,7 @@ import { downloadAOIasGeoJson } from '../../reducers/aoiReducer'
 import { setBasemap } from '../../reducers/mapReducer'
 import { toggle2Ddemo } from '../../reducers/demo2dReducer'
 import { toggle3Ddemo } from '../../reducers/demo3dReducer'
+import { toggleBaseMapOptions } from '../../reducers/menuReducer'
 import GeoJsonUploader from './GeoJsonUploader'
 import { Button } from './Button'
 import styled from 'styled-components'
@@ -15,35 +16,23 @@ import styled from 'styled-components'
 const ButtonGroup = styled.div`
   margin: 0 0 22px 0;
 `
-
 const Colored = styled.span`
   color: ${props => props.color ? props.color : 'white'}; 
 `
 
 class ControlPanel extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      basemapsVisible: false
-    }
-  }
-
-  toggleBasemapSelector = () => {
-    this.setState({ basemapsVisible: !this.state.basemapsVisible })
-  }
 
   render() {
-    const { draw, aoi, map, demo2d, demo3d } = this.props
+    const { menu, draw, aoi, map, demo2d, demo3d } = this.props
     const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircle,
-      downloadAOIasGeoJson, setBasemap, toggle2Ddemo, toggle3Ddemo } = this.props
+      downloadAOIasGeoJson, setBasemap, toggle2Ddemo, toggle3Ddemo, toggleBaseMapOptions } = this.props
 
     return (
       <div>
         {draw.initialized &&
-          <div>
             <ButtonGroup>
-              <Button visible={true} onClick={startDrawing}> Draw Area</Button>
-              <Button visible={true} onClick={() => createAddCircle(map.center)}> Add Circle</Button>
+              <Button onClick={startDrawing}> Draw Area</Button>
+              <Button onClick={() => createAddCircle(map.center)}> Add Circle</Button>
               <GeoJsonUploader />
               <Button visible={aoi.FC.features.length !== 0} onClick={() => downloadAOIasGeoJson(aoi.FC)}>Download Areas</Button>
             </ButtonGroup>
@@ -53,17 +42,17 @@ class ControlPanel extends React.Component {
               <Button visible={aoi.FC.features.length !== 0} onClick={deleteAllDrawsAOIs}> Remove All</Button>
             </ButtonGroup>
             <ButtonGroup>
-              <Button visible={true} onClick={() => toggle2Ddemo(demo2d.visible)}>2D Demo: {demo2d.visible
+              <Button onClick={() => toggle2Ddemo(demo2d.visible)}>2D Demo: {demo2d.visible
                 ? <Colored color={'#88ff88'}>ON</Colored>
                 : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
-              <Button visible={true} onClick={() => toggle3Ddemo(demo3d.visible)}>3D Demo: {demo3d.visible
+              <Button onClick={() => toggle3Ddemo(demo3d.visible)}>3D Demo: {demo3d.visible
                 ? <Colored color={'#88ff88'}>ON</Colored>
                 : <Colored color={'#ffb0b0'}>OFF</Colored>} </Button>
-              <Button visible={true} onClick={this.toggleBasemapSelector}> Basemap: <Colored color={'#88ff88'}>{map.basemap}</Colored></Button>
-              {this.state.basemapsVisible && Object.keys(BASEMAPS).map(basemap =>
+              <Button onClick={toggleBaseMapOptions}> Basemap: <Colored color={'#88ff88'}>{map.basemap}</Colored></Button>
+              {menu.basemapOptions && Object.keys(BASEMAPS).map(basemap =>
                 <Button sub visible={map.basemap !== basemap} key={basemap} onClick={() => setBasemap(basemap)}>{basemap}</Button>)}
             </ButtonGroup>
-          </div>
+          </ControlPanelDiv>
         }
       </div>
     )
@@ -77,6 +66,7 @@ ControlPanel.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
+  menu: state.menu,
   draw: state.draw,
   aoi: state.aoi,
   map: state.map,
@@ -93,6 +83,7 @@ const mapDispatchToProps = {
   setBasemap,
   toggle2Ddemo,
   toggle3Ddemo,
+  toggleBaseMapOptions,
 }
 
 const ConnectedControlPanel = connect(mapStateToProps, mapDispatchToProps)(ControlPanel)

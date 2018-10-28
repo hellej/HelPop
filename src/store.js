@@ -8,6 +8,7 @@ import aoiReducer from './reducers/aoiReducer'
 import mapReducer from './reducers/mapReducer'
 import demo2dReducer from './reducers/demo2dReducer'
 import demo3dReducer from './reducers/demo3dReducer'
+import menuReducer from './reducers/menuReducer'
 
 const reducer = combineReducers({
   draw: drawReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   map: mapReducer,
   demo2d: demo2dReducer,
   demo3d: demo3dReducer,
+  menu: menuReducer,
 })
 
 const store = createStore(

@@ -5,7 +5,7 @@ import { demo2dType } from './types'
 
 export const LegendContainer = styled.div`
   position: absolute;
-  bottom: 39px;
+  top: 10px;
   right: 2px;
   z-index: 2;
   display: flex;
@@ -22,7 +22,6 @@ const FlexDiv = styled.div`
   letter-spacing: 0.6px;
 `
 const BlackBox = styled.div`
-  display: ${props => props.visible ? '' : 'none'};
   padding: 6px 17px 9px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 0px 5px 5px;
@@ -65,15 +64,15 @@ const ColorClass = ({ color, range }) => {
 class Legend extends React.Component {
 
   render() {
+    if (!this.props.menu.legend) return null
     const { legendClasses, legendName } = this.props.demo2d
-    const visible = this.props.demo2d.visible || this.props.demo3d.visible
 
     return (
       <LegendContainer>
         <FlexDiv>
-          <BlackBox visible={visible}>
+          <BlackBox>
             <div>{legendName}</div>
-            {visible && legendClasses.map(colorClass => (
+            {legendClasses.map(colorClass => (
               <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
             ))}
           </BlackBox>
@@ -90,6 +89,7 @@ Legend.propTypes = {
 const mapStateToProps = (state) => ({
   demo2d: state.demo2d,
   demo3d: state.demo3d,
+  menu: state.menu,
 })
 
 const ConnectedLegend = connect(mapStateToProps, null)(Legend)

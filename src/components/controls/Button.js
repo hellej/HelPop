@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { bool } from 'prop-types'
 
 export const Button = styled.div.attrs({
   style: props => ({ display: props.visible ? '' : 'none' })
@@ -47,3 +48,11 @@ ${props => props.small && css`
   }
 `}
 `
+
+Button.propTypes = {
+  visible: bool
+}
+
+Button.defaultProps = {
+  visible: true
+}
