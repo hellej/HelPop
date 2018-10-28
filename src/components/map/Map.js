@@ -47,7 +47,7 @@ class Map extends React.Component {
       this.map.flyTo({ center: this.state.initialCenter, speed: 0.1, curve: 1, zoom: 10.15, maxDuration: 1500 })
       this.setState({ loaded: true, isReady: true })
       this.map.addControl(new MapboxGL.NavigationControl(), 'bottom-right')
-      this.props.initializeMap(this.map)
+      this.props.initializeMap()
     })
 
     this.map.on('moveend', () => {
