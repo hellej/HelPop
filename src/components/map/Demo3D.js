@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as censusFC from './../../data/vaesto-250m-2017.json'
 import { initialize3Ddemo } from '../../reducers/demo3dReducer'
+import { setMouseOnFeature } from '../../reducers/mapReducer'
+
 
 class Demo3D extends React.Component {
 
@@ -22,6 +24,7 @@ class Demo3D extends React.Component {
     }
 
     if (!visible && prevProps.demo3d.visible) {
+      this.props.map.off('mousemove', this.setMouseOnFeature)
       this.props.map.removeLayer(layerId)
     }
   }
@@ -37,6 +40,12 @@ class Demo3D extends React.Component {
         paint: mbPaintStyle
       })
     }
+    this.props.map.on('mousemove', this.setMouseOnFeature)
+  }
+
+  setMouseOnFeature = (e) => {
+    const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.demo3d.layerId] })
+    this.props.setMouseOnFeature(features[0])
   }
 
   render() {
@@ -49,6 +58,11 @@ const mapStateToProps = (state) => ({
   demo3d: state.demo3d,
 })
 
-const ConnectedDemo3D = connect(mapStateToProps, { initialize3Ddemo })(Demo3D)
+const mapDispatchToProps = {
+  initialize3Ddemo,
+  setMouseOnFeature,
+}
+
+const ConnectedDemo3D = connect(mapStateToProps, mapDispatchToProps)(Demo3D)
 
 export default ConnectedDemo3D

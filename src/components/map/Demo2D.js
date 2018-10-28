@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import * as censusFC from './../../data/vaesto-250m-2017.json'
-import { initialize2Ddemo, setMouseOnFeature } from './../../reducers/demo2dReducer'
+import { initialize2Ddemo } from './../../reducers/demo2dReducer'
+import { setMouseOnFeature } from '../../reducers/mapReducer'
 
 class Demo2D extends React.Component {
 
@@ -44,7 +45,6 @@ class Demo2D extends React.Component {
   setMouseOnFeature = (e) => {
     const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.demo2d.layerId] })
     this.props.setMouseOnFeature(features[0])
-    console.log('feature', features)
   }
 
   render() {

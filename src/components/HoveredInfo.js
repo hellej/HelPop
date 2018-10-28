@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { demo2dType } from './types'
 
 export const HoveredInfoContainer = styled.div`
   position: absolute;
@@ -36,8 +35,8 @@ const White = styled.span`
 class HoveredInfo extends React.Component {
 
   render() {
-    const { mouseOnFeature, visible } = this.props.demo2d
-    if (!visible || !mouseOnFeature) return null
+    const { mouseOnFeature } = this.props.mapState
+    if (!mouseOnFeature) return null
 
     return (
       <HoveredInfoContainer>
@@ -54,12 +53,8 @@ class HoveredInfo extends React.Component {
   }
 }
 
-HoveredInfo.propTypes = {
-  demo2d: demo2dType.isRequired,
-}
-
 const mapStateToProps = (state) => ({
-  demo2d: state.demo2d,
+  mapState: state.map,
 })
 
 const ConnectedHoveredInfo = connect(mapStateToProps, null)(HoveredInfo)

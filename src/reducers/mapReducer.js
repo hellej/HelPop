@@ -7,6 +7,7 @@ const initialMapState = {
   zoomToBbox: null,
   center: {},
   zoom: 0,
+  mouseOnFeature: null,
 }
 
 const mapReducer = (store = initialMapState, action) => {
@@ -26,13 +27,18 @@ const mapReducer = (store = initialMapState, action) => {
       return { ...store, zoomToBbox: utils.getBbox(utils.getBuffer(action.feature, 1000)) }
 
     case 'TOGGLE_3D_DEMO':
-      return { ...store, camera3d: !store.camera3d }
+      return { ...store, camera3d: !store.camera3d,  mouseOnFeature: null }
 
     case 'TOGGLE_2D_DEMO':
-      return { ...store, camera3d: false }
+      return { ...store, camera3d: false,  mouseOnFeature: null }
 
     case 'SET_UPLOADED_AOI':
       return { ...store, zoomToBbox: utils.getBbox(utils.getBuffer(action.FC, 1000)) }
+
+    case 'SET_MOUSEON_FEATURE': {
+      if (action.feature === undefined) return { ...store, mouseOnFeature: null }
+      return { ...store, mouseOnFeature: action.feature }
+    }
 
     default:
       return store
@@ -53,6 +59,10 @@ export const updateCamera = (center, zoom) => {
 
 export const setBasemap = (basemap) => {
   return { type: 'SET_BASEMAP', basemap }
+}
+
+export const setMouseOnFeature = (feature) => {
+  return { type: 'SET_MOUSEON_FEATURE', feature }
 }
 
 export default mapReducer
