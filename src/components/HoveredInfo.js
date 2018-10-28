@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 export const HoveredInfoContainer = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: 25px;
   right: 50px;
   left: 50px;
   z-index: 2;
@@ -27,9 +27,9 @@ const BlackInfoBox = styled.div`
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
-
-const White = styled.span`
-  color: white;
+const StyledNumber = styled.span`
+  color: #adffb5;
+  font-weight: 350;
 `
 
 class HoveredInfo extends React.Component {
@@ -41,12 +41,8 @@ class HoveredInfo extends React.Component {
     return (
       <HoveredInfoContainer>
         <BlackInfoBox>
-          <div>
-            Population: <White>{mouseOnFeature.properties.ASUKKAITA}</White>
-          </div>
-          <div>
-            m2 / person: <White>{mouseOnFeature.properties.ASVALJYYS}</White>
-          </div>
+          Population: <StyledNumber>{mouseOnFeature.properties.ASUKKAITA}</StyledNumber><br></br>
+          m2 / person: <StyledNumber>{mouseOnFeature.properties.ASVALJYYS}</StyledNumber>
         </BlackInfoBox>
       </HoveredInfoContainer>
     )
