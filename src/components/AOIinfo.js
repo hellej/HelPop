@@ -8,6 +8,7 @@ import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI, calculateP
 import { zoomToFeature } from './../reducers/mapReducer'
 
 const InfoBlock = styled.div`
+  max-width: ${props => props.legendVisible ? 'calc(100% - 170px)' : '89%'};
   padding: 10px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 10px 15px 10px;
@@ -16,10 +17,15 @@ const InfoBlock = styled.div`
   color: white;
   font-size: 15px;
   width: max-content;
-  max-width: 90%;  
   pointer-events: auto;
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
+  @media (max-width: 410px) {
+    font-size: 13px;
+  }
+`
+const TableDiv = styled.div`
+  overflow-x: auto;
 `
 const Table = styled.table`
   border-spacing: 2px;
@@ -39,6 +45,7 @@ const AOIname = styled.span.attrs({
     borderColor: props.mapHovered ? '#70f7ff' : ''
   })
 })`
+  white-space: nowrap;
   text-align: center;
   font-weight: 350;
   border-radius: 30px
@@ -77,7 +84,7 @@ const AOIpopulationTable = (props) => {
   const { FC, popStats, hidePopulationStats, mapHoveredId,
     zoomToFeature, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } = props
   return (
-    <div>
+    <TableDiv>
       <Table>
         <tbody>
           <tr>
@@ -101,15 +108,16 @@ const AOIpopulationTable = (props) => {
       </Table>
       <Button visible={popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
       <Button visible={!popStats} small onClick={() => calculatePopulationStats(FC)}> Show Population</Button>
-    </div>
+    </TableDiv>
   )
 }
 
 const AOIinfo = (props) => {
-  const { aoi, hidePopulationStats, zoomToFeature, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } = props
+  const { aoi, menu, hidePopulationStats, zoomToFeature,
+    setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } = props
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
-    <InfoBlock>
+    <InfoBlock legendVisible={menu.legend}>
       <AOIpopulationTable
         FC={aoi.FC}
         mapHoveredId={aoi.mapHoveredId}
@@ -129,7 +137,8 @@ AOIinfo.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  aoi: state.aoi
+  aoi: state.aoi,
+  menu: state.menu,
 })
 
 const mapDispatchToProps = {

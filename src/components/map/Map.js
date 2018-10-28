@@ -46,7 +46,7 @@ class Map extends React.Component {
       this.map.fire('flystart')
       this.map.flyTo({ center: this.state.initialCenter, speed: 0.1, curve: 1, zoom: 10.15, maxDuration: 1500 })
       this.setState({ loaded: true, isReady: true })
-      this.map.addControl(new MapboxGL.NavigationControl(), 'top-right')
+      this.map.addControl(new MapboxGL.NavigationControl(), 'bottom-right')
       this.props.initializeMap(this.map)
     })
 
@@ -85,6 +85,8 @@ class Map extends React.Component {
     if (!this.map) return
     this.forceUpdate()
     setTimeout(() => { this.resizeMap() }, 300)
+    // const vh = Math.min(window.screen.availHeight, window.innerHeight, document.documentElement.clientHeight) * 0.01
+    // document.documentElement.style.setProperty('--vh', `${vh}px`)
   }
 
   resizeMap = () => {

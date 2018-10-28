@@ -13,6 +13,15 @@ import GeoJsonUploader from './GeoJsonUploader'
 import { Button } from './Button'
 import styled from 'styled-components'
 
+const ControlPanelDiv = styled.div`
+  max-height: ${props => props.aoiInfoHeight ? `calc(99vh - ${props.aoiInfoHeight}px)` : ''}; 
+  overflow-y: auto;
+  pointer-events: auto;
+  max-width: fit-content;
+  @media (max-width: 510px) {
+    max-height: ${props => props.aoiInfoHeight ? `calc(87vh - ${props.aoiInfoHeight}px)` : ''}; 
+  }
+`
 const ButtonGroup = styled.div`
   margin: 0 0 22px 0;
 `
@@ -27,9 +36,12 @@ class ControlPanel extends React.Component {
     const { startDrawing, deleteAllDrawsAOIs, deleteSelectedDrawing, createAddCircle,
       downloadAOIasGeoJson, setBasemap, toggle2Ddemo, toggle3Ddemo, toggleBaseMapOptions } = this.props
 
+    const aoiInfoHeight = aoi.FC.features.length > 0 ? aoi.popStats ? 236 : 150 : 20
+
     return (
       <div>
         {draw.initialized &&
+          <ControlPanelDiv aoiInfoHeight={aoiInfoHeight}>
             <ButtonGroup>
               <Button onClick={startDrawing}> Draw Area</Button>
               <Button onClick={() => createAddCircle(map.center)}> Add Circle</Button>

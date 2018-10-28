@@ -13,7 +13,7 @@ import AOI from './components/map/AOI'
 export const StyledMenuContainer = styled.div`
   position: absolute;
   top: 10px;
-  left: 5px;
+  left: -5px;
   right: 5px;
   z-index: 2;
   display: flex;

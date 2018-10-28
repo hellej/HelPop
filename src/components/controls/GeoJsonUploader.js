@@ -4,9 +4,14 @@ import { handleUploadFileChange } from '../../reducers/drawReducer'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
-  margin: 14px 10px;
+  margin: 12px 10px;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s; /* Safari */
   &:hover {
     margin-left: 13px;
+  }
+  @media (max-width: 410px) {
+    margin: 11px 10px;
   }
 `
 const StyledInput = styled.input`
@@ -20,7 +25,7 @@ const StyledInput = styled.input`
 const StyledInputLabel = styled.label`
   cursor: pointer;
   color: white;
-  padding: 7px 13px 7px 13px;
+  padding: 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 30px;
   font-weight: 300;
@@ -30,6 +35,10 @@ const StyledInputLabel = styled.label`
   overflow: auto;
   height: min-content;
   pointer-events: auto;
+  @media (max-width: 410px) {
+    font-size: 14px;
+    padding: 6px 11px;
+  }
 `
 
 const GeoJsonUploader = (props) => {

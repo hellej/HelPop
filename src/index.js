@@ -19,6 +19,17 @@ injectGlobal`
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
   }
+  .mapboxgl-ctrl-group > button {
+    width: 32px;
+    height: 32px;
+    display: block;
+    padding: 0;
+    outline: none;
+    border: 0;
+    box-sizing: border-box;
+    background-color: transparent;
+    cursor: pointer;
+  }
 `
 
 const render = () => {
