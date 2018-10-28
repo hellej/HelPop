@@ -15,16 +15,23 @@ const initialDemo2dState = {
   legendClasses: [],
   legendName: 'Population',
   mbPaintStyle: null,
+  mouseOnFeature: null,
 }
 
 const demo2dReducer = (store = initialDemo2dState, action) => {
 
   switch (action.type) {
 
-    case 'TOGGLE_2D_DEMO': return { ...store, visible: !store.visible }
+    case 'TOGGLE_2D_DEMO':
+      return { ...store, visible: !store.visible, mouseOnFeature: null }
 
-    case 'TOGGLE_3D_DEMO': return { ...store, visible: action.visible ? store.visible : false }
+    case 'TOGGLE_3D_DEMO':
+      return { ...store, visible: action.visible ? store.visible : false }
 
+    case 'SET_MOUSEON_FEATURE': {
+      if (action.feature === undefined) return { ...store, mouseOnFeature: null }
+      return { ...store, mouseOnFeature: action.feature }
+    }
     case 'INITIALIZE_DEMO2D':
     case 'SET_COLOR_CLASSES':
       return {
@@ -47,6 +54,10 @@ export const toggle2Ddemo = (visible) => {
 
 export const setPaintStyle = (colorSteps) => {
   return { type: 'SET_COLOR_CLASSES', colorSteps }
+}
+
+export const setMouseOnFeature = (feature) => {
+  return { type: 'SET_MOUSEON_FEATURE', feature }
 }
 
 export default demo2dReducer

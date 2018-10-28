@@ -4,6 +4,7 @@ import Draw from './components/map/Draw'
 import styled from 'styled-components'
 import AOIinfo from './components/AOIinfo'
 import Legend from './components/Legend'
+import HoveredInfo from './components/HoveredInfo'
 import Notification from './components/Notification'
 import ControlPanel from './components/controls/ControlPanel'
 import Demo2D from './components/map/Demo2D'
@@ -40,6 +41,7 @@ class App extends React.Component {
           <ControlPanel />
         </StyledMenuContainer>
         <Legend />
+        <HoveredInfo />
         <Notification />
       </div>
     )
