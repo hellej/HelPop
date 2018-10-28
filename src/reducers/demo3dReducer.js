@@ -1,4 +1,5 @@
 import * as utils from '../utils'
+import { showNotification } from './notificationReducer'
 
 const colorSteps = [
   { color: '#EED322', value: 100 },
@@ -42,7 +43,10 @@ export const initialize3Ddemo = () => {
 }
 
 export const toggle3Ddemo = (visible) => {
-  return { type: 'TOGGLE_3D_DEMO', visible }
+  return async (dispatch) => {
+    dispatch({ type: 'TOGGLE_3D_DEMO', visible })
+    dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 5.5))
+  }
 }
 
 export const setPaintStyle = (colorSteps) => {

@@ -6,6 +6,7 @@ let map = null
 const initialMapState = {
   basemap: 'Streets',
   initialized: false,
+  camera3d: false,
   center: {},
   zoom: 0,
 }
@@ -28,6 +29,9 @@ const mapReducer = (store = initialMapState, action) => {
       const bbox = utils.getBbox(utils.getBuffer(action.feature, 1000))
       map.fitBounds(bbox)
       return store
+    }
+    case 'TOGGLE_3D_DEMO': {
+      return { ...store, camera3d: !store.camera3d }
     }
     case 'SET_UPLOADED_AOI': {
       const bbox = utils.getBbox(utils.getBuffer(action.FC, 1000))
