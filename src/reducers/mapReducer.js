@@ -28,6 +28,9 @@ const mapReducer = (store = initialMapState, action) => {
     case 'TOGGLE_3D_DEMO':
       return { ...store, camera3d: !store.camera3d }
 
+    case 'TOGGLE_2D_DEMO':
+      return { ...store, camera3d: false }
+
     case 'SET_UPLOADED_AOI':
       return { ...store, zoomToBbox: utils.getBbox(utils.getBuffer(action.FC, 1000)) }
 

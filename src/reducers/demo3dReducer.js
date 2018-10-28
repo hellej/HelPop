@@ -45,7 +45,7 @@ export const initialize3Ddemo = () => {
 export const toggle3Ddemo = (visible) => {
   return async (dispatch) => {
     dispatch({ type: 'TOGGLE_3D_DEMO', visible })
-    dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 5.5))
+    if (!visible) dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 5.5))
   }
 }
 
