@@ -9,9 +9,9 @@ describe('App menu', () => {
   it('can toggle basemap options', () => {
     cy.contains('Basemap').click()
     cy.contains('Light').click()
-    cy.wait(500)
-    cy.contains('Streets').click()
+    cy.wait(200)
     cy.contains('Basemap').click()
+    cy.contains('Streets').click()
     cy.wait(500)
   })
 })
