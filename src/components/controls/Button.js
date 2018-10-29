@@ -22,8 +22,8 @@ export const Button = styled.div.attrs({
   &:hover {
     margin-left: 13px;
   }
-  @media (max-width: 410px) {
-    font-size: 14px;
+  @media (max-width: 500px) {
+    font-size: 15px;
     padding: 6px 11px;
   }
 ${props => props.sub && css`
@@ -50,7 +50,7 @@ ${props => props.small && css`
     margin-right: auto;    
     border-color: #ffb7b7;
   }
-  @media (max-width: 410px) {
+  @media (max-width: 500px) {
     font-size: 13px;
     padding: 1px 8px;
   }

@@ -18,12 +18,12 @@ const ControlPanelDiv = styled.div`
   overflow-y: auto;
   pointer-events: auto;
   max-width: fit-content;
-  @media (max-width: 510px) {
-    max-height: ${props => props.aoiInfoHeight ? `calc(87vh - ${props.aoiInfoHeight}px)` : ''}; 
+  @media (max-width: 480px) {
+    max-height: ${props => props.aoiInfoHeight ? `calc(89vh - ${props.aoiInfoHeight}px)` : ''}; 
   }
 `
 const ButtonGroup = styled.div`
-  margin: 0 0 22px 0;
+  margin: 0 0 15px 0;
 `
 const Colored = styled.span`
   color: ${props => props.color ? props.color : 'white'}; 

@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   &:hover {
     margin-left: 13px;
   }
-  @media (max-width: 410px) {
+  @media (max-width: 500px) {
     margin: 11px 10px;
   }
 `
@@ -35,8 +35,8 @@ const StyledInputLabel = styled.label`
   overflow: auto;
   height: min-content;
   pointer-events: auto;
-  @media (max-width: 410px) {
-    font-size: 14px;
+  @media (max-width: 500px) {
+    font-size: 15px;
     padding: 6px 11px;
   }
 `

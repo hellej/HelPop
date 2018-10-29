@@ -20,7 +20,7 @@ const BlackInfoBox = styled.div`
   border-radius: 7px;
   font-weight: 300;
   color: white;
-  font-size: 15px;
+  font-size: 16px;
   overflow: auto;
   height: min-content;
   pointer-events: auto;

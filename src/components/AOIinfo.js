@@ -11,7 +11,7 @@ const InfoBlock = styled.div`
   max-width: ${props => props.legendVisible ? 'calc(100% - 170px)' : '89%'};
   padding: 10px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
-  margin: 5px 10px 15px 10px;
+  margin: 5px 10px 10px 10px;
   border-radius: 10px;
   font-weight: 300;
   color: white;
@@ -20,7 +20,7 @@ const InfoBlock = styled.div`
   pointer-events: auto;
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
-  @media (max-width: 410px) {
+  @media (max-width: 500px) {
     font-size: 13px;
   }
 `
@@ -31,6 +31,7 @@ const Table = styled.table`
   border-spacing: 2px;
 `
 const TD = styled.td`
+  white-space: nowrap;
   padding: 0 5px;
 `
 const TDvalue = styled(TD)`
