@@ -3,16 +3,64 @@ describe('App menu', () => {
   it('contains controls (buttons)', () => {
     cy.visit('/')
     cy.contains('Draw Area')
-    cy.contains('Upload Area')
+    cy.contains('Add Circle')
+    cy.contains('Upload Areas')
+    cy.contains('2D Population')
+    cy.contains('3D Population')
+    cy.contains('Basemap: Streets')
   })
+})
+
+describe('Layer switches', () => {
 
   it('can toggle basemap options', () => {
     cy.contains('Basemap').click()
     cy.contains('Light').click()
+    cy.contains('Basemap: Light')
+    cy.wait(200)
+    cy.contains('Basemap').click()
+    cy.contains('Dark').click()
+    cy.contains('Basemap: Dark')
     cy.wait(200)
     cy.contains('Basemap').click()
     cy.contains('Streets').click()
+    cy.contains('Basemap: Streets')
     cy.wait(500)
+  })
+
+  it('can toggle 2D Demo', () => {
+    cy.contains('2D Population').click()
+    cy.contains('900-1999')
+    cy.wait(1000)
+    cy.contains('2D Population: ON')
+    cy.contains('2D Population').click()
+    cy.contains('2D Population: OFF')
+    cy.wait(200)
+  })
+
+  it.skip('shows hovered feature info', () => {
+    // cy.contains('2D Population: OFF').click()
+    // cy.wait(1000)
+    // cy.get('.mapboxgl-canvas')
+    //   .wait(2000)
+    //   .trigger('mousemove', { which: 1, pageX: 335, pageY: 560 })
+    //   .trigger('mouseup', { pageX: 235, pageY: 460 })
+    //   .trigger('mouseenter', 445, 470)
+    //   .trigger('mouseover', 445, 470)
+    //   .wait(300)
+    // cy.contains('Population: 500')
+    // cy.wait(200)
+    // cy.contains('2D Population: ON').click()
+  })
+
+  it('can toggle 3D Demo', () => {
+    cy.contains('3D Population').click()
+    cy.contains('900-1999')
+    cy.wait(1000)
+    cy.contains('3D Population: ON')
+    cy.contains('3D Population').click()
+    cy.contains('3D Population: OFF')
+    cy.wait(200)
   })
 })
 
@@ -46,6 +94,11 @@ describe('Drawing areas', () => {
   it('shows area (m2) after finishing drawing', () => {
     cy.contains('Area')
   })
+
+  it('shows remove buttons after drawing', () => {
+    cy.contains('Remove Selected')
+    cy.contains('Remove All')
+  })
 })
 
 describe('Area Stats', () => {
@@ -69,6 +122,7 @@ describe('Area Stats', () => {
     cy.contains('60 486')
     cy.contains('3 035')
     cy.contains('6 011')
+    cy.contains('41.46')
   })
 
   it('can hide population stats', () => {
@@ -104,7 +158,7 @@ describe('Area management', () => {
     cy.contains('Upload Areas')
   })
 
-  it('can remove areas with "Remove Areas" button', () => {
+  it('can remove areas with "Remove All" button', () => {
     drawArea()
     cy.wait(400)
     cy.contains('Remove All').click()

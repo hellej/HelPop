@@ -35,23 +35,33 @@ export const getCensusPoints = (aoiFeature) => {
   return pointsWithinPolygon(censusFC, aoiFeature).features
 }
 
-export const calculateTotalPopulation = (censusFeatures) => {
-  const totalPopulation = Object.values(censusFeatures).map(f => f.properties.ASUKKAITA)
-    .reduce((acc, value) => acc + value)
+export const calculatePopulationSums = (censusFeatures) => {
+  const totalPopulation = Object.values(censusFeatures).map(f => f.properties)
+    .reduce((acc, value) => {
+      acc.population += value.ASUKKAITA
+      acc.m2person += value.ASVALJYYS
+      return acc
+    }, { population: 0, m2person: 0 })
   return totalPopulation
 }
 
 export const calculatePopulationStats = (aoiFeature) => {
   const censusFeatures = getCensusPoints(aoiFeature)
-  if (censusFeatures.length === 0) { return { totalPopulation: 0, populationDensity: 0, populationUrbanDensity: 0 } }
-
-  const totalPopulation = calculateTotalPopulation(censusFeatures)
+  if (censusFeatures.length === 0) {
+    return { totalPopulation: 0, meanM2Person: 0, populationDensity: 0, populationUrbanDensity: 0 }
+  }
+  const populationSums = calculatePopulationSums(censusFeatures)
+  const totalPopulation = populationSums.population
   const populationDensity = Math.round(totalPopulation / (getArea(aoiFeature)))
   const populationUrbanDensity = Math.round(totalPopulation / (cellArea * censusFeatures.length * m2tokm2))
-  return { totalPopulation, populationDensity, populationUrbanDensity }
+  const meanM2Person = Math.round(((populationSums.m2person / censusFeatures.length) * 1000)) / 1000
+  return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person }
 }
 
+export const isFloat = (n) => Number(n) === n && n % 1 !== 0
+
 export const numberToStringWithSpaces = (value) => {
+  if (isFloat(value)) return Math.round(value * 100) / 100
   const numberString = value.toString()
   let formattedString = ''
   let ind = 1

@@ -60,17 +60,7 @@ const AOIname = styled.span.attrs({
   }
 `
 
-const AreaRow = ({ label, propName, features }) => {
-  return (
-    <tr>
-      <TD>{label}</TD>
-      {features.map(feature => (
-        <TDvalue key={feature.id}>{Math.round(feature.properties[propName] * 100) / 100}</TDvalue>))}
-    </tr>
-  )
-}
-
-const PopulationRow = ({ visible, label, propName, features }) => {
+const StatRow = ({ visible, label, propName, features }) => {
   if (!visible) return null
   return (
     <tr>
@@ -101,10 +91,11 @@ const AOIpopulationTable = (props) => {
                 </AOIname>
               </TD>))}
           </tr>
-          <AreaRow label={'Area (km2):'} propName={'area'} features={FC.features} />
-          <PopulationRow visible={popStats} label={'Population:'} propName={'totalPopulation'} features={FC.features} />
-          <PopulationRow visible={popStats} label={'Density (/km2):'} propName={'populationDensity'} features={FC.features} />
-          <PopulationRow visible={popStats} label={'Urban Density (/km2):'} propName={'populationUrbanDensity'} features={FC.features} />
+          <StatRow visible={true} label={'Area (km2):'} propName={'area'} features={FC.features} />
+          <StatRow visible={popStats} label={'Population:'} propName={'totalPopulation'} features={FC.features} />
+          <StatRow visible={popStats} label={'Density (/km2):'} propName={'populationDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Urban Density (/km2):'} propName={'populationUrbanDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Living Space (m2/pers.):'} propName={'meanM2Person'} features={FC.features} />
         </tbody>
       </Table>
       <Button visible={popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
