@@ -1,5 +1,5 @@
 # accessibility-ui
-An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs). Currently supported features include drawing (+ uploading & downloading) AOIs, visualizing population as 2D & 3D grids and calculating population statistics (sum, density, living space (m2/person)) for AOIs. [Live demo](https://accessibilityui.firebaseapp.com/)
+An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs). Currently implemented features include drawing (+ uploading & downloading) AOIs, visualizing population as 2D & 3D grids and calculating population statistics (sum, density, living space (m2/person)) for AOIs. [Live demo](https://accessibilityui.firebaseapp.com/)
 
 ## Installation
 ```
