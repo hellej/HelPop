@@ -5,7 +5,7 @@ const colorSteps = [
   { color: '#E6B71E', value: 500 },
   { color: '#B86B25', value: 900 },
   { color: '#8B4225', value: 2000 },
-  { color: '#723122', value: null },
+  { color: '#723122', value: 2362 },
 ]
 
 const initialDemo2dState = {

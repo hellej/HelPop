@@ -115,40 +115,30 @@ export const validateAOIFeature = (FC) => {
   return error
 }
 
+const mbColorSteps = (colorsValues) => {
+  let mbColors = []
+  colorsValues.forEach((item, i) => {
+    mbColors.push(item.color)
+    const last = colorsValues.length === i + 1
+    if (!last) { mbColors.push(item.value) }
+  })
+  return mbColors
+}
+
 export const mbPaintStyle = (colorsValues, colorProp) => {
-  const colorSteps = (colorsValues) => {
-    let mbColors = []
-    colorsValues.forEach(item => {
-      mbColors.push(item.color)
-      if (item.value) { mbColors.push(item.value) }
-    })
-    return mbColors
-  }
   return {
     'fill-color': [
-      'step',
-      ['get', colorProp],
-      ...colorSteps(colorsValues)
-    ],
+      'step', ['get', colorProp],
+      ...mbColorSteps(colorsValues)],
     'fill-opacity': 0.8
   }
 }
 
 export const mb3DPaintStyle = (colorsValues, colorProp, heightProp) => {
-  const colorSteps = (colorsValues) => {
-    let mbColors = []
-    colorsValues.forEach(item => {
-      mbColors.push(item.color)
-      if (item.value) { mbColors.push(item.value) }
-    })
-    return mbColors
-  }
   return {
     'fill-extrusion-color': [
-      'step',
-      ['get', colorProp],
-      ...colorSteps(colorsValues)
-    ],
+      'step', ['get', colorProp],
+      ...mbColorSteps(colorsValues)],
     'fill-extrusion-height': ['get', heightProp],
     'fill-extrusion-opacity': 0.7
   }
@@ -156,9 +146,11 @@ export const mb3DPaintStyle = (colorsValues, colorProp, heightProp) => {
 
 export const legendClasses = (colorSteps) => {
   const range = (array, index) => {
-    if (index === 0) { return `0-${array[0].value - 1}` }
-    if (index < array.length - 1) { return `${array[index - 1].value}-${array[index].value - 1}` }
-    else return `${array[index - 1].value}-`
+    const first = index === 0
+    const last = index === array.length - 1
+    if (first) { return `0-${array[0].value - 1}` }
+    if (last) return `${array[index - 1].value}-${array[index].value}`
+    return `${array[index - 1].value}-${array[index].value - 1}`
   }
   return colorSteps.map((colorStep, index) => ({
     color: colorStep.color,
