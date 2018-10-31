@@ -1,18 +1,11 @@
 import * as utils from '../utils'
 import { showNotification } from './notificationReducer'
-
-const colorSteps = [
-  { color: '#EED322', value: 100 },
-  { color: '#E6B71E', value: 500 },
-  { color: '#B86B25', value: 900 },
-  { color: '#8B4225', value: 2000 },
-  { color: '#723122', value: null },
-]
+import * as censusFC from './../data/vaesto-250m-2017.json'
 
 const initialDemo3dState = {
   visible: false,
   layerId: 'demo3d',
-  colorSteps: colorSteps,
+  colorSteps: [],
   legendClasses: [],
   legendName: 'Population',
   mbPaintStyle: null,
@@ -30,8 +23,9 @@ const demo3dReducer = (store = initialDemo3dState, action) => {
     case 'SET_COLOR_CLASSES':
       return {
         ...store,
-        legendClasses: utils.legendClasses(action.colorSteps),
-        mbPaintStyle: utils.mb3DPaintStyle(action.colorSteps, 'ASUKKAITA', 'ASUKKAITA')
+        colorSteps: action.colorSteps,
+        legendClasses: action.legendClasses,
+        mbPaintStyle: action.mbPaintStyle,
       }
     default:
       return store
@@ -39,7 +33,16 @@ const demo3dReducer = (store = initialDemo3dState, action) => {
 }
 
 export const initialize3Ddemo = () => {
-  return { type: 'INITIALIZE_DEMO3D', colorSteps }
+  const propValues = censusFC.features.map(feat => feat.properties.ASUKKAITA)
+  const min = Math.min(...propValues)
+  const max = Math.max(...propValues)
+
+  const colors = ['#fee391', '#fec44f', '#fe9929', '#d95f0e', '#993404']
+  const colorSteps = utils.getCustomColorSteps(colors, [200, 600, 1100, 1900, max])
+  // const colorSteps = utils.getEqualColorSteps(colors, min, max)
+  const legendClasses = utils.legendClasses(colorSteps, min, max)
+  const mbPaintStyle = utils.mb3DPaintStyle(colorSteps, 'ASUKKAITA', 'ASUKKAITA')
+  return { type: 'INITIALIZE_DEMO3D', colorSteps, legendClasses, mbPaintStyle }
 }
 
 export const toggle3Ddemo = (visible) => {

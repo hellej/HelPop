@@ -1,17 +1,10 @@
 import * as utils from './../utils'
-
-const colorSteps = [
-  { color: '#EED322', value: 100 },
-  { color: '#E6B71E', value: 500 },
-  { color: '#B86B25', value: 900 },
-  { color: '#8B4225', value: 2000 },
-  { color: '#723122', value: 2362 },
-]
+import * as censusFC from './../data/vaesto-250m-2017.json'
 
 const initialDemo2dState = {
   visible: false,
   layerId: 'demo2d',
-  colorSteps: colorSteps,
+  colorSteps: [],
   legendClasses: [],
   legendName: 'Population',
   mbPaintStyle: null,
@@ -31,8 +24,9 @@ const demo2dReducer = (store = initialDemo2dState, action) => {
     case 'SET_COLOR_CLASSES':
       return {
         ...store,
-        legendClasses: utils.legendClasses(action.colorSteps),
-        mbPaintStyle: utils.mbPaintStyle(action.colorSteps, 'ASUKKAITA')
+        colorSteps: action.colorSteps,
+        legendClasses: action.legendClasses,
+        mbPaintStyle: action.mbPaintStyle,
       }
     default:
       return store
@@ -40,7 +34,16 @@ const demo2dReducer = (store = initialDemo2dState, action) => {
 }
 
 export const initialize2Ddemo = () => {
-  return { type: 'INITIALIZE_DEMO2D', colorSteps }
+  const propValues = censusFC.features.map(feat => feat.properties.ASUKKAITA)
+  const min = Math.min(...propValues)
+  const max = Math.max(...propValues)
+
+  const colors = ['#fee391', '#fec44f', '#fe9929', '#d95f0e', '#993404']
+  const colorSteps = utils.getCustomColorSteps(colors, [200, 600, 1100, 1900, max])
+  // const colorSteps = utils.getEqualColorSteps(colors, min, max)
+  const legendClasses = utils.legendClasses(colorSteps, min, max)
+  const mbPaintStyle = utils.mbPaintStyle(colorSteps, 'ASUKKAITA')
+  return { type: 'INITIALIZE_DEMO2D', colorSteps, legendClasses, mbPaintStyle }
 }
 
 export const toggle2Ddemo = (visible) => {
