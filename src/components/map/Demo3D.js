@@ -4,7 +4,6 @@ import * as censusFC from './../../data/vaesto-250m-2017.json'
 import { initialize3Ddemo } from '../../reducers/demo3dReducer'
 import { setMouseOnFeature } from '../../reducers/mapReducer'
 
-
 class Demo3D extends React.Component {
 
   componentDidMount() {
