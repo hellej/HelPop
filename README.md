@@ -4,7 +4,6 @@ An interactive web map application for analysing and exploring accessibility pat
 ## Built With
 * React, Redux & Thunk
 * Mapbox GL JS & Turf.js
-* Hosting: Firebase
 
 ## Installation
 ```
