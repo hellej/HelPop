@@ -25,9 +25,9 @@ const StyledInput = styled.input`
 const StyledInputLabel = styled.label`
   cursor: pointer;
   color: white;
-  padding: 7px 13px;
+  padding: 6px 11px;
+  border-radius: 8px;  
   background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 30px;
   font-weight: 300;
   font-size: 16px;
   width: max-content;

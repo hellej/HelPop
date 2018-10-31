@@ -13,7 +13,7 @@ const StyledNotificationContainer = styled.div`
 `
 const StyledNotificationDiv = styled.div`
   margin: auto;
-  border-radius: 5px;
+  border-radius: 8px;
   width: -webkit-fill-available;
   background: rgba(0,0,0,0.84);
   display: inline-block;

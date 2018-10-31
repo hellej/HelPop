@@ -12,7 +12,7 @@ const InfoBlock = styled.div`
   padding: 10px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 10px 10px 10px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 300;
   color: white;
   font-size: 15px;
