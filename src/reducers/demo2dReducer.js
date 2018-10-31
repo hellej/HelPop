@@ -32,7 +32,7 @@ const demo2dReducer = (store = initialDemo2dState, action) => {
       return {
         ...store,
         legendClasses: utils.legendClasses(action.colorSteps),
-        mbPaintStyle: utils.mbPaintStyle(action.colorSteps)
+        mbPaintStyle: utils.mbPaintStyle(action.colorSteps, 'ASUKKAITA')
       }
     default:
       return store

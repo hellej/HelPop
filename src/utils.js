@@ -115,7 +115,7 @@ export const validateAOIFeature = (FC) => {
   return error
 }
 
-export const mbPaintStyle = (colorsValues) => {
+export const mbPaintStyle = (colorsValues, colorProp) => {
   const colorSteps = (colorsValues) => {
     let mbColors = []
     colorsValues.forEach(item => {
@@ -127,14 +127,14 @@ export const mbPaintStyle = (colorsValues) => {
   return {
     'fill-color': [
       'step',
-      ['get', 'ASUKKAITA'],
+      ['get', colorProp],
       ...colorSteps(colorsValues)
     ],
     'fill-opacity': 0.8
   }
 }
 
-export const mb3DPaintStyle = (colorsValues) => {
+export const mb3DPaintStyle = (colorsValues, colorProp, heightProp) => {
   const colorSteps = (colorsValues) => {
     let mbColors = []
     colorsValues.forEach(item => {
@@ -146,10 +146,10 @@ export const mb3DPaintStyle = (colorsValues) => {
   return {
     'fill-extrusion-color': [
       'step',
-      ['get', 'ASUKKAITA'],
+      ['get', colorProp],
       ...colorSteps(colorsValues)
     ],
-    'fill-extrusion-height': ['get', 'ASUKKAITA'],
+    'fill-extrusion-height': ['get', heightProp],
     'fill-extrusion-opacity': 0.7
   }
 }

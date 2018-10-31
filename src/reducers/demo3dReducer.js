@@ -31,7 +31,7 @@ const demo3dReducer = (store = initialDemo3dState, action) => {
       return {
         ...store,
         legendClasses: utils.legendClasses(action.colorSteps),
-        mbPaintStyle: utils.mb3DPaintStyle(action.colorSteps)
+        mbPaintStyle: utils.mb3DPaintStyle(action.colorSteps, 'ASUKKAITA', 'ASUKKAITA')
       }
     default:
       return store
