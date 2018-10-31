@@ -80,30 +80,41 @@ export const updateDrawAreas = (e) => {
 }
 
 export const createAddCircle = (center) => {
-  const radius = prompt('Please define the radius of the area in meters:', 2000)
-  const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
-  if (radius === null || name === null || radius === '' || name === '') return { type: 'CANCEL_ADD_CIRCLE' }
-  const circle = utils.getCircle([center.lng, center.lat], radius)
-  const IDs = draw.add(circle)
-  const FC = draw
-    .setFeatureProperty(IDs[0], 'area', utils.getArea(circle))
-    .setFeatureProperty(IDs[0], 'name', name)
-    .getAll()
-  return { type: 'UPDATE_DRAW_AREAS', FC }
+  return async (dispatch) => {
+    const radius = prompt('Please define the radius of the area in meters:', 2000)
+    const name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length + 1}`)
+    const error = utils.validateCircleRadius(radius)
+    const nameError = utils.validateAreaName(name)
+    if (error || nameError) {
+      dispatch(showNotification(error ? error : nameError, 2, 4))
+      return
+    }
+    const circle = utils.getCircle([center.lng, center.lat], radius)
+    const IDs = draw.add(circle)
+    const FC = draw
+      .setFeatureProperty(IDs[0], 'area', utils.getArea(circle))
+      .setFeatureProperty(IDs[0], 'name', name)
+      .getAll()
+    dispatch({ type: 'UPDATE_DRAW_AREAS', FC })
+  }
 }
 
 export const createDrawAreas = (e) => {
-  const createdFeature = e.features[0]
-  let name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
-  if (name === null || name === '') {
-    draw.delete([createdFeature.id])
-    return { type: 'CANCEL_CREATE_AREA' }
+  return async (dispatch) => {
+    const createdFeature = e.features[0]
+    let name = prompt('Please enter a name for the new area', `Area ${draw.getAll().features.length}`)
+    const nameError = utils.validateAreaName(name)
+    if (nameError) {
+      draw.delete([createdFeature.id])
+      dispatch(showNotification(nameError, 2, 4))
+      return
+    }
+    const FC = draw
+      .setFeatureProperty(createdFeature.id, 'name', name)
+      .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
+      .getAll()
+    dispatch({ type: 'CREATE_DRAW_AREAS', FC })
   }
-  const FC = draw
-    .setFeatureProperty(createdFeature.id, 'name', name)
-    .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
-    .getAll()
-  return { type: 'CREATE_DRAW_AREAS', FC }
 }
 
 export const handleUploadFileChange = (file) => {

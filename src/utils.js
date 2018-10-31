@@ -58,7 +58,20 @@ export const calculatePopulationStats = (aoiFeature) => {
   return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person }
 }
 
+export const isInteger = (n) => Number.isInteger(n)
+
 export const isFloat = (n) => Number(n) === n && n % 1 !== 0
+
+export const validateAreaName = (name) => { if (name === null || name === '') return 'Name is required for new areas' }
+
+export const validateCircleRadius = (n) => {
+  const int = parseInt(n, 10)
+  const float = parseFloat(n)
+  if (n && n.indexOf(',') !== -1) return 'Use point as decimal separator'
+  if (!Number.isInteger(int) && !isFloat(float)) return 'Radius should be numeric (& in meters)'
+  if (int < 10 || float < 10) return 'Use bigger radius'
+  if (int > 30000 || float > 30000) return 'Use smaller radius'
+}
 
 export const numberToStringWithSpaces = (value) => {
   if (isFloat(value)) return Math.round(value * 100) / 100
