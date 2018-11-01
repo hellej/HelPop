@@ -38,7 +38,7 @@ export const initialize2Ddemo = () => {
   const min = Math.min(...propValues)
   const max = Math.max(...propValues)
 
-  const colors = ['#fee391', '#fec44f', '#fe9929', '#d95f0e', '#993404']
+  const colors = ['#EED322', '#E6B71E', '#B86B25', '#8B4225', '#723122']
   const colorSteps = utils.getCustomColorSteps(colors, [200, 600, 1100, 1900, max])
   // const colorSteps = utils.getEqualColorSteps(colors, min, max)
   const legendClasses = utils.legendClasses(colorSteps, min, max)
