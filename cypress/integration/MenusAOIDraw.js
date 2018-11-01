@@ -30,7 +30,7 @@ describe('Layer switches', () => {
 
   it('can toggle 2D Demo', () => {
     cy.contains('2D Population').click()
-    cy.contains('900-1999')
+    cy.contains('1900-2362')
     cy.wait(1000)
     cy.contains('2D Population: ON')
     cy.contains('2D Population').click()
@@ -55,7 +55,7 @@ describe('Layer switches', () => {
 
   it('can toggle 3D Demo', () => {
     cy.contains('3D Population').click()
-    cy.contains('900-1999')
+    cy.contains('1900-2362')
     cy.wait(1000)
     cy.contains('3D Population: ON')
     cy.contains('3D Population').click()
