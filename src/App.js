@@ -11,6 +11,7 @@ import Demo2D from './components/map/Demo2D'
 import Demo3D from './components/map/Demo3D'
 import MapControl from './components/map/MapControl'
 import AOI from './components/map/AOI'
+import { GlobalStyle } from './index'
 
 export const StyledMenuContainer = styled.div`
   position: absolute;
@@ -43,6 +44,7 @@ class App extends React.Component {
         <Legend />
         <HoveredInfo />
         <Notification />
+        <GlobalStyle />
       </div>
     )
   }
