@@ -1,5 +1,5 @@
 import { showNotification } from './notificationReducer'
-import * as utils from '../utils'
+import { utils, turf } from '../utils/index'
 
 let draw = null
 
@@ -74,7 +74,7 @@ export const drawSelectionChanged = () => {
 export const updateDrawAreas = (e) => {
   const updatedFeature = e.features[0]
   const FC = draw
-    .setFeatureProperty(updatedFeature.id, 'area', utils.getArea(updatedFeature))
+    .setFeatureProperty(updatedFeature.id, 'area', turf.getArea(updatedFeature))
     .getAll()
   return { type: 'UPDATE_DRAW_AREAS', FC }
 }
@@ -89,10 +89,10 @@ export const createAddCircle = (center) => {
       dispatch(showNotification(error ? error : nameError, 2, 4))
       return
     }
-    const circle = utils.getCircle([center.lng, center.lat], radius)
+    const circle = turf.getCircle([center.lng, center.lat], radius)
     const IDs = draw.add(circle)
     const FC = draw
-      .setFeatureProperty(IDs[0], 'area', utils.getArea(circle))
+      .setFeatureProperty(IDs[0], 'area', turf.getArea(circle))
       .setFeatureProperty(IDs[0], 'name', name)
       .getAll()
     dispatch({ type: 'UPDATE_DRAW_AREAS', FC })
@@ -111,7 +111,7 @@ export const createDrawAreas = (e) => {
     }
     const FC = draw
       .setFeatureProperty(createdFeature.id, 'name', name)
-      .setFeatureProperty(createdFeature.id, 'area', utils.getArea(createdFeature))
+      .setFeatureProperty(createdFeature.id, 'area', turf.getArea(createdFeature))
       .getAll()
     dispatch({ type: 'CREATE_DRAW_AREAS', FC })
   }

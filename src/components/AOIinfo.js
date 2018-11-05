@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import * as utils from '../utils'
+import { utils } from '../utils/index'
 import { aoiType } from './types'
 import { Button } from './controls/Button'
 import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } from './../reducers/aoiReducer'

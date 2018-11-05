@@ -1,4 +1,4 @@
-import * as utils from '../utils'
+import { mbutils } from './../utils/index'
 import { showNotification } from './notificationReducer'
 import * as censusFC from './../data/vaesto-250m-2017.json'
 
@@ -38,10 +38,10 @@ export const initialize3Ddemo = () => {
   const max = Math.max(...propValues)
 
   const colors = ['#EED322', '#E6B71E', '#B86B25', '#8B4225', '#723122']
-  const colorSteps = utils.getCustomColorSteps(colors, [200, 600, 1100, 1900, max])
+  const colorSteps = mbutils.getCustomColorSteps(colors, [200, 600, 1100, 1900, max])
   // const colorSteps = utils.getEqualColorSteps(colors, min, max)
-  const legendClasses = utils.legendClasses(colorSteps, min, max)
-  const mbPaintStyle = utils.mb3DPaintStyle(colorSteps, 'ASUKKAITA', 'ASUKKAITA')
+  const legendClasses = mbutils.legendClasses(colorSteps, min, max)
+  const mbPaintStyle = mbutils.mb3DPaintStyle(colorSteps, 'ASUKKAITA', 'ASUKKAITA')
   return { type: 'INITIALIZE_DEMO3D', colorSteps, legendClasses, mbPaintStyle }
 }
 

@@ -1,4 +1,4 @@
-import * as utils from '../utils'
+import { utils } from '../utils/index'
 import saveAs from 'file-saver'
 
 const initialAOIState = {

@@ -1,4 +1,4 @@
-import * as utils from './../utils'
+import { turf } from '../utils/index'
 
 const initialMapState = {
   basemap: 'Streets',
@@ -24,16 +24,16 @@ const mapReducer = (store = initialMapState, action) => {
       return { ...store, center: action.center, zoom: action.zoom }
 
     case 'ZOOM_TO_FEATURE':
-      return { ...store, zoomToBbox: utils.getBbox(utils.getBuffer(action.feature, 1000)) }
+      return { ...store, zoomToBbox: turf.getBbox(turf.getBuffer(action.feature, 1000)) }
 
     case 'TOGGLE_3D_DEMO':
-      return { ...store, camera3d: !store.camera3d,  mouseOnFeature: null }
+      return { ...store, camera3d: !store.camera3d, mouseOnFeature: null }
 
     case 'TOGGLE_2D_DEMO':
-      return { ...store, camera3d: false,  mouseOnFeature: null }
+      return { ...store, camera3d: false, mouseOnFeature: null }
 
     case 'SET_UPLOADED_AOI':
-      return { ...store, zoomToBbox: utils.getBbox(utils.getBuffer(action.FC, 1000)) }
+      return { ...store, zoomToBbox: turf.getBbox(turf.getBuffer(action.FC, 1000)) }
 
     case 'SET_MOUSEON_FEATURE': {
       if (action.feature === undefined) return { ...store, mouseOnFeature: null }
