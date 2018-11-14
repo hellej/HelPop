@@ -59,12 +59,6 @@ const P = styled.div`
   font-size: 16px;
   letter-spacing: 0.5px;
 `
-const Emoj = styled.span.attrs({
-  role: 'img',
-  ariaLabel: 'boy'
-})`
-  font-size: 18px;
-`
 const ButtonDiv = styled.div`
   width: 100%;
   display: flex;
@@ -83,7 +77,7 @@ const Guide = (props) => {
             <Title>Welcome to Accessibility UI <Colored color='#14b514'>beta</Colored></Title>
             <P>
               You have found accessibility user interface, great! Unfortunately, no accessibility features
-              have been implemented yet... <Emoj>🤷‍♂️</Emoj>
+              have been implemented yet...
             </P>
             <P>
               However, you can explore the spatial distribution of the population in the city. Currently
