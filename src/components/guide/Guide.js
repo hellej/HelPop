@@ -83,16 +83,16 @@ const Guide = (props) => {
             <Title>Welcome to Accessibility UI <Colored color='#14b514'>beta</Colored></Title>
             <P>
               You have found accessibility user interface, great! Unfortunately, no accessibility features
-              are implemented yet... <Emoj>🤷‍♂️</Emoj>
+              have been implemented yet... <Emoj>🤷‍♂️</Emoj>
             </P>
             <P>
-              However, you can explore the spatial distribution of population in the city. Supported features include
-              drawing multiple areas of interest (AOIs) on the map and comparing basic population statistics within
-              the areas. Drawn areas can be downloaded as GeoJSON file to your computer and then uploaded back into the
-              app once you need them again.
+              However, you can explore the spatial distribution of the population in the city. Currently
+              supported features include drawing multiple areas of interest (AOIs) on the map and comparing
+              basic population statistics between (within) the areas. Drawn areas can be downloaded as
+              a GeoJSON file to your computer and then uploaded back into the app once you need them again.
             </P>
             <P>
-              Also, population distribution can be visualized as nice 2D and 3D choropleth maps.
+              Also, population distribution can be visualized with nice 2D and 3D choropleth maps.
             </P>
             <P>
               Census data is based on 250 m population grid provided by <a
