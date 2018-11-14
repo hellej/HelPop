@@ -53,6 +53,7 @@
         "after": true
       }
     ],
-    "no-console": 0
+    "no-console": 0,
+    "jsx-a11y/accessible-emoji": "off"
   }
 }

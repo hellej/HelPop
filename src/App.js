@@ -1,7 +1,9 @@
 import React from 'react'
-import Map from './components/map/Map'
-import Draw from './components/map/Draw'
 import styled from 'styled-components'
+import Draw from './components/map/Draw'
+import Map from './components/map/Map'
+import MapDimLayer from './components/MapDimLayer'
+import Guide from './components/Guide'
 import AOIinfo from './components/AOIinfo'
 import Legend from './components/Legend'
 import HoveredInfo from './components/HoveredInfo'
@@ -36,6 +38,7 @@ class App extends React.Component {
           <Demo3D />
           <AOI />
           <MapControl />
+          <MapDimLayer />
         </Map>
         <StyledMenuContainer>
           <AOIinfo />
@@ -43,6 +46,7 @@ class App extends React.Component {
         </StyledMenuContainer>
         <Legend />
         <HoveredInfo />
+        <Guide />
         <Notification />
         <GlobalStyle />
       </div>

@@ -37,7 +37,7 @@ const TD = styled.td`
 const TDvalue = styled(TD)`
   text-align: center;
   color: #88ff88;
-  `
+`
 const TDfirst = styled(TD)`
   padding: 3px 5px;
 `

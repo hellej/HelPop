@@ -32,6 +32,17 @@ ${props => props.sub && css`
     margin-left: 23px;
   }
 `}
+${props => props.green && css`
+  margin: 5px 10px;
+  background-color: #1cbf1c;
+  color: white;
+  font-weight: 500;
+  //box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
+  &:hover { 
+    margin: 5px 10px;
+    background-color: #00ab00;
+  }
+`}
 ${props => props.small && css`
   transition-duration: 0.2s;
   -webkit-transition-duration: 0.2s; /* Safari */
