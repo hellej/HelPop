@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { toggleGuide } from './../reducers/menuReducer'
-import { Button } from './controls/Button'
+import { Button } from '../controls/Button'
+import { toggleGuide } from './../../reducers/menuReducer'
 
-export const GuideContainer = styled.div`
+const GuideContainer = styled.div`
   position: absolute;
   top: 0px;
   right: 0px;
@@ -72,29 +72,11 @@ const ButtonDiv = styled.div`
   padding: 9px 0 5px 0px;
 `
 
-const ToggleGuideButton = styled(Button)`
-  position: absolute;
-  padding: 4px 9px;
-  right: -4px;
-  top: 10px;
-  font-weight: 600;
-  border: 1px solid black;
-  background-color: ${props => props.guide ? 'white' : 'black'}; 
-  color: ${props => props.guide ? 'black' : 'white'}; 
-  &:before {
-    content: 'i';
-  }
-  &:hover {
-    margin-right: 12px
-  }
-`
-
 const Guide = (props) => {
-  if (!props.menu.guide) return <ToggleGuideButton onClick={props.toggleGuide} />
+  if (!props.menu.guide) return null
 
   return (
     <GuideContainer>
-      <ToggleGuideButton onClick={props.toggleGuide} guide={props.menu.guide} />
       <FlexDiv>
         <WhiteBox>
           <Instructions>

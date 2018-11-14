@@ -9,7 +9,7 @@ export const Button = styled.div.attrs({
   padding: 6px 11px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.9);
-  margin: 5px 10px;
+  margin: 5px 0px;
   font-weight: 300;
   font-size: 16px;
   width: max-content;
@@ -20,16 +20,17 @@ export const Button = styled.div.attrs({
   transition-duration: 0.1s;
   -webkit-transition-duration: 0.1s; /* Safari */
   &:hover {
-    margin-left: 13px;
+    margin-left: 2px;
   }
   @media (max-width: 500px) {
     font-size: 15px;
     padding: 6px 11px;
   }
 ${props => props.sub && css`
-  margin-left: 20px;
+  padding: 5px 10px;
+  margin-left: 10px;
   &:hover { 
-    margin-left: 23px;
+    margin-left: 12px;
   }
 `}
 ${props => props.green && css`

@@ -3,17 +3,6 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { demo2dType } from './types'
 
-export const LegendContainer = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 2px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  letter-spacing: 0.6px;
-  pointer-events: none;
-`
 const FlexDiv = styled.div`
   max-width: 95%;
   display: flex;
@@ -35,14 +24,12 @@ const BlackBox = styled.div`
   line-height: 1.7;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 6px 20px 0 rgba(0,0,0,0.06);
 `
-
 const LegendItem = styled.div`
   display: flex;
   flex-direction: row;
   padding: 2px;
   width: max-content;
 `
-
 const ColorBox = styled.div`
   background-color: ${props => props.color};
   width: 20px;
@@ -68,16 +55,14 @@ class Legend extends React.Component {
     const { legendClasses, legendName } = this.props.demo2d
 
     return (
-      <LegendContainer>
-        <FlexDiv>
-          <BlackBox>
-            <div>{legendName}</div>
-            {legendClasses.map(colorClass => (
-              <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
-            ))}
-          </BlackBox>
-        </FlexDiv>
-      </LegendContainer>
+      <FlexDiv>
+        <BlackBox>
+          <div>{legendName}</div>
+          {legendClasses.map(colorClass => (
+            <ColorClass color={colorClass.color} range={colorClass.range} key={colorClass.range} />
+          ))}
+        </BlackBox>
+      </FlexDiv>
     )
   }
 }

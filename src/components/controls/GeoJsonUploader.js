@@ -4,14 +4,14 @@ import { handleUploadFileChange } from '../../reducers/drawReducer'
 import styled from 'styled-components'
 
 const StyledDiv = styled.div`
-  margin: 12px 10px;
+  margin: 12px 0px;
   transition-duration: 0.1s;
   -webkit-transition-duration: 0.1s; /* Safari */
   &:hover {
-    margin-left: 13px;
+    margin-left: 2px;
   }
   @media (max-width: 500px) {
-    margin: 11px 10px;
+    margin: 11px 0px;
   }
 `
 const StyledInput = styled.input`

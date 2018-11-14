@@ -11,7 +11,7 @@ const InfoBlock = styled.div`
   max-width: ${props => props.legendVisible ? 'calc(100% - 170px)' : '89%'};
   padding: 10px 7px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
-  margin: 5px 10px 10px 10px;
+  margin: 5px 5px 5px 0px;
   border-radius: 8px;
   font-weight: 300;
   color: white;
