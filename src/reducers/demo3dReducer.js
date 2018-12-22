@@ -1,6 +1,6 @@
 import { mbutils } from './../utils/index'
 import { showNotification } from './notificationReducer'
-import * as censusFC from './../data/vaesto-250m-2017.json'
+import censusFC from './../data/vaesto-250m-2017.json'
 
 const initialDemo3dState = {
   visible: false,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as censusFC from './../../data/vaesto-250m-2017.json'
+import censusFC from './../../data/vaesto-250m-2017.json'
 import { initialize2Ddemo } from '../../reducers/demo2dReducer'
 import { setMouseOnFeature } from '../../reducers/mapReducer'
 

@@ -1,5 +1,5 @@
 import { mbutils } from './../utils/index'
-import * as censusFC from './../data/vaesto-250m-2017.json'
+import censusFC from './../data/vaesto-250m-2017.json'
 
 const initialDemo2dState = {
   visible: false,

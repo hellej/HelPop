@@ -1,4 +1,4 @@
-import * as censusFC from './../data/vaesto-250m-2017-centr.json'
+import censusFC from './../data/vaesto-250m-2017-centr.json'
 import { turf } from './index'
 
 export const calculatePopulationSums = (censusFeatures) => {
