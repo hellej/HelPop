@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components'
 import { bool } from 'prop-types'
 
-export const Button = styled.div.attrs({
-  style: props => ({ display: props.visible ? '' : 'none' })
-})`
+export const Button = styled.div.attrs(props => ({
+    style: ({ display: props.visible ? '' : 'none' })
+    })
+  )`
   color: ${props => props.color ? props.color : 'white'}; 
   cursor: pointer;
   padding: 6px 11px;

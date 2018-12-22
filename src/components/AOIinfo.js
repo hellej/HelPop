@@ -41,19 +41,18 @@ const TDvalue = styled(TD)`
 const TDfirst = styled(TD)`
   padding: 3px 5px;
 `
-const AOIname = styled.span.attrs({
-  style: props => ({
-    borderColor: props.mapHovered ? '#70f7ff' : ''
-  })
-})`
+const AOIname = styled.span.attrs(props => ({
+    style: ({ borderColor: props.mapHovered ? '#70f7ff' : ''})
+    })
+  )`
   white-space: nowrap;
   text-align: center;
   font-weight: 350;
   border-radius: 30px
   border: 1px solid white;
   padding: 3px 11px;
-  transition-duration: 0.2s;
-  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s; /* Safari */
   &:hover { 
     border-color: #70f7ff; 
     cursor: pointer;
