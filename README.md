@@ -1,5 +1,5 @@
-# accessibility-ui
-An interactive web map application for analysing and exploring accessibility patterns within user-drawn areas of interest (AOIs). Currently implemented features include drawing (+ uploading & downloading) AOIs, visualizing population as 2D & 3D grids and calculating population statistics (sum, density, living space (m2/person)) for AOIs. [Live demo](https://accessibilityui.firebaseapp.com/)
+# HelPop
+An interactive web map application for analysing and exploring population patterns within user-drawn areas of interest (AOIs). Currently implemented features include drawing (+ uploading & downloading) AOIs, visualizing population as 2D & 3D grids and calculating population statistics (sum, density, living space (m2/person)) for AOIs. [Live demo](https://hel-pop.firebaseapp.com/)
 
 ## Built With
 * React, Redux & Thunk
@@ -7,8 +7,8 @@ An interactive web map application for analysing and exploring accessibility pat
 
 ## Installation
 ```
-$ git clone git@github.com:hellej/accessibility-ui.git
-$ cd accessibility-ui
+$ git clone git@github.com:hellej/HelPop.git
+$ cd HelPop
 $ npm install
 $ npm start
 ```

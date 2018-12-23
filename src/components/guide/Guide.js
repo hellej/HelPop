@@ -74,13 +74,9 @@ const Guide = (props) => {
       <FlexDiv>
         <WhiteBox>
           <Instructions>
-            <Title>Welcome to Accessibility UI <Colored color='#14b514'>beta</Colored></Title>
+            <Title>Welcome to HelPop <Colored color='#14b514'>beta</Colored></Title>
             <P>
-              You have found accessibility user interface, great! Unfortunately, no accessibility features
-              have been implemented yet...
-            </P>
-            <P>
-              However, you can explore the spatial distribution of the population in the city. Currently
+              Here you can explore the spatial distribution of the population in the city. Currently
               supported features include drawing multiple areas of interest (AOIs) on the map and comparing
               basic population statistics between (within) the areas. Drawn areas can be downloaded as
               a GeoJSON file to your computer and then uploaded back into the app once you need them again.
