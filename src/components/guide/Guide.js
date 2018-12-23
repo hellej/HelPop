@@ -41,7 +41,7 @@ const WhiteBox = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.22), 0 6px 20px 0 rgba(0,0,0,0.14);
 `
 const Instructions = styled.div`
-  max-height: 80vh;
+  max-height: 67vh;
   overflow: auto;
 `
 const Title = styled.div`
