@@ -1,8 +1,12 @@
-import { utils } from '../utils/index'
+import { utils, turf } from '../utils/index'
 import saveAs from 'file-saver'
 
 const initialAOIState = {
   FC: {
+    type: 'FeatureCollection',
+    features: []
+  },
+  censusPoints: {
     type: 'FeatureCollection',
     features: []
   },
@@ -25,9 +29,10 @@ const aoiReducer = (store = initialAOIState, action) => {
         ...store,
         FC: action.FC,
         popStats: true,
+        censusPoints: action.censusPoints,
       }
     case 'HIDE_POPULATION_STATS':
-      return { ...store, popStats: false }
+      return { ...initialAOIState, FC: store.FC }
 
     case 'SET_MAP_HOVERED_ID':
       return { ...store, mapHoveredId: action.id }
@@ -61,10 +66,14 @@ const aoiReducer = (store = initialAOIState, action) => {
         ...action.FC,
         features: action.FC.features.filter(feature => feature.geometry.coordinates[0] !== undefined)
       }
-      return {
-        ...store,
-        FC: store.popStats ? getAddPopulationStats(FC) : FC
-      }
+      if (store.popStats) {
+        const { FCstats, censusPoints } = getAddPopulationStats(FC)
+        return {
+          ...store,
+          FC: FCstats,
+          censusPoints
+        }
+      } else return { ...store, FC }
     }
     default:
       return store
@@ -76,7 +85,8 @@ export const deleteAOI = () => {
 }
 
 export const calculatePopulationStats = (FC) => {
-  return { type: 'POPULATION_CALCULATED', FC: getAddPopulationStats(FC) }
+  const { FCstats, censusPoints } = getAddPopulationStats(FC)
+  return { type: 'POPULATION_CALCULATED', FC: FCstats, censusPoints }
 }
 
 export const hidePopulationStats = () => {
@@ -111,7 +121,7 @@ export const unsetListHoveredAOI = () => {
 }
 
 const getAddPopulationStats = (FC) => {
-  return {
+  const FCstats = {
     ...FC,
     features: FC.features.map(feature => ({
       ...feature,
@@ -121,6 +131,13 @@ const getAddPopulationStats = (FC) => {
       }
     }))
   }
+
+  const points = FCstats.features.map(feat => feat.properties.censusFeatures).reduce((acc, value) => {
+    return acc.concat(value)
+  }, [])  
+  const censusPoints = turf.asFeatureCollection(points)
+
+  return { FCstats, censusPoints }
 }
 
 export default aoiReducer

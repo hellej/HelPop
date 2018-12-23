@@ -22,7 +22,7 @@ export const calculatePopulationStats = (aoiFeature) => {
   const populationDensity = Math.round(totalPopulation / (turf.getArea(aoiFeature)))
   const populationUrbanDensity = Math.round(totalPopulation / (turf.cellArea * censusFeatures.length * turf.m2tokm2))
   const meanM2Person = Math.round(((populationSums.m2person / censusFeatures.length) * 1000)) / 1000
-  return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person }
+  return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person, censusFeatures }
 }
 
 export const addAreaAndNameToFC = (FC) => {
