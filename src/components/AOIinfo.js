@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { utils } from '../utils/index'
 import { aoiType } from './types'
 import { Button } from './controls/Button'
+import { getUpdateDrawAreas } from './../reducers/drawReducer'
 import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } from './../reducers/aoiReducer'
 import { zoomToFeature } from './../reducers/mapReducer'
 
@@ -42,9 +43,9 @@ const TDfirst = styled(TD)`
   padding: 3px 5px;
 `
 const AOIname = styled.span.attrs(props => ({
-    style: ({ borderColor: props.mapHovered ? '#70f7ff' : ''})
-    })
-  )`
+  style: ({ borderColor: props.mapHovered ? '#70f7ff' : '' })
+})
+)`
   white-space: nowrap;
   text-align: center;
   font-weight: 350;
@@ -57,6 +58,11 @@ const AOIname = styled.span.attrs(props => ({
     border-color: #70f7ff; 
     cursor: pointer;
   }
+`
+const ButtonDiv = styled.div`
+  display: flex;
+  margin: auto;
+  max-width: 85%;
 `
 
 const StatRow = ({ visible, label, propName, features }) => {
@@ -71,8 +77,7 @@ const StatRow = ({ visible, label, propName, features }) => {
 }
 
 const AOIpopulationTable = (props) => {
-  const { FC, popStats, hidePopulationStats, mapHoveredId,
-    zoomToFeature, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } = props
+  const { FC, popStats, mapHoveredId, zoomToFeature, setListHoveredAOI, unsetListHoveredAOI } = props
   return (
     <TableDiv>
       <Table>
@@ -97,15 +102,13 @@ const AOIpopulationTable = (props) => {
           <StatRow visible={popStats} label={'Living Space (m2/pers.):'} propName={'meanM2Person'} features={FC.features} />
         </tbody>
       </Table>
-      <Button visible={popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
-      <Button visible={!popStats} small onClick={() => calculatePopulationStats(FC)}> Show Population</Button>
     </TableDiv>
   )
 }
 
 const AOIinfo = (props) => {
-  const { aoi, menu, hidePopulationStats, zoomToFeature,
-    setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } = props
+  const { aoi, menu, hidePopulationStats, zoomToFeature, setListHoveredAOI,
+    unsetListHoveredAOI, calculatePopulationStats, getUpdateDrawAreas } = props
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
     <InfoBlock legendVisible={menu.legend}>
@@ -117,8 +120,14 @@ const AOIinfo = (props) => {
         zoomToFeature={zoomToFeature}
         popStats={aoi.popStats}
         calculatePopulationStats={calculatePopulationStats}
-        hidePopulationStats={hidePopulationStats}>
+        hidePopulationStats={hidePopulationStats}
+        getUpdateDrawAreas={getUpdateDrawAreas}>
       </AOIpopulationTable>
+      <ButtonDiv>
+        <Button visible={aoi.popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
+        <Button visible={aoi.popStats} small onClick={getUpdateDrawAreas}>Update Stats</Button>
+        <Button visible={!aoi.popStats} small onClick={() => calculatePopulationStats(aoi.FC)}> Show Population</Button>
+      </ButtonDiv>
     </InfoBlock>
   )
 }
@@ -138,6 +147,7 @@ const mapDispatchToProps = {
   setListHoveredAOI,
   unsetListHoveredAOI,
   calculatePopulationStats,
+  getUpdateDrawAreas
 }
 
 const ConnectedAOIinfo = connect(mapStateToProps, mapDispatchToProps)(AOIinfo)

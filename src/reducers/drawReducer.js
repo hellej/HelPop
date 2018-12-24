@@ -79,6 +79,11 @@ export const updateDrawAreas = (e) => {
   return { type: 'UPDATE_DRAW_AREAS', FC }
 }
 
+export const getUpdateDrawAreas = () => {
+  const FC = draw.getAll()
+  return { type: 'UPDATE_DRAW_AREAS', FC }
+}
+
 export const createAddCircle = (center) => {
   return async (dispatch) => {
     const radius = prompt('Please define the radius of the area in meters:', 2000)
