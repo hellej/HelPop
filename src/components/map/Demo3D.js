@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import censusFC from './../../data/vaesto-250m-2017.json'
 import { initialize3Ddemo } from '../../reducers/demo3dReducer'
 import { setMouseOnFeature } from '../../reducers/mapReducer'
+import asMapLayer from './asMapLayer'
 
 class Demo3D extends React.Component {
 
@@ -10,40 +11,17 @@ class Demo3D extends React.Component {
     this.props.initialize3Ddemo()
   }
 
-  componentDidUpdate = async (prevProps) => {
-    const { layerId, visible, mbPaintStyle } = this.props.demo3d
-    const { basemap } = this.props.mapState
-
-    if (visible && !prevProps.demo3d.visible) this.addLayer(this.props.map, layerId, censusFC, mbPaintStyle)
-
-    if (prevProps.mapState.basemap !== basemap) {
-      this.props.map.on('style.load', () => {
-        this.addLayer(this.props.map, layerId, censusFC, mbPaintStyle)
-      })
+  componentDidUpdate = (prevProps) => {
+    if (this.props.visible && !prevProps.visible) {
+      this.props.map.on('mousemove', this.setMouseOnFeature)
     }
-
-    if (!visible && prevProps.demo3d.visible) {
+    if (!this.props.visible && prevProps.visible) {
       this.props.map.off('mousemove', this.setMouseOnFeature)
-      this.props.map.removeLayer(layerId)
     }
-  }
-
-  addLayer = async (map, layerId, data, mbPaintStyle) => {
-    if (!this.props.demo3d.visible) return
-    if (!map.getSource(layerId)) map.addSource(layerId, { type: 'geojson', data })
-    if (!map.getLayer(layerId)) {
-      map.addLayer({
-        id: layerId,
-        source: layerId,
-        type: 'fill-extrusion',
-        paint: mbPaintStyle
-      })
-    }
-    this.props.map.on('mousemove', this.setMouseOnFeature)
   }
 
   setMouseOnFeature = (e) => {
-    const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.demo3d.layerId] })
+    const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.layerId] })
     this.props.setMouseOnFeature(features[0])
   }
 
@@ -53,8 +31,12 @@ class Demo3D extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  mapState: state.map,
-  demo3d: state.demo3d,
+  layerId: state.demo3d.layerId,
+  data: censusFC,
+  visible: state.demo3d.visible,
+  paintType: 'fill-extrusion',
+  paint: state.demo3d.mbPaintStyle,
+  basemap: state.map.basemap,
 })
 
 const mapDispatchToProps = {
@@ -62,6 +44,6 @@ const mapDispatchToProps = {
   setMouseOnFeature,
 }
 
-const ConnectedDemo3D = connect(mapStateToProps, mapDispatchToProps)(Demo3D)
+const ConnectedDemo3D = connect(mapStateToProps, mapDispatchToProps)(asMapLayer(Demo3D))
 
 export default ConnectedDemo3D

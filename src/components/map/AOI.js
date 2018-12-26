@@ -1,50 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import asMapLayer from './asMapLayer'
 
 class AOI extends React.Component {
 
-  componentDidMount() {
-    this.addLayer()
+  componentDidMount = () => {
+    this.props.addOrUpdateLayer()
   }
 
-  componentDidUpdate = async (prevProps) => {
-    const { layerId, FC, listHoveredId } = this.props.aoi
-    const { basemap } = this.props.mapState
+  componentDidUpdate = (prevProps) => {
+    const { layerId, listHoveredId, FC } = this.props.aoi
 
-    if (prevProps.mapState.basemap !== basemap) {
-      this.props.map.on('style.load', () => {
-        this.addLayer()
-      })
+    if (JSON.stringify(FC) !== JSON.stringify(prevProps.aoi.FC)) {
+      this.props.addOrUpdateLayer()
     }
-
-    const layer = this.props.map.getSource(layerId)
-    if (layer) layer.setData(FC)
-
-    if (!this.props.map.isStyleLoaded()) return
 
     if (prevProps.aoi.listHoveredId !== listHoveredId) {
       this.props.map.setFilter(layerId, ['match', ['get', 'name'], listHoveredId, true, false])
     } else { this.props.map.setFilter(layerId, ['==', '-', '']) }
-
-  }
-
-  addLayer = () => {
-    const { layerId, FC } = this.props.aoi
-    if (!this.props.map.getSource(layerId)) this.props.map.addSource(layerId, { type: 'geojson', data: FC })
-    if (!this.props.map.getLayer(layerId)) {
-      this.props.map.addLayer({
-        id: layerId, source: layerId, type: 'line',
-        paint: {
-          'line-width': 8,
-          'line-color': '#99f9ff',
-          'line-opacity': 0.8,
-        },
-        layout: {
-          'line-join': 'round',
-        }
-      })
-    }
-    this.props.map.setFilter(layerId, ['==', '-', ''])
   }
 
   render() {
@@ -53,10 +26,19 @@ class AOI extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  layerId: state.aoi.layerId,
+  data: state.aoi.FC,
+  visible: true,
+  paintType: 'line',
+  paint: {
+    'line-width': 8,
+    'line-color': '#99f9ff',
+    'line-opacity': 0.8,
+  },
+  basemap: state.map.basemap,
   aoi: state.aoi,
-  mapState: state.map,
 })
 
-const ConnectedAOI = connect(mapStateToProps)(AOI)
+const ConnectedAOI = connect(mapStateToProps)(asMapLayer(AOI))
 
 export default ConnectedAOI

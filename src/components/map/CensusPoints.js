@@ -1,42 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import asMapLayer from './asMapLayer'
 
 class CensusPoints extends React.Component {
 
-  componentDidUpdate = async (prevProps) => {
-
-    const layerId = 'censusPoints'
-    const { censusPoints, popStats } = this.props.aoi
-    const { basemap } = this.props.mapState
-
-    if (!popStats && this.props.map.getLayer(layerId) !== undefined) {
-      this.props.map.removeLayer(layerId)
-      return
+  componentDidUpdate = (prevProps) => {
+    if (JSON.stringify(this.props.data) !== JSON.stringify(prevProps.data)) {
+      this.props.addOrUpdateLayer()
     }
-
-    this.addLayer(this.props.map, layerId, censusPoints)
-
-    if (prevProps.mapState.basemap !== basemap) {
-      this.props.map.on('style.load', () => {
-        this.addLayer(this.props.map, layerId, censusPoints)
-      })
-    }
-  }
-
-  addLayer = async (map, layerId, data) => {
-    if (!map.getSource(layerId)) map.addSource(layerId, { type: 'geojson', data })
-    if (!map.getLayer(layerId)) {
-      map.addLayer({
-        id: layerId,
-        source: layerId,
-        type: 'circle',
-        paint: {
-          'circle-radius': 2,
-          'circle-color': 'red'
-        }
-      })
-    }
-    map.getSource(layerId).setData(data);
   }
 
   render() {
@@ -45,10 +16,17 @@ class CensusPoints extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  layerId: 'censusPoints',
+  data: state.aoi.censusPoints,
+  visible: state.aoi.popStats,
+  paintType: 'circle',
+  paint: {
+    'circle-radius': 2,
+    'circle-color': 'red'
+  },
   mapState: state.map,
-  aoi: state.aoi,
 })
 
-const ConnectedCensusPoints = connect(mapStateToProps, null)(CensusPoints)
+const ConnectedCensusPoints = connect(mapStateToProps, null)(asMapLayer(CensusPoints))
 
 export default ConnectedCensusPoints
