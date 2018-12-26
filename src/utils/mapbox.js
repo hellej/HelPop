@@ -36,7 +36,7 @@ export const mbPaintStyle = (colorSteps, colorProp) => {
     'fill-color': [
       'step', ['get', colorProp],
       ...mbColorSteps(colorSteps)],
-    'fill-opacity': 0.87
+    'fill-opacity': 0.76
   }
 }
 
