@@ -8,13 +8,12 @@ class MapControl extends React.Component {
     const { map } = this.props
     const { basemap, camera3d, zoomToBbox } = this.props.mapState
 
-    if (camera3d && !prevProps.mapState.camera3d) map.easeTo({ pitch: 30 })
+    if (camera3d && !prevProps.mapState.camera3d && map.getPitch() < 5) map.easeTo({ pitch: 30 })
     if (!camera3d && prevProps.mapState.camera3d) map.easeTo({ pitch: 0, bearing: 0 })
     if (zoomToBbox !== prevProps.mapState.zoomToBbox) map.fitBounds(zoomToBbox)
     if (zoomToBbox !== prevProps.mapState.zoomToBbox) map.fitBounds(zoomToBbox)
     if (basemap !== prevProps.mapState.basemap) map.setStyle(constants.BASEMAPS[basemap].url)
   }
-
   render() { return null }
 }
 
