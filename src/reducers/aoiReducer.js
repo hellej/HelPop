@@ -51,14 +51,20 @@ const aoiReducer = (store = initialAOIState, action) => {
         FC: action.FC,
         popStats: false
       }
-    case 'REMOVE_AOIS':
+    case 'REMOVE_AOIS': {
+      const FCupdate = {
+        ...store.FC,
+        features: store.FC.features.filter(feature => action.IDs.indexOf(feature.id) === -1)
+      }
+      const { popPoints, popGrid } = getAddPopulationStats(FCupdate)
       return {
         ...store,
-        FC: {
-          ...store.FC,
-          features: store.FC.features.filter(feature => action.IDs.indexOf(feature.id) === -1)
-        }
+        FC: FCupdate,
+        popStats: FCupdate.features.length > 0 ? true : false,
+        popPoints,
+        popGrid,
       }
+    }
     case 'CREATE_DRAW_AREAS':
     case 'UPDATE_DRAW_AREAS': {
       const FC = {
