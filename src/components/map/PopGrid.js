@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import asMapLayer from './asMapLayer'
 
-class PopPoints extends React.Component {
+class PopGrid extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if (JSON.stringify(this.props.data) !== JSON.stringify(prevProps.data)) {
@@ -16,17 +16,17 @@ class PopPoints extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  layerId: 'popPoints',
-  data: state.aoi.popPoints,
+  layerId: 'popGrid',
+  data: state.aoi.popGrid,
   visible: state.aoi.popStats,
-  paintType: 'circle',
+  paintType: 'fill',
   paint: {
-    'circle-radius': 2,
-    'circle-color': 'black'
+    'fill-color': 'red',
+    'fill-opacity': 0.2
   },
   mapState: state.map,
 })
 
-const ConnectedPopPoints = connect(mapStateToProps, null)(asMapLayer(PopPoints))
+const ConnectedPopGrid = connect(mapStateToProps, null)(asMapLayer(PopGrid))
 
-export default ConnectedPopPoints
+export default ConnectedPopGrid

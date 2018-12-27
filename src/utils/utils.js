@@ -25,6 +25,24 @@ export const calculatePopulationStats = (aoiFeature) => {
   const meanM2Person = Math.round(((populationSums.m2person / popPoints.length) * 1000)) / 1000
   return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person, popPoints }
 }
+
+const filteredPopGridByIds = (features) => {
+  const ids = features.map(feature => feature.properties.INDEX)
+  const filteredPopGrid = {
+    ...censusFCgrid,
+    features: censusFCgrid.features.filter(feat => ids.indexOf(feat.properties.INDEX) !== -1)
+  }
+  return filteredPopGrid
+}
+
+export const collectAOIpopFeatures = (FCstats) => {
+  const points = FCstats.features.map(feat => feat.properties.popPoints).reduce((acc, value) => {
+    return acc.concat(value)
+  }, [])
+  if (points.length === 1 && points[0] === undefined) {
+    return { popPoints: turf.asFeatureCollection([]), popGrid: turf.asFeatureCollection([]) }
+  }
+  return { popPoints: turf.asFeatureCollection(points), popGrid: filteredPopGridByIds(points) }
 }
 
 export const addAreaAndNameToFC = (FC) => {

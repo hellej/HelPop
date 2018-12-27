@@ -16,6 +16,7 @@ import MapControl from './components/map/MapControl'
 import AOI from './components/map/AOI'
 import { GlobalStyle } from './index'
 import PopPoints from './components/map/PopPoints'
+import PopGrid from './components/map/PopGrid'
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -55,6 +56,7 @@ class App extends React.Component {
           <Demo3D />
           <AOI />
           <PopPoints />
+          <PopGrid />
           <MapControl />
           <MapDimLayer />
         </Map>

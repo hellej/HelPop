@@ -6,10 +6,8 @@ const initialAOIState = {
     type: 'FeatureCollection',
     features: []
   },
-  popPoints: {
-    type: 'FeatureCollection',
-    features: []
-  },
+  popPoints: turf.asFeatureCollection(),
+  popGrid: turf.asFeatureCollection(),
   popStats: false,
   mapHoveredId: '',
   listHoveredId: '',
@@ -30,6 +28,7 @@ const aoiReducer = (store = initialAOIState, action) => {
         FC: action.FC,
         popStats: true,
         popPoints: action.popPoints,
+        popGrid: action.popGrid,
       }
     case 'HIDE_POPULATION_STATS':
       return { ...initialAOIState, FC: store.FC }
@@ -67,11 +66,12 @@ const aoiReducer = (store = initialAOIState, action) => {
         features: action.FC.features.filter(feature => feature.geometry.coordinates[0] !== undefined)
       }
       if (store.popStats) {
-        const { FCstats, popPoints } = getAddPopulationStats(FC)
+        const { FCstats, popPoints, popGrid } = getAddPopulationStats(FC)
         return {
           ...store,
           FC: FCstats,
-          popPoints
+          popPoints,
+          popGrid,
         }
       } else return { ...store, FC }
     }
@@ -85,8 +85,8 @@ export const deleteAOI = () => {
 }
 
 export const calculatePopulationStats = (FC) => {
-  const { FCstats, popPoints } = getAddPopulationStats(FC)
-  return { type: 'POPULATION_CALCULATED', FC: FCstats, popPoints }
+  const { FCstats, popPoints, popGrid } = getAddPopulationStats(FC)
+  return { type: 'POPULATION_CALCULATED', FC: FCstats, popPoints, popGrid }
 }
 
 export const hidePopulationStats = () => {
@@ -131,13 +131,8 @@ const getAddPopulationStats = (FC) => {
       }
     }))
   }
-
-  const points = FCstats.features.map(feat => feat.properties.popPoints).reduce((acc, value) => {
-    return acc.concat(value)
-  }, [])
-  const popPoints = turf.asFeatureCollection(points)
-
-  return { FCstats, popPoints }
+  const { popPoints, popGrid } = utils.collectAOIpopFeatures(FCstats)
+  return { FCstats, popPoints, popGrid }
 }
 
 export default aoiReducer
