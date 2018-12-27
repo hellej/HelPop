@@ -15,7 +15,7 @@ import Demo3D from './components/map/Demo3D'
 import MapControl from './components/map/MapControl'
 import AOI from './components/map/AOI'
 import { GlobalStyle } from './index'
-import CensusPoints from './components/map/CensusPoints'
+import PopPoints from './components/map/PopPoints'
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -54,7 +54,7 @@ class App extends React.Component {
           <Demo2D />
           <Demo3D />
           <AOI />
-          <CensusPoints />
+          <PopPoints />
           <MapControl />
           <MapDimLayer />
         </Map>

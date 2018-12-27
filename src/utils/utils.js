@@ -1,8 +1,9 @@
 import censusFC from './../data/vaesto-250m-2017-centr.json'
+import censusFCgrid from './../data/vaesto-250m-2017.json'
 import { turf } from './index'
 
-export const calculatePopulationSums = (censusFeatures) => {
-  const totalPopulation = Object.values(censusFeatures)
+export const calculatePopulationSums = (popPoints) => {
+  const totalPopulation = Object.values(popPoints)
     .map(f => f.properties)
     .reduce((acc, value) => {
       acc.population += value.ASUKKAITA
@@ -13,16 +14,17 @@ export const calculatePopulationSums = (censusFeatures) => {
 }
 
 export const calculatePopulationStats = (aoiFeature) => {
-  const censusFeatures = turf.featuresWithinPolygon(censusFC, aoiFeature)
-  if (censusFeatures.length === 0) {
+  const popPoints = turf.featuresWithinPolygon(censusFC, aoiFeature)
+  if (popPoints.length === 0) {
     return { totalPopulation: 0, meanM2Person: 0, populationDensity: 0, populationUrbanDensity: 0 }
   }
-  const populationSums = calculatePopulationSums(censusFeatures)
+  const populationSums = calculatePopulationSums(popPoints)
   const totalPopulation = populationSums.population
   const populationDensity = Math.round(totalPopulation / (turf.getArea(aoiFeature)))
-  const populationUrbanDensity = Math.round(totalPopulation / (turf.cellArea * censusFeatures.length * turf.m2tokm2))
-  const meanM2Person = Math.round(((populationSums.m2person / censusFeatures.length) * 1000)) / 1000
-  return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person, censusFeatures }
+  const populationUrbanDensity = Math.round(totalPopulation / (turf.cellArea * popPoints.length * turf.m2tokm2))
+  const meanM2Person = Math.round(((populationSums.m2person / popPoints.length) * 1000)) / 1000
+  return { totalPopulation, populationDensity, populationUrbanDensity, meanM2Person, popPoints }
+}
 }
 
 export const addAreaAndNameToFC = (FC) => {

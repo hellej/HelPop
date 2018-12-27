@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import asMapLayer from './asMapLayer'
 
-class CensusPoints extends React.Component {
+class PopPoints extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if (JSON.stringify(this.props.data) !== JSON.stringify(prevProps.data)) {
@@ -16,8 +16,8 @@ class CensusPoints extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  layerId: 'censusPoints',
-  data: state.aoi.censusPoints,
+  layerId: 'popPoints',
+  data: state.aoi.popPoints,
   visible: state.aoi.popStats,
   paintType: 'circle',
   paint: {
@@ -27,6 +27,6 @@ const mapStateToProps = (state) => ({
   mapState: state.map,
 })
 
-const ConnectedCensusPoints = connect(mapStateToProps, null)(asMapLayer(CensusPoints))
+const ConnectedPopPoints = connect(mapStateToProps, null)(asMapLayer(PopPoints))
 
-export default ConnectedCensusPoints
+export default ConnectedPopPoints

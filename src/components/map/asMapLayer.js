@@ -36,8 +36,19 @@ const asMapLayer = WrappedComponent => {
       map.getSource(layerId).setData(data)
     }
 
+    getMouseOnFeature = (e) => {
+      const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.layerId] })
+      return features[0]
+    }
+
     render() {
-      return <WrappedComponent {...this.props} addOrUpdateLayer={this.addOrUpdateLayer} />
+      return (
+        <WrappedComponent
+          {...this.props}
+          addOrUpdateLayer={this.addOrUpdateLayer}
+          getMouseOnFeature={this.getMouseOnFeature}
+        ></WrappedComponent>
+      )
     }
   }
 }

@@ -21,8 +21,8 @@ class Demo3D extends React.Component {
   }
 
   setMouseOnFeature = (e) => {
-    const features = this.props.map.queryRenderedFeatures(e.point, { layers: [this.props.layerId] })
-    this.props.setMouseOnFeature(features[0])
+    const feature = this.props.getMouseOnFeature(e)
+    this.props.setMouseOnFeature(feature)
   }
 
   render() {

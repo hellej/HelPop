@@ -6,7 +6,7 @@ const initialAOIState = {
     type: 'FeatureCollection',
     features: []
   },
-  censusPoints: {
+  popPoints: {
     type: 'FeatureCollection',
     features: []
   },
@@ -29,7 +29,7 @@ const aoiReducer = (store = initialAOIState, action) => {
         ...store,
         FC: action.FC,
         popStats: true,
-        censusPoints: action.censusPoints,
+        popPoints: action.popPoints,
       }
     case 'HIDE_POPULATION_STATS':
       return { ...initialAOIState, FC: store.FC }
@@ -67,11 +67,11 @@ const aoiReducer = (store = initialAOIState, action) => {
         features: action.FC.features.filter(feature => feature.geometry.coordinates[0] !== undefined)
       }
       if (store.popStats) {
-        const { FCstats, censusPoints } = getAddPopulationStats(FC)
+        const { FCstats, popPoints } = getAddPopulationStats(FC)
         return {
           ...store,
           FC: FCstats,
-          censusPoints
+          popPoints
         }
       } else return { ...store, FC }
     }
@@ -85,8 +85,8 @@ export const deleteAOI = () => {
 }
 
 export const calculatePopulationStats = (FC) => {
-  const { FCstats, censusPoints } = getAddPopulationStats(FC)
-  return { type: 'POPULATION_CALCULATED', FC: FCstats, censusPoints }
+  const { FCstats, popPoints } = getAddPopulationStats(FC)
+  return { type: 'POPULATION_CALCULATED', FC: FCstats, popPoints }
 }
 
 export const hidePopulationStats = () => {
@@ -132,12 +132,12 @@ const getAddPopulationStats = (FC) => {
     }))
   }
 
-  const points = FCstats.features.map(feat => feat.properties.censusFeatures).reduce((acc, value) => {
+  const points = FCstats.features.map(feat => feat.properties.popPoints).reduce((acc, value) => {
     return acc.concat(value)
-  }, [])  
-  const censusPoints = turf.asFeatureCollection(points)
+  }, [])
+  const popPoints = turf.asFeatureCollection(points)
 
-  return { FCstats, censusPoints }
+  return { FCstats, popPoints }
 }
 
 export default aoiReducer
