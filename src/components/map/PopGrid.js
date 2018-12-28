@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import asMapLayer from './asMapLayer'
+import { setMouseOnFeature } from '../../reducers/mapReducer'
 
 class PopGrid extends React.Component {
 
@@ -8,6 +9,17 @@ class PopGrid extends React.Component {
     if (JSON.stringify(this.props.data) !== JSON.stringify(prevProps.data)) {
       this.props.addOrUpdateLayer()
     }
+    if (this.props.visible && !prevProps.visible) {
+      this.props.map.on('mousemove', this.setMouseOnFeature)
+    }
+    if (!this.props.visible && prevProps.visible) {
+      this.props.map.off('mousemove', this.setMouseOnFeature)
+    }
+  }
+
+  setMouseOnFeature = (e) => {
+    const feature = this.props.getMouseOnFeature(e)
+    this.props.setMouseOnFeature(feature)
   }
 
   render() {
@@ -27,6 +39,6 @@ const mapStateToProps = (state) => ({
   mapState: state.map,
 })
 
-const ConnectedPopGrid = connect(mapStateToProps, null)(asMapLayer(PopGrid))
+const ConnectedPopGrid = connect(mapStateToProps, { setMouseOnFeature })(asMapLayer(PopGrid))
 
 export default ConnectedPopGrid
