@@ -37,11 +37,8 @@ const filteredPopGridByIds = (features) => {
 
 export const collectAOIpopFeatures = (FCstats) => {
   const points = FCstats.features.map(feat => feat.properties.popPoints).reduce((acc, value) => {
-    return acc.concat(value)
+    return value !== undefined ? acc.concat(value) : acc
   }, [])
-  if (points.length === 1 && points[0] === undefined) {
-    return { popPoints: turf.asFeatureCollection([]), popGrid: turf.asFeatureCollection([]) }
-  }
   return { popPoints: turf.asFeatureCollection(points), popGrid: filteredPopGridByIds(points) }
 }
 

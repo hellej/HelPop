@@ -6,8 +6,8 @@ const initialAOIState = {
     type: 'FeatureCollection',
     features: []
   },
-  popPoints: turf.asFeatureCollection(),
-  popGrid: turf.asFeatureCollection(),
+  popPoints: turf.asFeatureCollection([]),
+  popGrid: turf.asFeatureCollection([]),
   popStats: false,
   mapHoveredId: '',
   listHoveredId: '',
@@ -60,7 +60,7 @@ const aoiReducer = (store = initialAOIState, action) => {
       return {
         ...store,
         FC: FCupdate,
-        popStats: FCupdate.features.length > 0 ? true : false,
+        popStats: store.popStats && FCupdate.features.length > 0 ? true : false,
         popPoints,
         popGrid,
       }
