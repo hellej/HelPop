@@ -14,9 +14,9 @@ const InfoBlock = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 5px 5px 0px;
   border-radius: 8px;
-  font-weight: 300;
+  font-weight: 400;
   color: white;
-  font-size: 14px;
+  font-size: 15px;
   width: max-content;
   pointer-events: auto;
   line-height: 1.7;
@@ -52,7 +52,7 @@ const AOIname = styled.span.attrs(props => ({
 )`
   white-space: nowrap;
   text-align: center;
-  font-weight: 350;
+  font-weight: 400;
   border-radius: 30px
   border: 1px solid white;
   padding: 3px 11px;
@@ -103,7 +103,7 @@ const AOIpopulationTable = (props) => {
           <StatRow visible={popStats} label={'Population:'} propName={'totalPopulation'} features={FC.features} />
           <StatRow visible={popStats} label={'Pop. Density'} unit={'/ total area km2:'} propName={'populationDensity'} features={FC.features} />
           <StatRow visible={popStats} label={'Pop. Density'} unit={'/ inhabited squares km2:'} propName={'populationUrbanDensity'} features={FC.features} />
-          <StatRow visible={popStats} label={'Living Space'} unit={'m2/pers.:'} propName={'meanM2Person'} features={FC.features} />
+          <StatRow visible={popStats} label={'Average Living Space'} unit={'m2/pers.:'} propName={'meanM2Person'} features={FC.features} />
         </tbody>
       </Table>
     </TableDiv>

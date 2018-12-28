@@ -7,7 +7,7 @@ import { toggleGuide } from './../../reducers/menuReducer'
 const StyledToggleGuideButton = styled(Button)`
   padding: 4px 9px;
   font-weight: 600;
-  border: 1px solid black;
+  border: 2px solid black;
   background-color: ${props => props.guide ? 'white' : 'black'}; 
   color: ${props => props.guide ? 'black' : 'white'}; 
   margin-right: 0px;

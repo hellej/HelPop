@@ -28,7 +28,7 @@ const StyledInputLabel = styled.label`
   padding: 6px 11px;
   border-radius: 8px;  
   background-color: rgba(0, 0, 0, 0.9);
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   width: max-content;
   max-width: 90%;

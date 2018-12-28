@@ -15,7 +15,7 @@ const BlackBox = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 0px 5px 5px;
   border-radius: 8px;
-  font-weight: 300;
+  font-weight: 400;
   color: white;
   font-size: 15px;
   overflow: auto;

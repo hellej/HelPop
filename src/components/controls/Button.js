@@ -11,7 +11,7 @@ export const Button = styled.div.attrs(props => ({
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 0px;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 16px;
   width: max-content;
   max-width: 90%;

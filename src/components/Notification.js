@@ -20,7 +20,7 @@ const StyledNotificationDiv = styled.div`
   line-height: 1.5;
   color: white;
   font-size: 16px;
-  font-weight: 350;
+  font-weight: 400;
   letter-spacing: 1.5px;
   padding: 18px 23px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

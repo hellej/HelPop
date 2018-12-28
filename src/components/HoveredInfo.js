@@ -18,7 +18,7 @@ const BlackInfoBox = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   margin: 5px 0px 5px 5px;
   border-radius: 8px;
-  font-weight: 300;
+  font-weight: 400;
   color: white;
   font-size: 16px;
   overflow: auto;
@@ -29,7 +29,7 @@ const BlackInfoBox = styled.div`
 `
 const StyledNumber = styled.span`
   color: #adffb5;
-  font-weight: 350;
+  font-weight: 550;
 `
 
 class HoveredInfo extends React.Component {
