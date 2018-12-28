@@ -5,7 +5,7 @@ import { utils } from '../utils/index'
 import { aoiType } from './types'
 import { Button } from './controls/Button'
 import { getUpdateDrawAreas } from './../reducers/drawReducer'
-import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats } from './../reducers/aoiReducer'
+import { hidePopulationStats, setListHoveredAOI, unsetListHoveredAOI, calculatePopulationStats, unsetMapHoveredAOI } from './../reducers/aoiReducer'
 import { zoomToFeature } from './../reducers/mapReducer'
 
 const InfoBlock = styled.div`
@@ -16,7 +16,7 @@ const InfoBlock = styled.div`
   border-radius: 8px;
   font-weight: 300;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
   width: max-content;
   pointer-events: auto;
   line-height: 1.7;
@@ -32,8 +32,12 @@ const Table = styled.table`
   border-spacing: 2px;
 `
 const TD = styled.td`
+  font-weight: 400;
   white-space: nowrap;
   padding: 0 5px;
+`
+const Unit = styled.span`
+  font-size: 12px;
 `
 const TDvalue = styled(TD)`
   text-align: center;
@@ -65,11 +69,11 @@ const ButtonDiv = styled.div`
   max-width: 85%;
 `
 
-const StatRow = ({ visible, label, propName, features }) => {
+const StatRow = ({ visible, label, unit, propName, features }) => {
   if (!visible) return null
   return (
     <tr>
-      <TD>{label}</TD>
+      <TD>{label} <Unit>{unit}</Unit></TD>
       {features.map(feature => (
         <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties[propName])}</TDvalue>))}
     </tr>
@@ -95,11 +99,11 @@ const AOIpopulationTable = (props) => {
                 </AOIname>
               </TD>))}
           </tr>
-          <StatRow visible={true} label={'Area (km2):'} propName={'area'} features={FC.features} />
+          <StatRow visible={true} label={'Area'} unit={'(km2):'} propName={'area'} features={FC.features} />
           <StatRow visible={popStats} label={'Population:'} propName={'totalPopulation'} features={FC.features} />
-          <StatRow visible={popStats} label={'Density (/km2):'} propName={'populationDensity'} features={FC.features} />
-          <StatRow visible={popStats} label={'Urban Density (/km2):'} propName={'populationUrbanDensity'} features={FC.features} />
-          <StatRow visible={popStats} label={'Living Space (m2/pers.):'} propName={'meanM2Person'} features={FC.features} />
+          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ total area km2:'} propName={'populationDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ inhabited squares km2:'} propName={'populationUrbanDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Living Space'} unit={'m2/pers.:'} propName={'meanM2Person'} features={FC.features} />
         </tbody>
       </Table>
     </TableDiv>
@@ -108,10 +112,12 @@ const AOIpopulationTable = (props) => {
 
 const AOIinfo = (props) => {
   const { aoi, menu, hidePopulationStats, zoomToFeature, setListHoveredAOI,
-    unsetListHoveredAOI, calculatePopulationStats, getUpdateDrawAreas } = props
+    unsetListHoveredAOI, calculatePopulationStats, getUpdateDrawAreas, unsetMapHoveredAOI } = props
   if (aoi.FC.features && aoi.FC.features.length === 0) return null
   return (
-    <InfoBlock legendVisible={menu.legend}>
+    <InfoBlock
+      legendVisible={menu.legend}
+      onMouseEnter={unsetMapHoveredAOI}>
       <AOIpopulationTable
         FC={aoi.FC}
         mapHoveredId={aoi.mapHoveredId}
@@ -147,7 +153,8 @@ const mapDispatchToProps = {
   setListHoveredAOI,
   unsetListHoveredAOI,
   calculatePopulationStats,
-  getUpdateDrawAreas
+  getUpdateDrawAreas,
+  unsetMapHoveredAOI,
 }
 
 const ConnectedAOIinfo = connect(mapStateToProps, mapDispatchToProps)(AOIinfo)
