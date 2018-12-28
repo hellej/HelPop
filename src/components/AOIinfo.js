@@ -37,7 +37,9 @@ const TD = styled.td`
   padding: 0 5px;
 `
 const Unit = styled.span`
-  font-size: 12px;
+  font-size: 13px;
+  color: #fff9a1;
+  margin-left: 3px;
 `
 const TDvalue = styled(TD)`
   text-align: center;
@@ -73,7 +75,7 @@ const StatRow = ({ visible, label, unit, propName, features }) => {
   if (!visible) return null
   return (
     <tr>
-      <TD>{label} <Unit>{unit}</Unit></TD>
+      <TD>{label}{' '}<Unit>{unit}</Unit></TD>
       {features.map(feature => (
         <TDvalue key={feature.id}>{utils.numberToStringWithSpaces(feature.properties[propName])}</TDvalue>))}
     </tr>
@@ -99,11 +101,11 @@ const AOIpopulationTable = (props) => {
                 </AOIname>
               </TD>))}
           </tr>
-          <StatRow visible={true} label={'Area'} unit={'(km2):'} propName={'area'} features={FC.features} />
-          <StatRow visible={popStats} label={'Population:'} propName={'totalPopulation'} features={FC.features} />
-          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ total area km2:'} propName={'populationDensity'} features={FC.features} />
-          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ inhabited squares km2:'} propName={'populationUrbanDensity'} features={FC.features} />
-          <StatRow visible={popStats} label={'Average Living Space'} unit={'m2/pers.:'} propName={'meanM2Person'} features={FC.features} />
+          <StatRow visible={true} label={'Area'} unit={'km2'} propName={'area'} features={FC.features} />
+          <StatRow visible={popStats} label={'Population'} unit={'2017'} propName={'totalPopulation'} features={FC.features} />
+          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ total area km2'} propName={'populationDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Pop. Density'} unit={'/ inhabited squares km2'} propName={'populationUrbanDensity'} features={FC.features} />
+          <StatRow visible={popStats} label={'Average Living Space'} unit={'m2 / person'} propName={'meanM2Person'} features={FC.features} />
         </tbody>
       </Table>
     </TableDiv>
