@@ -18,7 +18,7 @@ Open browser to http://localhost:3000/
 Running the integration tests: `npm run cypress:open`
 
 ## Interactive web mapping with Mapbox GL & React
-This project also serves as a proof of concept of an interactive web mapping solution utilizing Mapbox GL and React. React framework (/library) facilitates building single page web applications (SPAs) with highly organized codebase. Hence, building an interactive web map application as React SPA enables structuring map components (e.g. layers, data, styles, map zoom, map tilt) in more modularized manner. Moreover, using redux store in an application such as this further clarifies the division between styles, data and logic of the mapping components. 
+This project also serves as a proof of concept of an interactive web mapping solution utilizing Mapbox GL and React. React framework (/library) facilitates building single page web applications (SPAs) with highly organized codebase. Hence, building an interactive web map application as React SPA enables structuring map components (e.g. layers, data, styles, map zoom, map tilt) in more modularized manner. Moreover, using redux store in an application such as this further clarifies the division between styles, data and logic of the mapping features. 
 
 **Mapping features of the application apply the following concepts:**
 * Map layers (components) are children of the map component in the App.js
@@ -31,50 +31,50 @@ This project also serves as a proof of concept of an interactive web mapping sol
 ``` 
   ├── components
   │   ├── controls   
-  │   │    ├── Button.js                   # Button as styled component 
+  │   │    ├── Button.js                   # Importable button as a styled component
   │   │    ├── ControlPanel.js             # All buttons of the UI as panel
   │   │    └── GeoJsonUploader.js          # Button (style & logic) for uploading GeoJSON files to UI
   │   ├── guide 
-  │   │    ├── Guide.js                    # "Welcome to app" -message, includes styles and content
-  │   │    └── ToglleGuideButton.js        # Small button for toggling guide visibility
+  │   │    ├── Guide.js                    # Independent "Welcome to app" -modal, includes styles and content
+  │   │    └── ToglleGuideButton.js        # Button for toggling guide visibility
   │   ├── map                              # Map layers as React components
   │   │    ├── AOI.js                      # Highlights list hovered AOI on the map
-  │   │    ├── asMapLayer.js               # Higher order component to provide useful methods for all map layers
+  │   │    ├── asMapLayer.js               # Higher order component (HOC) for providing general methods (e.g. add layer to map) to all map layers
   │   │    ├── Demo2D.js                   # 2D choropleth map of population
   │   │    ├── Demo3D.js                   # 3D choropleth map of population
-  │   │    ├── Draw.js                     # Listens to draw events and dispatches related actions
-  │   │    ├── Map.js                      # Initialization of MapboxGL map
-  │   │    ├── MapControl.js               # Adjusting map (e.g. tilt & zoom) based on state in mapReducer in redux store
+  │   │    ├── Draw.js                     # Initialization of draw, listens to draw events and dispatches related actions
+  │   │    ├── Map.js                      # Initialization of MapboxGL map, "parent" of the map layers
+  │   │    ├── MapControl.js               # Adjusting map (e.g. tilt & zoom) based on state in mapReducer (redux store)
   │   │    ├── PopGrid.js                  # If population stats are shown, this shows the selected population grid cells
   │   │    └── PopPoints.js                # If population stats are shown, this shows the related population grid center points
   │   ├── types
   │   │    └── index.js                    # Definitions for prop-types
-  │   ├── AOIInfo.js                       # Shows AOI info (table of population stats)
+  │   ├── AOIInfo.js                       # AOI info = table of population stats
   │   ├── HoveredInfo.js                   # Shows the population count of the mouse hovered population feature (grid cell)
-  │   ├── Legend.js                        # Color (population) classes for either 2D or 3D demo
+  │   ├── Legend.js                        # Colors and class ranges (population) for both 2D or 3D demo
   │   ├── MapDimLayer.js                   # Dims map when necessary (e.g. if guide is shown)
   │   └── Notification.js                  # Shows notifications at the bottom of the UI
   ├── data 
-  │   ├── data-sources.txt                 # Origins of the data 
-  │   ├── vaesto-250m-2017-centr.json      # Center points of HSY population grid 
-  │   └── vaesto-250m-2017.json            # HSY population grid
-  ├── reducers                             # App state as reducers
-  │   ├── aoiReducer.js                    # AOI population stats and map/list hovered AOI info if any
-  │   ├── demo2dReducer.js                 # Map layer settings (but the data is imported in the map component for performance) 
-  │   ├── demo3dReducers.js                # Map layer settings (but the data is imported in the map component for performance)
-  │   ├── drawReducer.js                   # Draw state including draw event handling (e.g. creating or updating drawn areas)
-  │   ├── mapReducer.js                    # Map state (zoom, center, map hovered feature etc.)
-  │   ├── menuReducer.js                   # Menu state, whether legend, guide or basemap options are shown
-  │   └── notificationReducer.js           # State and actions for showing notifications
+  │   ├── data-sources.txt                 # Sources of the data
+  │   ├── vaesto-250m-2017-centr.json      # Center points of HSY population grid (2017)
+  │   └── vaesto-250m-2017.json            # HSY population grid (2017)
+  ├── reducers                             # State of the app is managed with these reducers
+  │   ├── aoiReducer.js                    # AOI feature, population stats of it and map/list hovered AOI info if any
+  │   ├── demo2dReducer.js                 # Settings and state of the map layer (the data is imported in the map component for performance)
+  │   ├── demo3dReducers.js                # Settings and state of the map layer (the data is imported in the map component for performance)
+  │   ├── drawReducer.js                   # State of the draw object and draw event handling (e.g. creating or updating drawn areas)
+  │   ├── mapReducer.js                    # State of the map (zoom, center, map hovered feature etc.)
+  │   ├── menuReducer.js                   # State of the menu: whether legend, guide and basemap options are shown
+  │   └── notificationReducer.js           # Actions (and state) for showing notifications
   ├── utils                        
   │   ├── index.js                         # Provides all utilities from one place
-  │   ├── mapbox.js                        # Functions to support use of Mapbox layers & styles
-  │   ├── turf.js                          # Geospatial analysis (e.g. buffer, points in polygon) 
-  │   └── utils.js                         # General utilities (e.g. for calculating population stats)
-  │── App.js                               # All components of the app 
-  │── constants.js                         # URLs to Mapbox map styles 
+  │   ├── mapbox.js                        # Functions to support handling of Mapbox layers & styles
+  │   ├── turf.js                          # Geospatial analysis (e.g. buffer & points in polygon)
+  │   └── utils.js                         # General utilities (e.g. calculation of population stats)
+  │── App.js                               # All components of the app
+  │── constants.js                         # URLs to Mapbox map styles
   │── index.js                             # Renders app to root-div
-  └── store.js                             # Reducers combined to redux store
+  └── store.js                             # Reducers combined to a redux store
 ```
 
 ## License
