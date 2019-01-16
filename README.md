@@ -24,10 +24,10 @@ This project also serves as a proof of concept of an interactive web mapping sol
 * Map layers (components) are children of the map component in the App.js
 * Map component passes the Mapbox map object as props to all of its children (map layers)
 * General functionality (e.g. adding layer to the map) is passed to all map layer components with higher order component (HOC) asMapLayer.js 
-* Style, legend data, layer id and visibility of map layers are managed in reducer and static GeoJSON data is imported directly to the map component (Demo2D & Demo3D) 
+* Style, legend data, layer id and visibility of map layers are managed in reducer, whereas static GeoJSON data is imported directly to the map component (Demo2D & Demo3D) 
   * Or: Style is created inside the map layer component and GeoJSON data is provided from the related reducer (AOI)
 
-## Files in /src
+## SRC
 ``` 
   ├── components
   │   ├── controls   
