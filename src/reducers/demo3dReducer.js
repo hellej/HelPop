@@ -52,6 +52,13 @@ export const toggle3Ddemo = (visible) => {
   }
 }
 
+export const start3Ddemo = () => {
+  return async (dispatch) => {
+    dispatch({ type: 'TOGGLE_3D_DEMO', visible: false })
+    dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 7))
+  }
+}
+
 export const setPaintStyle = (colorSteps) => {
   return { type: 'SET_COLOR_CLASSES', colorSteps }
 }

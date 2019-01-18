@@ -9,6 +9,9 @@ class Demo3D extends React.Component {
 
   componentDidMount() {
     this.props.initialize3Ddemo()
+    if (this.props.visible) {
+      this.props.map.on('mousemove', this.setMouseOnFeature)
+    }
   }
 
   componentDidUpdate = (prevProps) => {

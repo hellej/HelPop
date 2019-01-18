@@ -1,4 +1,6 @@
 import React from 'react'
+import { Router, Route } from 'react-router-dom'
+import history from './history'
 import styled from 'styled-components'
 import Draw from './components/map/Draw'
 import Map from './components/map/Map'
@@ -17,6 +19,7 @@ import AOI from './components/map/AOI'
 import { GlobalStyle } from './index'
 import PopPoints from './components/map/PopPoints'
 import PopGrid from './components/map/PopGrid'
+import AppRouteListener from './AppRouteListener'
 
 const AbsoluteContainer = styled.div`
   position: absolute;
@@ -41,30 +44,33 @@ export const TopRightPanel = styled(AbsoluteContainer)`
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <TopLeftPanel>
-          <AOIinfo />
-          <ControlPanel />
-        </TopLeftPanel>
-        <TopRightPanel>
-          <Legend />
-          <ToggleGuideButton />
-        </TopRightPanel>
-        <Map>
-          <Draw />
-          <Demo2D />
-          <Demo3D />
-          <AOI />
-          <PopPoints />
-          <PopGrid />
-          <MapControl />
-          <MapDimLayer />
-        </Map>
-        <HoveredInfo />
-        <Guide />
-        <Notification />
-        <GlobalStyle />
-      </div>
+      <Router history={history} >
+        <div>
+          <Route path='/:route' component={AppRouteListener} />
+          <TopLeftPanel>
+            <AOIinfo />
+            <ControlPanel />
+          </TopLeftPanel>
+          <TopRightPanel>
+            <Legend />
+            <ToggleGuideButton />
+          </TopRightPanel>
+          <Map>
+            <Draw />
+            <Demo2D />
+            <Demo3D />
+            <AOI />
+            <PopPoints />
+            <PopGrid />
+            <MapControl />
+            <MapDimLayer />
+          </Map>
+          <HoveredInfo />
+          <Guide />
+          <Notification />
+          <GlobalStyle />
+        </div>
+      </Router>
     )
   }
 }
