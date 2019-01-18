@@ -8,6 +8,11 @@ class PopPoints extends React.Component {
     if (JSON.stringify(this.props.data) !== JSON.stringify(prevProps.data)) {
       this.props.addOrUpdateLayer()
     }
+    // re-add layer when basemap is changed
+    if (prevProps.basemap !== this.props.basemap) {
+      this.props.map.once('style.load', () => this.props.addOrUpdateLayer())
+      return
+    }
   }
 
   render() {
@@ -24,7 +29,7 @@ const mapStateToProps = (state) => ({
     'circle-radius': 2,
     'circle-color': 'black'
   },
-  mapState: state.map,
+  basemap: state.map.basemap,
 })
 
 const ConnectedPopPoints = connect(mapStateToProps, null)(asMapLayer(PopPoints))

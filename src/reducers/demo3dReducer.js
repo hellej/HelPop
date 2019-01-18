@@ -19,6 +19,9 @@ const demo3dReducer = (store = initialDemo3dState, action) => {
 
     case 'TOGGLE_2D_DEMO': return { ...store, visible: action.visible ? store.visible : false }
 
+    case 'REMOVE_2D_3D_POPS':
+      return { ...store, visible: false }
+
     case 'INITIALIZE_DEMO3D':
     case 'SET_COLOR_CLASSES':
       return {

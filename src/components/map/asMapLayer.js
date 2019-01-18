@@ -5,18 +5,16 @@ const asMapLayer = WrappedComponent => {
   return class extends React.Component {
 
     componentDidUpdate = (prevProps) => {
-      const { map, layerId, visible, basemap } = this.props
+      const { map, layerId, visible } = this.props
 
       if (!visible && map.getLayer(layerId) !== undefined) {
         map.removeLayer(layerId)
         return
       } else if (!visible) { return }
 
-      if (prevProps.basemap !== basemap) {
-        this.props.map.once('style.load', () => this.addOrUpdateLayer())
-        return
+      if (visible) {
+        this.addOrUpdateLayer()
       }
-      this.addOrUpdateLayer()
     }
 
     addOrUpdateLayer = () => {

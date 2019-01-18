@@ -26,6 +26,9 @@ const mapReducer = (store = initialMapState, action) => {
     case 'ZOOM_TO_FEATURE':
       return { ...store, zoomToBbox: turf.getBbox(turf.getBuffer(action.feature, 1000)) }
 
+    case 'REMOVE_2D_3D_POPS':
+      return { ...store, camera3d: false, mouseOnFeature: null }
+
     case 'TOGGLE_3D_DEMO':
       return { ...store, camera3d: !store.camera3d, mouseOnFeature: null }
 
@@ -43,6 +46,10 @@ const mapReducer = (store = initialMapState, action) => {
     default:
       return store
   }
+}
+
+export const remove2Dand3Dpops = () => {
+  return { type: 'REMOVE_2D_3D_POPS' }
 }
 
 export const initializeMap = () => {

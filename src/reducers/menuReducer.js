@@ -12,6 +12,8 @@ const menuReducer = (store = initialMenuState, action) => {
 
     case 'TOGGLE_3D_DEMO': return { ...store, legend: action.visible ? false : true }
 
+    case 'REMOVE_2D_3D_POPS': return { ...store, legend: false }
+
     case 'TOGGLE_BASEMAP_OPTIONS': return { ...store, basemapOptions: !store.basemapOptions }
 
     case 'TOGGLE_GUIDE': return { ...store, guide: !store.guide }

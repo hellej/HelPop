@@ -14,6 +14,11 @@ class AOI extends React.Component {
     if (JSON.stringify(FC) !== JSON.stringify(prevProps.aoi.FC)) {
       this.props.addOrUpdateLayer()
     }
+    // re-add layer when basemap is changed
+    if (prevProps.basemap !== this.props.basemap) {
+      this.props.map.once('style.load', () => this.props.addOrUpdateLayer())
+      return
+    }
 
     if (prevProps.aoi.listHoveredId !== listHoveredId) {
       this.props.map.setFilter(layerId, ['match', ['get', 'name'], listHoveredId, true, false])

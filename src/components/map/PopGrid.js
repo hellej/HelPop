@@ -15,6 +15,10 @@ class PopGrid extends React.Component {
     if (!this.props.visible && prevProps.visible) {
       this.props.map.off('mousemove', this.setMouseOnFeature)
     }
+    // re-add layer when basemap is changed
+    if (prevProps.basemap !== this.props.basemap) {
+      this.props.map.once('style.load', () => this.props.addOrUpdateLayer())
+    }
   }
 
   setMouseOnFeature = (e) => {
@@ -36,7 +40,7 @@ const mapStateToProps = (state) => ({
     'fill-color': 'red',
     'fill-opacity': 0.2
   },
-  mapState: state.map,
+  basemap: state.map.basemap,
 })
 
 const ConnectedPopGrid = connect(mapStateToProps, { setMouseOnFeature })(asMapLayer(PopGrid))
