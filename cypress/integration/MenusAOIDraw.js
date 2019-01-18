@@ -115,7 +115,8 @@ describe('Area Stats', () => {
     cy.contains('Show Population').click()
     cy.contains('Population')
     cy.contains('Density')
-    cy.contains('Urban Density')
+    cy.contains('Pop. Density')
+    cy.contains('Average Living Space')
   })
 
   it('calculates population stats right', () => {

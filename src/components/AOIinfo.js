@@ -10,7 +10,7 @@ import { zoomToFeature } from './../reducers/mapReducer'
 
 const InfoBlock = styled.div`
   max-width: ${props => props.legendVisible ? 'calc(100% - 170px)' : '89%'};
-  padding: 10px 7px 7px 13px;
+  padding: 10px 13px 7px 13px;
   background-color: rgba(0, 0, 0, 0.9);
   margin: 5px 5px 5px 0px;
   border-radius: 8px;
@@ -68,7 +68,7 @@ const AOIname = styled.span.attrs(props => ({
 const ButtonDiv = styled.div`
   display: flex;
   margin: auto;
-  max-width: 85%;
+  max-width: 100%;
 `
 
 const StatRow = ({ visible, label, unit, propName, features }) => {
@@ -134,7 +134,7 @@ const AOIinfo = (props) => {
       <ButtonDiv>
         <Button visible={aoi.popStats} small onClick={hidePopulationStats}>Hide Stats</Button>
         <Button visible={aoi.popStats} small onClick={getUpdateDrawAreas}>Update Stats</Button>
-        <Button visible={!aoi.popStats} small onClick={() => calculatePopulationStats(aoi.FC)}> Show Population</Button>
+        <Button visible={!aoi.popStats} small onClick={() => calculatePopulationStats(aoi.FC)}> Show Population Stats</Button>
       </ButtonDiv>
     </InfoBlock>
   )
