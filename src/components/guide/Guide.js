@@ -82,13 +82,17 @@ const Guide = (props) => {
               a GeoJSON file to your computer and then uploaded back into the app once you need them again.
             </P>
             <P>
-              Also, population distribution can be visualized with nice 2D and 3D choropleth maps.
+              Also, population distribution can be visualized with 2D and 3D choropleth maps.
             </P>
             <P>
               Census data is based on 250 m population grid provided by <a
                 href='https://www.hsy.fi/fi/asiantuntijalle/avoindata/Sivut/AvoinData.aspx?dataID=7'
                 target='_blank' rel='noopener noreferrer'>HSY</a>{' '}
               as open data.
+            </P>
+            <P>
+              <a href='https://github.com/hellej/HelPop'
+                target='_blank' rel='noopener noreferrer'>github.com/hellej/HelPop</a>{' '}
             </P>
           </Instructions>
           <ButtonDiv>
