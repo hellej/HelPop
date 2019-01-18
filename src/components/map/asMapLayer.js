@@ -13,7 +13,7 @@ const asMapLayer = WrappedComponent => {
       } else if (!visible) { return }
 
       if (prevProps.basemap !== basemap) {
-        this.props.map.on('style.load', () => this.addOrUpdateLayer())
+        this.props.map.once('style.load', () => this.addOrUpdateLayer())
         return
       }
       this.addOrUpdateLayer()
