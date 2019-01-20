@@ -74,7 +74,7 @@ This project serves as a proof of concept of an interactive web mapping solution
   │── App.js                               # All components of the app
   │── AppRouteListener.js                  # Start 3D visualization if page is loaded at path /3Dpop
   │── constants.js                         # URLs to Mapbox map styles
-  │── history.js                           # Create history object for React Router
+  │── history.js                           # History object for React Router
   │── index.js                             # Renders app to root-div
   └── store.js                             # Reducers combined to a redux store
 ```

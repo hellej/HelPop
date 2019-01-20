@@ -7,10 +7,12 @@ import asMapLayer from './asMapLayer'
 
 class Demo3D extends React.Component {
 
-  componentDidMount() {
+  componentDidMount = async () => {
     this.props.initialize3Ddemo()
     if (this.props.visible) {
+      await new Promise(resolve => setTimeout(resolve, 1500))
       this.props.map.on('mousemove', this.setMouseOnFeature)
+      this.props.addOrUpdateLayer()
     }
   }
 

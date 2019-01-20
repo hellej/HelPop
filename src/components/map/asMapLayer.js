@@ -12,7 +12,7 @@ const asMapLayer = WrappedComponent => {
         return
       } else if (!visible) { return }
 
-      if (visible) {
+      if (!prevProps.visible && visible) {
         this.addOrUpdateLayer()
       }
     }

@@ -9,13 +9,14 @@ const initialDemo3dState = {
   legendClasses: [],
   legendName: 'Population',
   mbPaintStyle: null,
+  tooltipShowCount: 0,
 }
 
 const demo3dReducer = (store = initialDemo3dState, action) => {
 
   switch (action.type) {
 
-    case 'TOGGLE_3D_DEMO': return { ...store, visible: !store.visible }
+    case 'TOGGLE_3D_DEMO': return { ...store, visible: !store.visible, tooltipShowCount: store.tooltipShowCount + 1 }
 
     case 'TOGGLE_2D_DEMO': return { ...store, visible: action.visible ? store.visible : false }
 
@@ -48,10 +49,10 @@ export const initialize3Ddemo = () => {
   return { type: 'INITIALIZE_DEMO3D', colorSteps, legendClasses, mbPaintStyle }
 }
 
-export const toggle3Ddemo = (visible) => {
+export const toggle3Ddemo = (visible, tooltipShowCount) => {
   return async (dispatch) => {
     dispatch({ type: 'TOGGLE_3D_DEMO', visible })
-    if (!visible) dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 4))
+    if (!visible && tooltipShowCount < 4) dispatch(showNotification('Hold down the Ctrl (or command) key and and drag the map', 1, 4))
   }
 }
 
